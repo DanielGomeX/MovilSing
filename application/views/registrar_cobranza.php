@@ -5,40 +5,50 @@
 
     <br>
 
-    <form class="form-horizontal" method="post" action="<?php echo base_url() ?>PlanrutaController/registrarCobranza">
-
-        <!-- 
-            <div class="form-group">
-                <label for="cliente" class="col-sm-2 control-label">Cliente</label>
-                <div class="col-sm-10">
-                    <input type="text" id="cliente" name="cliente"  value="<?php echo $_SESSION['cliente']; ?>" class="form-control" tabindex="1" readonly/>
-                </div>
+    <!-- mostramos un panel de mensaje en caso de que exista un error al registrar una cobranza -->
+    <div>
+        <!-- Si esta seteada la variable error, entonces mostramos una alerta en color verde o rojo -->
+        <?php if(isset($error)): ?>
+        <div>
+            <?php if($error===1): ?>
+            <!-- mostramos alerta verde -->
+            <div class="col-sm-offset-2 alert alert-danger" role="alert">
+                <?php echo $desc; ?>
             </div>
-        -->
+        <?php endif; ?>
+    </div>
+<?php  else: ?>
+    <div>
+        <!-- al no estar seteada la variable error, entonces no mostramos ninguna alerta -->
+    </div>
+<?php endif; ?>
+</div>
 
 
-        <div class="form-group" >
-            <label for="recibo" class="col-sm-2 control-label">No. Recibo:</label>
-            <div class="col-sm-10">
-                <input type="text" id="recibo" name="recibo" value="<?php echo  set_value('recibo'); ?>" class="form-control" tabindex="1" autocomplete="off"/>
-                <?php echo form_error('recibo'); ?>
-            </div>
+<form class="form-horizontal" method="post" action="<?php echo base_url() ?>PlanrutaController/registrarCobranza">
+
+    <div class="form-group" >
+        <label for="recibo" class="col-sm-2 control-label">No. Recibo:</label>
+        <div class="col-sm-10">
+            <input type="text" id="recibo" name="recibo" value="<?php echo  set_value('recibo'); ?>" class="form-control" tabindex="1" autocomplete="off"/>
+            <?php echo form_error('recibo'); ?>
+        </div>
+    </div>
+
+    <div class="form-group" >
+        <label for="importe" class="col-sm-2 control-label">Importe:</label>
+        <div class="col-sm-10">
+            <input type="text" id="importe" name="importe" value="<?php echo  set_value('importe'); ?>" class="form-control" tabindex="2" autocomplete="off"/>
+            <?php echo form_error('importe'); ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <p class="form-control-static"><strong>FORMA DE PAGO:</strong></p>
         </div>
 
-        <div class="form-group" >
-            <label for="importe" class="col-sm-2 control-label">Importe:</label>
-            <div class="col-sm-10">
-                <input type="text" id="importe" name="importe" value="<?php echo  set_value('importe'); ?>" class="form-control" tabindex="2" autocomplete="off"/>
-                <?php echo form_error('importe'); ?>
-            </div>
-        </div>
-
-        <div class="form-group">
-           <div class="col-sm-offset-2 col-sm-10">
-              <p class="form-control-static"><strong>FORMA DE PAGO:</strong></p>
-          </div>
-
-          <div class="col-sm-offset-2 col-sm-10">
+        <div class="col-sm-offset-2 col-sm-10">
             <div class="radio">
                 <label>
                     <input type="radio" name="formaPago" id="efectivo" value="efectivo" <?php echo  set_radio('formaPago', 'efectivo'); ?> tabindex="3"/>
@@ -96,5 +106,9 @@
         </div>
     </div>
 
+
 </form>
+
+
+
 </article>

@@ -139,7 +139,7 @@ class ClientesModel extends AbstractModel {
         #asignamos los valores de los parametros
         $this->params = array($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario);
 
-        $this->execute_insert();
+        return $this->get_rows();
     }
 
 

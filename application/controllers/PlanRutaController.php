@@ -230,16 +230,14 @@ class PlanRutaController extends CI_Controller {
         $datos['titulo'] = 'Cobranza';
         $datos['vista'] = 'registrar_cobranza';
 
-        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-
         #Establecemos las reglas de validación
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('recibo', 'Recibo', 'required');
         $this->form_validation->set_rules('importe', 'Importe', 'required|numeric');
         $this->form_validation->set_rules('formaPago', 'FormaPago', 'required');
         $this->form_validation->set_rules('referencia', 'Referencia', 'required');
         $this->form_validation->set_rules('fechaCobro', 'Fecha de cobro', 'required');
         $this->form_validation->set_rules('comentario', 'Comentario', 'required');
-
 
         #Validamos el formulario, si es igual a false, entonces algún campo no cumple con las reglas establecidas
         if ($this->form_validation->run() == FALSE) {
@@ -250,7 +248,7 @@ class PlanRutaController extends CI_Controller {
             $cliente=$this->session->cliente;
             $usuario=$this->session->usuario;
 
-            #si la página se validó correctamente
+            #si la página se validó correctamente, agregamos un nuevo registro de cobranza
             $formapago = $this->input->post('formaPago');
             $referencia = $this->input->post('referencia');
             $importe = $this->input->post('importe');
@@ -258,12 +256,30 @@ class PlanRutaController extends CI_Controller {
             $fechacobro = $this->input->post('fechaCobro');
             $comentario = $this->input->post('comentario');
 
-            //echo $formaPago.'/'.$referencia.'/'.$importe.'/'.$recibo.'/'.$fechaCobro.'/'.$comentario;
+            #ejecutamos query
+            $cobranza=$this->ClientesModel->registrarCobranza($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario);
 
-            $this->ClientesModel->registrarCobranza($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario);
+            #obtenemos los valores de cada campo
+            foreach ($cobranza as $registro) {
+                $datos['error']=$registro['Error'];
+                $datos['desc']=$registro['Descripcion'];
+            }
 
-            #mostramos las visitas incluyendo el último registro realizado
-            redirect('cobranza');
+           if ($datos['error']===0) {
+
+                /*
+                #registramos la visita al cliente como visita de cobranza
+                $motivo="3"; #Valor correspondiente al motivo: visita para cobranza
+                $visita=$this->ClientesModel->registrarVisita($cliente,$usuario, $motivo, strtoupper($comentario), "cliente");
+                */
+
+                #mostramos las cobranzas registradas incluyendo el último registro ingresado
+                redirect('cobranza');
+           }
+           else {
+            $this->load->view('plantillas/master_page', $datos);
+           }
+
         }
     }
 }
