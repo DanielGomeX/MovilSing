@@ -1,0 +1,27 @@
+body {
+	/* este padding es para que el texto del contenido no se empalme con la barra de navegacion que mide 50 */
+  padding-top: 80px;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+
+.texto-centrado {
+	text-align: center;
+}
+
+
+.padding-arriba-abajo {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.error {
+	font-size: 14px;
+	color: #FF0000;
+}
+
+
