@@ -37,7 +37,10 @@
             <?php foreach ($pedidos as $pedido): ?>
             <tr>
                 <td>
-                    <a href="<?php echo base_url(); ?>PedidosController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">Partidas</a>
+                    <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>PedidosController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        Partidas
+                    </a>
                 </td>
                 <td>
                     <?php echo $pedido['Pedido']; ?>
@@ -58,7 +61,7 @@
                     <?php echo $pedido['custid']; ?>
                 </td>
                 <td>
-                    <?php echo $pedido['Name']; ?>
+                    <?php echo utf8_encode($pedido['Name']); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

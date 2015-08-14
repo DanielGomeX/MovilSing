@@ -67,7 +67,7 @@
                     <?php echo $pedido['custid']; ?>
                 </td>
                 <td>
-                    <?php echo $pedido['Name']; ?>
+                    <?php echo utf8_encode($pedido['Name']); ?>
                 </td>
                 <td>
                     <!-- Si el status del pedidos es igual cualquiera de los satus permitidos contenidos en el arreglo "status_remotar"

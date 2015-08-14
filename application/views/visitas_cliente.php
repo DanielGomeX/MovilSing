@@ -29,7 +29,7 @@
                     <?php echo $visita['Fecha']; ?>
                 </td>
                 <td>
-                    <?php echo $visita['Comentario']; ?>
+                    <?php echo utf8_encode($visita['Comentario']); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

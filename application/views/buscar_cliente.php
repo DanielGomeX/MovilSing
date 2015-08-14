@@ -19,15 +19,15 @@
 
             </thead>
             <tbody>
-               <?php
-               foreach ($clientes_planruta as $cliente):
+             <?php
+             foreach ($clientes_planruta as $cliente):
                 ?>
             <tr>
                 <td>
                     <a href="<?php echo base_url(); ?>PlanRutaController/mostrarDatosCliente/<?php echo ($cliente['Cliente']); ?>"><?php echo ($cliente['Cliente']); ?></a>
                 </td>
                 <td>
-                    <?php echo ($cliente['Nombre']); ?>
+                    <?php echo utf8_encode($cliente['Nombre']); ?>
                 </td>
             </tr>
             <?php
@@ -50,48 +50,48 @@
     </div>
     <div>
         <button type="submit" id="btnBuscarCliente" class="btn btn-warning" tabindex="2">
-           <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-           Buscar cliente
-       </button>
-   </div>
+         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+         Buscar cliente
+     </button>
+ </div>
 
-   <div class="table-responsive">
-     <!-- Si la variable clientes no esta vacia, mostramos la tabla -->
-     <?php if (isset($clientes)) { ?>
-     <h3>
-        Clientes NO listados en Plan de Ruta
-    </h3>
-    <table id="tbClientes" class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th>
-                    Cliente
-                </th>
-                <th>
-                    Nombre
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            foreach ($clientes as $cliente):
-                ?>
-            <tr>
-                <td>
-                    <a href="<?php echo base_url(); ?>PlanRutaController/mostrarDatosCliente/<?php echo ($cliente['Cliente']); ?>"><?php echo ($cliente['Cliente']); ?></a>
-                </td>
-                <td>
-                    <?php echo ($cliente['Nombre']); ?>
-                </td>
-            </tr>
-            <?php
-            endforeach;
+ <div class="table-responsive">
+   <!-- Si la variable clientes no esta vacia, mostramos la tabla -->
+   <?php if (isset($clientes)) { ?>
+   <h3>
+    Clientes NO listados en Plan de Ruta
+</h3>
+<table id="tbClientes" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Nombre
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($clientes as $cliente):
             ?>
-        </tbody>
-    </table>
+        <tr>
+            <td>
+                <a href="<?php echo base_url(); ?>PlanRutaController/mostrarDatosCliente/<?php echo ($cliente['Cliente']); ?>"><?php echo ($cliente['Cliente']); ?></a>
+            </td>
+            <td>
+                <?php echo utf8_encode($cliente['Nombre']); ?>
+            </td>
+        </tr>
+        <?php
+        endforeach;
+        ?>
+    </tbody>
+</table>
 
-    <a href="<?php echo base_url(); ?>PlanRutaController/index">Clientes en Plan Ruta</a>
-    <?php } ?>
+<a href="<?php echo base_url(); ?>PlanRutaController/index">Clientes en Plan Ruta</a>
+<?php } ?>
 
 </div>
 </form>

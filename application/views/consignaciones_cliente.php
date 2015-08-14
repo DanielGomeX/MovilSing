@@ -48,22 +48,22 @@
                             <?php echo $consignacion['Cliente']; ?>
                         </td>
                         <td>
-                            <?php echo $consignacion['Nombre']; ?>
+                            <?php echo utf8_encode($consignacion['Nombre']); ?>
                         </td>
                         <td>
-                            <?php echo $consignacion['Atencion']; ?>
+                            <?php echo utf8_encode($consignacion['Atencion']); ?>
                         </td>
                         <td>
-                            <?php echo $consignacion['Direccion']; ?>
+                            <?php echo utf8_encode($consignacion['Direccion']); ?>
                         </td>
                         <td>
-                            <?php echo $consignacion['Ciudad']; ?>
+                            <?php echo utf8_encode($consignacion['Ciudad']); ?>
                         </td>
                         <td>
-                            <?php echo $consignacion['Estado']; ?>
+                            <?php echo utf8_encode($consignacion['Estado']); ?>
                         </td>
                         <td>
-                            <?php echo $consignacion['Estado']; ?>
+                            <?php echo utf8_encode($consignacion['Estado']); ?>
                         </td>
                         <td>
                             <?php echo $consignacion['Telefono']; ?>

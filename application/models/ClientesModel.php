@@ -42,8 +42,25 @@ class ClientesModel extends AbstractModel {
         # asignamos los valores de los parametros
         $this->params = array($cliente);
 
-        return $this->get_row();
+        return $this->get_rows();
     }
+
+
+    /**
+     * (Por implementar )Regresa las coordenas de geolocalización (latitud, longitud) registradas para el cliente
+     * @param  [string] $cliente [número de cliente a consultar en la BD]
+     * @return [arreglo]         [un solo registro con la información encontrada]
+     */
+    public function obtenerCoordenadasGPSCliente($cliente) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerCoordenadasGPSCliente(?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($cliente);
+
+        return $this->get_rows();
+    }
+
 
     /**
      * Permite buscar en la base de datos las últimas 5 visitas registradas al cliente seleccionado

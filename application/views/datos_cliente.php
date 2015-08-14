@@ -1,4 +1,6 @@
 <article class="col-md-10">
+
+
     <h2 class="texto-centrado">
         Datos del Cliente Seleccionado
     </h2>
@@ -36,7 +38,7 @@
     <div class="form-group">
         <label for="nombre" class="col-sm-2 control-label">Nombre:</label>
         <div class="col-sm-10">
-            <input type="text" id="nombre" name="nombre" value="<?php echo $nombre; ?>" class="form-control" tabindex="3" readonly/>
+            <input type="text" id="nombre" name="nombre" value="<?php echo utf8_encode($nombre); ?>" class="form-control" tabindex="3" readonly/>
         </div>
     </div>
 
@@ -50,30 +52,28 @@
     <div class="form-group">
         <label for="direccion" class="col-sm-2 control-label">Direccion:</label>
         <div class="col-sm-10">
-            <input type="text" id="direccion" name="direccion" value="<?php echo $direccion; ?>" class="form-control" tabindex="5" readonly/>
+            <input type="text" id="direccion" name="direccion" value="<?php echo utf8_encode($direccion); ?>" class="form-control" tabindex="5" readonly/>
         </div>
-
     </div>
 
     <div class="form-group">
         <label for="colonia" class="col-sm-2 control-label">Colonia:</label>
         <div class="col-sm-10">
-            <input type="text" id="colonia" name="colonia" value="<?php echo $colonia; ?>" class="form-control" tabindex="6" readonly/>
+            <input type="text" id="colonia" name="colonia" value="<?php echo utf8_encode($colonia); ?>" class="form-control" tabindex="6" readonly/>
         </div>
-
     </div>
 
     <div class="form-group" >
         <label for="ciudad" class="col-sm-2 control-label">Ciudad:</label>
         <div class="col-sm-10">
-            <input type="text" id="ciudad" name="ciudad" value="<?php echo $ciudad; ?>" class="form-control" tabindex="7" readonly/>
+            <input type="text" id="ciudad" name="ciudad" value="<?php echo utf8_encode($ciudad); ?>" class="form-control" tabindex="7" readonly/>
         </div>
     </div>
 
     <div class="form-group" >
         <label for="estado" class="col-sm-2 control-label">Estado:</label>
         <div class="col-sm-10">
-            <input type="text" id="estado" name="estado" value="<?php echo $estado; ?>" class="form-control" tabindex="8" readonly/>
+            <input type="text" id="estado" name="estado" value="<?php echo utf8_encode($estado); ?>" class="form-control" tabindex="8" readonly/>
         </div>
     </div>
 
@@ -84,6 +84,22 @@
         </div>
     </div>
 
+    <!-- Mapa con la ubicación del cliente -->
+
+    <input type="hidden" id="latitud" value="<?php echo $latitud; ?>">
+    <input type="hidden" id="longitud" value="<?php echo $longitud; ?>">
+    <?php if($latitud<>"0"): ?>
+
+    <a class="col-sm-offset-2 btn btn-info" role="button" id="verMapa" href="">
+        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+        Ubicar en mapa
+    </a>
+    <div class="form-group" >
+        <div class="col-sm-offset-2 col-sm-10">
+             <div id="mapa" style='width:100%; height:250px;'></div>
+        </div>
+    </div>
+    <?php endif; ?>
     <hr>
 
     <div class="form-group" >
@@ -136,5 +152,14 @@
         </div>
     </div>
 
+
 </form>
+
 </article>
+
+<!-- Cargamos la API de Google Maps y el script de localizacion  -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtXzg7ZtNXclFqe3sKbDXvgd2FLL-44f0" ></script>
+<script src="<?php echo base_url();?>static/js/geolocalizacion.js"></script>
+
+
+

@@ -35,19 +35,19 @@
                         <?php echo $visita['Custid']; ?>
                     </td>
                     <td>
-                        <?php echo $visita['Nombre']; ?>
+                        <?php echo utf8_encode($visita['Nombre']); ?>
                     </td>
                     <td>
                         <?php echo $visita['Fecha']; ?>
                     </td>
                     <td>
-                        <?php echo $visita['Comentario']; ?>
+                        <?php echo utf8_encode($visita['Comentario']); ?>
                     </td>
                     <td>
                         <?php echo $visita['Semana']; ?>
                     </td>
                     <td>
-                        <?php echo $visita['Dia']; ?>
+                        <?php echo utf8_encode($visita['Dia']); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

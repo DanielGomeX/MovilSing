@@ -7,6 +7,8 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title><?php $titulo; ?></title>
 
+  <!-- **********ESTILOS GLOBALES**********-->
+
   <!-- Bootstrap -->
   <link href="<?php echo base_url();?>static/bootstrap3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
@@ -15,6 +17,10 @@
 
   <!-- Mis estilos -->
   <link href="<?php echo base_url();?>static/css/master_page.css" rel="stylesheet">
+
+  <!-- **********SCRIPTS GLOBALES********** -->
+  <script src="<?php echo base_url();?>static/js/jquery-1.11.3.min.js"></script>
+
 
 </head>
 <body>

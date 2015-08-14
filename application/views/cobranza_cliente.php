@@ -44,7 +44,7 @@
                     <?php echo $cob['CustId']; ?>
                 </td>
                 <td>
-                    <?php echo $cob['name']; ?>
+                    <?php echo utf8_encode($cob['name']); ?>
                 </td>
                 <td>
                     <?php echo $cob['Fecha']; ?>
@@ -59,7 +59,7 @@
                     <?php echo '$'.number_format($cob['TotalPago']); ?>
                 </td>
                 <td>
-                    <?php echo $cob['Comentarios']; ?>
+                    <?php echo utf8_encode($cob['Comentarios']); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

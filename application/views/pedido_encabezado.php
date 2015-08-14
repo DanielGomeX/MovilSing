@@ -80,7 +80,7 @@
     </div>
     <button class="btn btn-default" id="btnBuscar" type="submit">
         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-        Buscar
+         Buscar
     </button>
 </form>
 
@@ -123,28 +123,28 @@
                 <?php foreach ($productos as $producto): ?>
                 <tr>
                     <td>
-                        <a href="#"><?php echo ($producto['Clave']); ?></a>
+                        <a href="#"><?php echo $producto['Clave']; ?></a>
                     </td>
                     <td>
-                        <?php echo ($producto['Descripcion']); ?>
+                        <?php echo utf8_encode($producto['Descripcion']); ?>
                     </td>
                     <td>
-                        <?php echo ($producto['Existencia']); ?>
+                        <?php echo $producto['Existencia']; ?>
                     </td>
                     <td>
-                        <?php echo ($producto['UnidadVenta']); ?>
+                        <?php echo $producto['UnidadVenta']; ?>
                     </td>
                     <td>
-                        <?php echo ($producto['MultiploVenta']); ?>
+                        <?php echo $producto['MultiploVenta']; ?>
                     </td>
                     <td>
                         <?php echo '$'.number_format($producto['PrecioLista']); ?>
                     </td>
                     <td>
-                        <?php echo ($producto['Familia']); ?>
+                        <?php echo utf8_encode($producto['Familia']); ?>
                     </td>
                     <td>
-                        <?php echo ($producto['Linea']); ?>
+                        <?php echo utf8_encode($producto['Linea']); ?>
                     </td>
                 </tr>
                 <?php

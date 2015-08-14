@@ -1,6 +1,11 @@
 <article class="container">
 
-    <a href="<?php echo base_url(); echo $_SESSION['regresar']; ?>">Regresar</a>
+    <a class="btn btn-primary" role="button" href="<?php echo base_url(); echo $_SESSION['regresar']; ?>">
+        <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+        Regresar
+    </a>
+
+
     <div class="table-responsive">
         <?php if (isset($partidas)) { ?>
         <table id="tbPartidas" class="table table-striped table-condensed">
@@ -16,13 +21,13 @@
                         Cantidad
                     </th>
                     <th>
-                        PrecioUnitario
+                        $ Unitario
                     </th>
                     <th>
                         Descuento
                     </th>
                     <th>
-                        PrecioDesc
+                        $ Descuento
                     </th>
                     <th>
                         Importe
@@ -33,13 +38,13 @@
                 <?php foreach ($partidas as $partida): ?>
                 <tr>
                     <td>
-                        <?php echo ($partida['SKU']); ?>
+                        <?php echo $partida['SKU']; ?>
                     </td>
                     <td>
-                        <?php echo ($partida['Descripcion']); ?>
+                        <?php echo utf8_encode($partida['Descripcion']); ?>
                     </td>
                     <td>
-                        <?php echo ($partida['Cantidad']); ?>
+                        <?php echo $partida['Cantidad']; ?>
                     </td>
                     <td>
                         <?php echo '$'.number_format($partida['PrecioUnitario'],2); ?>

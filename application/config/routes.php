@@ -60,6 +60,7 @@ $route['translate_uri_dashes'] = FALSE;
 $route['logout']='principal/logout';
 
 #Plan Ruta
+$route['ajax']='PlanRutaController/coordeneas';
 $route['planruta']='PlanRutaController/index';
 $route['cliente']='PlanRutaController/mostrarDatosCliente';
 $route['visitas']='PlanRutaController/mostrarVisitas';

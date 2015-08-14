@@ -77,7 +77,7 @@
                         <?php echo $entrega['Status']; ?>
                     </td>
                     <td>
-                        <?php echo $entrega['Transportista']; ?>
+                        <?php echo utf8_encode($entrega['Transportista']); ?>
                     </td>
                     <td>
                         <?php echo $entrega['FechaSurtimiento']; ?>

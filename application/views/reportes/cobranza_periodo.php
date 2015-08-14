@@ -38,7 +38,7 @@
                         <?php echo $registro['CustId']; ?>
                     </td>
                     <td>
-                        <?php echo $registro['name']; ?>
+                        <?php echo utf8_encode($registro['name']); ?>
                     </td>
                     <td>
                         <?php echo $registro['Fecha']; ?>
@@ -53,7 +53,7 @@
                         <?php echo $registro['TotalPago']; ?>
                     </td>
                     <td>
-                        <?php echo $registro['Comentarios']; ?>
+                        <?php echo utf8_encode($registro['Comentarios']); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

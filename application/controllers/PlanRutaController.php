@@ -21,9 +21,43 @@ class PlanRutaController extends CI_Controller {
 
     public function index() {
         $datos['titulo'] = 'Plan Ruta';
+
+        //$planRuta=$this->ClientesModel->clientesPlanRuta($this->session->usuario);
         $datos['clientes_planruta'] = $this->ClientesModel->clientesPlanRuta($this->session->usuario);
+
+        //$datos['clientes_planruta'] = $planRuta;
+
         $datos['vista'] = 'buscar_cliente';
+
         $this->load->view('plantillas/master_page', $datos);
+    }
+
+    public function coordeneas() {
+
+        /*
+        $json=array(
+                array('cliente'=>'1', 'nombre'=>'Omar'),
+                array('cliente'=>'2', 'nombre'=>'Amador')
+            );
+        */
+
+        $planRuta=$this->ClientesModel->clientesPlanRuta($this->session->usuario);
+
+        $json=array();
+        #Obtenemos el nuevo número de pedido asignado
+        foreach ($planRuta as $registro) {
+             $json[] = array('cliente'  => $registro['Cliente'],
+                              'nombre'  => utf8_encode($registro['Nombre']),
+                              'latitud' => 21.906207,
+                              'longitud'=> -102.290083,
+                              );
+        }
+
+        //echo print_r($json);
+
+        echo json_encode($json);
+
+        //echo json_encode($planRuta);
     }
 
     public function buscarCliente() {
@@ -54,8 +88,10 @@ class PlanRutaController extends CI_Controller {
         $datos['titulo'] = 'Datos Cliente';
 
         #Obtenemos la información del clientre de la base de datos
-        $datos_cliente = array();
-        $datos_cliente = $this->ClientesModel->ObtenerDatosCliente($cliente);
+        //$datos = array();
+
+        $datos_cliente= $this->ClientesModel->ObtenerDatosCliente($cliente);
+        //$datos['datos_cliente']= $this->ClientesModel->ObtenerDatosCliente($cliente);
 
         #Recorremos el registro encontrado para asignar los valores a las varibles y mostrar l información en pantalla
         foreach ($datos_cliente as $registro) {
@@ -76,6 +112,20 @@ class PlanRutaController extends CI_Controller {
             $datos['zona']=$registro['Zona'];
         }
 
+        #inicializamos las coordenadas en cero para el caso en que el cliente no tenga coordenadas registradas
+        $datos['latitud']=0;
+        $datos['longitud']=0;
+
+        #obtenemos las coordenas registradas
+        $coordenadasGPS=$this->ClientesModel->obtenerCoordenadasGPSCliente($cliente);
+        #recorremos cada campo para asignar valores a las variables latitud y longitud
+        foreach ($coordenadasGPS as $coordenadas) {
+                $datos['latitud']=$coordenadas['Latitud'];
+                $datos['longitud']=$coordenadas['Longitud'];
+        }
+
+        //print_r($datos);
+
         #Esta validación sirve para identificar si el cliente escribió directamente en la url
         #algún numero de cliente que quizá no le pertencezca a su zona
         if($this->session->usuario==trim($datos['zona']))
@@ -85,11 +135,14 @@ class PlanRutaController extends CI_Controller {
 
             $datos['cliente'] = $cliente;
             $datos['vista'] = 'datos_cliente';
+
             $this->load->view('plantillas/master_page', $datos);
         }
         else{
             echo "El cliente que escribiste MANUALMENTE no pertenece a tu zona.";
         }
+
+
     }
 
     /**

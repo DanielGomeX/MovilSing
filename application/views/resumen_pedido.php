@@ -1,6 +1,16 @@
 <article class="col-md-10">
-	<a href="<?php echo base_url(); ?>agregar">Agregar Partida(s)</a> |
-	<a href="<?php echo base_url(); ?>partidas">Ver Partida(s)</a>
+
+	<div>
+		<a class="btn btn-default" role="button" href="<?php echo base_url(); ?>agregar">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			Agregar Partida
+		</a>
+		<a class="btn btn-default" role="button" href="<?php echo base_url(); ?>partidas">
+			<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+			Ver partidas
+		</a>
+	</div>
+
 	<br>
 
 	<form class="form-horizontal" id="frmAccionReumenPedido" action="<?php echo base_url(); ?>PedidosController/AccionResumenPedido" method="POST">
@@ -35,7 +45,7 @@
 						</div>
 
 						<input type="hidden" id="accion" name="accion" value="">
-						<input type="submit" id="btnFinalizar" value="Finalizar" name='finalizar' class="btn btn-warning"/>
+						<input type="submit" id="btnFinalizar" value="Finalizar" name='finalizar' class="btn btn-warning" />
 						<input type="submit" id="btnCancelar" value="Cancelar" name='cancelar' class="btn btn-danger">
 					</div>
 				</div>
@@ -48,6 +58,7 @@
 
 	<!-- Paneles de información -->
 	<div class="form-horizontal" id="ResumenPedido" >
+
 		<!-- Panel Totales -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
@@ -107,7 +118,7 @@
 				<div class="form-group">
 					<label for="nombre" class="col-sm-2 control-label">Nombre:</label>
 					<div class="col-sm-10">
-						<input type="text" name="nombre" value="<?php echo $nombre; ?>"  class="form-control" readonly>
+						<input type="text" name="nombre" value="<?php echo utf8_encode($nombre); ?>"  class="form-control" readonly>
 					</div>
 
 				</div>
@@ -145,19 +156,19 @@
 				<div class="form-group">
 					<label for="direccion" class="col-sm-2 control-label">Dirección:</label>
 					<div class="col-sm-10">
-						<input type="text" name="direccion" value="<?php echo $direccion; ?>"  class="form-control" readonly>
+						<input type="text" name="direccion" value="<?php echo utf8_encode($direccion); ?>"  class="form-control" readonly>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="colonia" class="col-sm-2 control-label">Colonia:</label>
 					<div class="col-sm-10">
-						<input type="text" name="colonia" value="<?php echo $colonia; ?>"  class="form-control" readonly>
+						<input type="text" name="colonia" value="<?php echo utf8_encode($colonia); ?>"  class="form-control" readonly>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="ciudad" class="col-sm-2 control-label">Ciudad:</label>
 					<div class="col-sm-10">
-						<input type="text" name="ciudad" value="<?php echo $ciudad; ?>"  class="form-control" readonly>
+						<input type="text" name="ciudad" value="<?php echo utf8_encode($ciudad); ?>"  class="form-control" readonly>
 					</div>
 				</div>
 				<div class="form-group">
