@@ -18,13 +18,18 @@ class Principal extends CI_Controller {
         }
         else
         {
-            //If no session, redirect to login page
+            //Si no existe inicio de sesion logeado, entonces se redirecciona a la página de login
            redirect('', 'refresh');
         }
     }
 
     function logout() {
-        //$this->session->unset_userdata('logged_in');
+        # cargamos el modelo que contiene el método requerido para el logout
+        $this->load->model('GlobalModel');
+
+        # ejecutamos consulta
+        $respuesta = $this->GlobalModel->logout($this->session->usuario);
+
         unset($_SESSION['logged_in']);
         unset($_SESSION['usuario']);
         unset($_SESSION['cliente']);

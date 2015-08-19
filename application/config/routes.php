@@ -53,11 +53,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
 #$route['default_controller'] = 'principal';
-$route['default_controller'] = 'LoginController';
+$route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-$route['logout']='principal/logout';
 
 #Plan Ruta
 $route['ajax']='PlanRutaController/coordeneas';
@@ -87,3 +86,5 @@ $route['retenidos']='ReportesController/pedidosRetenidos';
 $route['pendientes']='ReportesController/pedidosPendientes';
 $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
+
+$route['logout']='principal/logout';

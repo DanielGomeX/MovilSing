@@ -15,8 +15,11 @@
   <!-- DataTables -->
   <link href="<?php echo base_url();?>static/DataTables1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
 
+  <link href="<?php echo base_url();?>static/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- Mis estilos -->
   <link href="<?php echo base_url();?>static/css/master_page.css" rel="stylesheet">
+
 
   <!-- **********SCRIPTS GLOBALES********** -->
   <script src="<?php echo base_url();?>static/js/jquery-1.11.3.min.js"></script>
@@ -76,7 +79,6 @@
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <!--<li><?php echo anchor('logout','salir') ?></li>-->
             </ul>
             <span class="navbar-text navbar-right"> Cliente: <?php echo $_SESSION['cliente'] ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"> Salir</a></span>
           </div><!--/.nav-collapse -->

@@ -5,6 +5,7 @@ class VerifyLogin extends CI_Controller {
    function __construct() {
 
      parent::__construct();
+     $this->load->model('GlobalModel');
    }
 
     //This method will have the credentials validation
@@ -15,8 +16,8 @@ class VerifyLogin extends CI_Controller {
 
      #establecemos las reglas de validación requeridas
      $this->form_validation->set_rules('username', 'Username', 'trim|required');
-     #$this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_database');
-     $this->form_validation->set_rules('password', 'Password', 'trim|required');
+     $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
+     #$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
 
      if($this->form_validation->run() == FALSE)
@@ -26,7 +27,6 @@ class VerifyLogin extends CI_Controller {
      }
      else
      {
-
         #Si NO EXISTE previamente una variable de sesion usuario, entonces la creamos
         if (!isset($_SESSION['usuario'])) {
           $_SESSION['logged_in']='SI';
@@ -50,26 +50,46 @@ class VerifyLogin extends CI_Controller {
      $username = $this->input->post('username');
 
      //query the database
-     $result = $this->user->login($username, $password);
+     //$result = $this->user->login($username, $password);
+     $result = $this->GlobalModel->login($username, $password);
 
-     if($result)
-     {
+     //print_r($result);
+
+
+     //if($result)
+     //{
+
        $sess_array = array();
        foreach($result as $row)
        {
          $sess_array = array(
-           'id' => $row->id,
-           'username' => $row->username
+           'id' => $row['codigo'],
+           'username' => $row['mensaje']
          );
-         $this->session->set_userdata('logged_in', $sess_array);
+
+         //$this->session->set_userdata('logged_in', $sess_array);
+         echo 'true';
        }
-       return TRUE;
-     }
-     else
-     {
-       $this->form_validation->set_message('check_database', 'Invalid username or password');
-       return false;
-     }
+
+
+       if ($sess_array['id']==0) {
+         return TRUE;
+       }
+       else
+       {
+          $this->form_validation->set_message('check_database', $sess_array['username']);
+          return false;
+       }
+
+     //}
+     //else
+     //{
+     //  $this->form_validation->set_message('check_database', 'Invalid username or password');
+     //  return false;
+     //}
+
+
+     //return false;
    }
 
 

@@ -19,13 +19,13 @@
 <body>
 
   <div class="container">
-      <form class="form-signin" action="<?php echo base_url(); ?>verifylogin" method="post" >
+      <form class="form-signin" action="<?php echo base_url(); ?>login" method="post" >
       <h2 class="form-signin-heading">Movil SING</h2>
-      <?php echo validation_errors(); ?>
       <label for="username" class="sr-only">Usuario</label>
-      <input type="text" id="username" name="username" class="form-control" placeholder="usuario" required autofocus autocomplete="off">
+      <input type="text" id="username" name="username" class="form-control" placeholder="usuario" autofocus autocomplete="off">
       <label for="password" class="sr-only">Contraseña</label>
-      <input type="password" id="passowrd" name="password" class="form-control" placeholder="contraseña" required>
+      <input type="password" id="passowrd" name="password" class="form-control" placeholder="contraseña" >
+      <?php echo validation_errors(); ?>
       <button class="btn btn-lg btn-warning btn-block" type="submit" value="Login">Ingresar</button>
     </form>
 
@@ -34,5 +34,6 @@
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>
