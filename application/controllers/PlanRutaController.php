@@ -19,27 +19,25 @@ class PlanRutaController extends CI_Controller {
        }
     }
 
+    /**
+     * muestra los clientes perteneceientes al usuario que debe de visitar conforme a la programación del plan de ruta
+     * @return
+     */
     public function index() {
         $datos['titulo'] = 'Plan Ruta';
 
-        //$planRuta=$this->ClientesModel->clientesPlanRuta($this->session->usuario);
         $datos['clientes_planruta'] = $this->ClientesModel->clientesPlanRuta($this->session->usuario);
 
-        //$datos['clientes_planruta'] = $planRuta;
-
-        $datos['vista'] = 'buscar_cliente';
+        $datos['vista'] = 'planRuta/buscar_cliente';
 
         $this->load->view('plantillas/master_page', $datos);
     }
 
+    /**
+     * se crea a manera de prueba para usar json con ajax
+     * @return [type] [description]
+     */
     public function coordeneas() {
-
-        /*
-        $json=array(
-                array('cliente'=>'1', 'nombre'=>'Omar'),
-                array('cliente'=>'2', 'nombre'=>'Amador')
-            );
-        */
 
         $planRuta=$this->ClientesModel->clientesPlanRuta($this->session->usuario);
 
@@ -60,18 +58,24 @@ class PlanRutaController extends CI_Controller {
         //echo json_encode($planRuta);
     }
 
+    /**
+     * Permite buscar en la BD clientes pertenecientes al usuario
+     * @return
+     */
     public function buscarCliente() {
 
         $datos['titulo'] = 'Plan Ruta';
-        $datos['vista'] = 'buscar_cliente';
+        $datos['vista'] = 'planRuta/buscar_cliente';
 
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('buscar', 'Buscar', 'required|alpha_numeric');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('plantillas/master_page', $datos);
         } else {
             $buscar = $this->input->post('buscar');
-                #buscamos los clientes que pertenecen al usuario autenticado
+
+            #buscamos los clientes que pertenecen al usuario autenticado
             $datos['clientes'] = $this->ClientesModel->buscarClientes($buscar, $this->session->usuario);
             $this->load->view('plantillas/master_page', $datos);
         }
@@ -124,8 +128,6 @@ class PlanRutaController extends CI_Controller {
                 $datos['longitud']=$coordenadas['Longitud'];
         }
 
-        //print_r($datos);
-
         #Esta validación sirve para identificar si el cliente escribió directamente en la url
         #algún numero de cliente que quizá no le pertencezca a su zona
         if($this->session->usuario==trim($datos['zona']))
@@ -134,15 +136,13 @@ class PlanRutaController extends CI_Controller {
             $_SESSION['cliente']=$cliente;
 
             $datos['cliente'] = $cliente;
-            $datos['vista'] = 'datos_cliente';
+            $datos['vista'] = 'planRuta/datos_cliente';
 
             $this->load->view('plantillas/master_page', $datos);
         }
         else{
             echo "El cliente que escribiste MANUALMENTE no pertenece a tu zona.";
         }
-
-
     }
 
     /**
@@ -153,7 +153,7 @@ class PlanRutaController extends CI_Controller {
     public function mostrarVisitas(){
 
         $datos['titulo']='Visitas';
-        $datos['vista']='visitas_cliente';
+        $datos['vista']='planRuta/visitas_cliente';
 
         #asignamos el valor de la variable se session cliente a una variable local
         $cliente=$this->session->cliente;
@@ -164,7 +164,6 @@ class PlanRutaController extends CI_Controller {
 
         $this->load->view('plantillas/master_page', $datos);
     }
-
 
     /**
      * Busca en la base de datos la información correspondiente de los últimos
@@ -181,7 +180,7 @@ class PlanRutaController extends CI_Controller {
         $datos['cobranza'] = $this->ClientesModel->obtenerCobranza($cliente, $this->session->usuario);
 
         $datos['cliente']=$cliente;
-        $datos['vista']='cobranza_cliente';
+        $datos['vista']='planRuta/cobranza_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -201,7 +200,7 @@ class PlanRutaController extends CI_Controller {
         $datos['entregas'] = $this->ClientesModel->obtenerEntregas($cliente);
 
         $datos['cliente']=$cliente;
-        $datos['vista']='entregas_cliente';
+        $datos['vista']='planRuta/entregas_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -221,7 +220,7 @@ class PlanRutaController extends CI_Controller {
         $datos['saldos'] = $this->ClientesModel->obtenerSaldos($cliente);
 
         $datos['cliente']=$cliente;
-        $datos['vista']='saldos_cliente';
+        $datos['vista']='planRuta/saldos_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -237,7 +236,7 @@ class PlanRutaController extends CI_Controller {
         #obtenemos datos referentes al resumen del pedido
         $datos['pedidos'] = $this->PedidosModel->obtenerPedidosCliente($this->session->cliente);
 
-        $datos['vista']='pedidos_cliente';
+        $datos['vista']='planRuta/pedidos_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -248,9 +247,10 @@ class PlanRutaController extends CI_Controller {
     public function registrarVisitaNoExitosa() {
 
         $datos['titulo'] = 'Visitas';
-        $datos['vista'] = 'visitas_cliente';
+        $datos['vista'] = 'planRuta/visitas_cliente';
 
         #Establecemos las reglas de validación
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('comentario', 'comentario', 'required');
 
         #Validamos el formulario, si es igual a false, entonces algún campo no cumple con las reglas establecidas
@@ -281,7 +281,7 @@ class PlanRutaController extends CI_Controller {
     public function registrarCobranza() {
 
         $datos['titulo'] = 'Cobranza';
-        $datos['vista'] = 'registrar_cobranza';
+        $datos['vista'] = 'planRuta/registrar_cobranza';
 
         #Establecemos las reglas de validación
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -320,12 +320,6 @@ class PlanRutaController extends CI_Controller {
 
            if ($datos['error']===0) {
 
-                /*
-                #registramos la visita al cliente como visita de cobranza
-                $motivo="3"; #Valor correspondiente al motivo: visita para cobranza
-                $visita=$this->ClientesModel->registrarVisita($cliente,$usuario, $motivo, strtoupper($comentario), "cliente");
-                */
-
                 #mostramos las cobranzas registradas incluyendo el último registro ingresado
                 redirect('cobranza');
            }
@@ -335,4 +329,5 @@ class PlanRutaController extends CI_Controller {
 
         }
     }
+
 }

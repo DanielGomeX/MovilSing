@@ -10,7 +10,7 @@ class Login extends CI_Controller {
 
   /**
    * Permite el acceso a la aplicación en caso de una autenticación válida
-   * @return 
+   * @return
    */
   function index() {
 

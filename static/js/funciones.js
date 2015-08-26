@@ -5,8 +5,9 @@ $(function(){
     //Dónde se usa:
     //En la vista (resumen_pedido.php)
     //Para que se usa:
-    //Para saber cual botón del formulario (frmAccionReumenPedido) se presionó y así establecer el valor de la acción a realizar al campo oculto llamado acción,
-    //el cual es usado para una validación antes de enviar el formulario al ervidor
+    //Para saber cual botón del formulario (frmAccionReumenPedido) se presionó (en este caso Finalizar) y así poder
+    //establecer el valor de la acción a realizar al campo oculto llamado acción, el cual es usado para
+    //validar dicha acción antes de enviar el formulario al ervidor
     $('#btnFinalizar').click(function() {
         $('#accion').val("finalizar");
     });
@@ -15,8 +16,9 @@ $(function(){
     //Dónde se usa:
     //En la vista (resumen_pedido.php)
     //Para que se usa:
-    //Para saber cual botón del formulario (frmAccionReumenPedido) se presionó y así establecer el valor de la acción a realizar al campo oculto llamado acción,
-    //el cual es usado para una validación antes de enviar el formulario al ervidor
+    //Para saber cual botón del formulario (frmAccionReumenPedido) se presionó (en este caso Cancelar) y así poder
+    //establecer el valor de la acción a realizar al campo oculto llamado acción, el cual es usado para
+    //validar dicha acción antes de enviar el formulario al ervidor
     $('#btnCancelar').click(function() {
         $('#accion').val("cancelar");
     });

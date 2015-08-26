@@ -19,11 +19,14 @@ class PedidosController extends CI_Controller {
         }
     }
 
-
+    /**
+     * Verifica si la variable de sesión "pedido" NO EXISTE (es decir, su valor es nulo),
+     * si es así, entonces se redirecciona a Plan de Ruta, esto es por si el usuario trata de entrar
+     * directamente a este método sin que haya seguido el flujo de captura de un pedido
+     * @return [type] [description]
+     */
     private function validaSessionPedido(){
-        #Esta función verifica si la variable de sesión "pedido" NO EXISTE (es decir, su valor es nulo),
-        #si es así, entonces se redirecciona a Plan de Ruta, esto es por si el usuario trata de entrar
-        #directamente a este método sin que haya seguido el flujo de captura de un pedido
+
         if(is_null($this->session->pedido))
         {
             redirect('planruta');
@@ -49,7 +52,7 @@ class PedidosController extends CI_Controller {
         #Creamos la variable de session pedido con el número de pedidos que nos regresó la consulta previa
         $_SESSION['pedido']=$datos['pedido'];
 
-        $datos['vista'] = 'pedido_encabezado';
+        $datos['vista'] = 'planRuta/pedido_encabezado';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -81,7 +84,7 @@ class PedidosController extends CI_Controller {
                 #creamos la variable de session pedido con el número de pedidos que se desea retomar
                 $_SESSION['pedido']=$pedido;
 
-                $datos['vista'] = 'pedido_encabezado';
+                $datos['vista'] = 'planRuta/pedido_encabezado';
                 $this->load->view('plantillas/master_page', $datos);
             }
             else {
@@ -91,25 +94,19 @@ class PedidosController extends CI_Controller {
         else{
              #la varibale de sessión no existe previamente, se sale del sistema
              redirect('logout','refresh');
-             #echo $this->session->cliente;
-             #var_dump( isset($this->session->cliente) );
-             #var_dump( is_null($this->session->cliente) );
-             #var_dump( empty($this->session->cliente) );
         }
     }
 
-
+    /**
+     * muestra las partidas registradas al pedido, antes de mostrar dichas partidas se ejecuta el procedimiento
+     * para el cálculo de descuentos y promociones
+     * @return [type] [description]
+     */
     public function mostrarPartidas() {
 
-        #si la variable de sesión "pedido" no existe (es decir, su valor es nulo), entonces se redirecciona a Plan de Ruta,
-        #esto es por si el usuario trata de entrar directamente a este método sin que haya seguido el flujo de
-        #captura de un pedido
-        if(is_null($this->session->pedido))
-        {
-            redirect('planruta');
-        }
+        $this->validaSessionPedido();
 
-        #aplicamos descuentos y promociones
+        #ejecutamos procedimeintos para aplicar descuentos y promociones correspondientes
         $totales=$this->PartidasModel->aplicarDescuentosPromociones($this->session->pedido);
 
         foreach ($totales as $tot) {
@@ -121,7 +118,7 @@ class PedidosController extends CI_Controller {
 
         $datos['partidas_pedido'] = $partidas;
         $datos['total_partidas'] = count($partidas);
-        $datos['vista'] = 'pedido_detalle';
+        $datos['vista'] = 'planRuta/pedido_detalle';
         $datos['titulo'] = 'Captura Pedido';
 
         $this->load->view('plantillas/master_page', $datos);
@@ -137,30 +134,26 @@ class PedidosController extends CI_Controller {
         $partidas=$this->PartidasModel->obtenerPartidasPedido($pedido);
 
         $datos['partidas'] = $partidas;
-        $datos['vista'] = 'partidas_pedido';
+        $datos['vista'] = 'planRuta/partidas_pedido';
         $datos['titulo'] = 'Partidas del Pedido';
 
         $this->load->view('plantillas/master_page', $datos);
     }
 
+
+    /**
+     * Permite agregar al pedido en la base de datos la partida capturada
+     * @return
+     */
     public function agregarPartida() {
 
-        #si la variable de sesión "pedido" no existe (es decir, su valor es nulo), entonces se redirecciona a Plan de Ruta,
-        #esto es por si el usuario trata de entrar directamente a este método sin que haya seguido el flujo de
-        #captura de un pedido
-        if(is_null($this->session->pedido))
-        {
-            redirect('planruta');
-        }
-
+        $this->validaSessionPedido();
 
         $datos['titulo'] = 'Registrar Partida';
-        $datos['vista'] = 'pedido_encabezado';
-
-
-        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $datos['vista'] = 'planRuta/pedido_encabezado';
 
         #Establecemos las reglas de validación
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('clave', 'Codigo', array('required', 'max_length[30]'));
         $this->form_validation->set_rules('cantidad', 'Cantidad', 'required|numeric|greater_than[0]');
 
@@ -187,6 +180,11 @@ class PedidosController extends CI_Controller {
         }
     }
 
+    /**
+     * Permite eliminar de la base de datos la partida registrada previamente en el pedido
+     * @param  [string] $id [identificador único de la partida a eliminar]
+     * @return
+     */
     public function eliminarPartida($id) {
 
         $this->PartidasModel->eliminarPartida($id);
@@ -194,11 +192,17 @@ class PedidosController extends CI_Controller {
         $this->mostrarPartidas();
     }
 
+    /**
+     * Consulta en la base de datos aquellos productos que coincidan con el criterio de búsqueda capturado
+     * @return
+     */
     public function buscarProducto() {
 
+        # establecemos las reglas de validación correspondientes
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('descripcion', 'Buscar', 'required|min_length[3]|max_length[15]');
 
-        $datos['vista'] = 'pedido_encabezado';
+        $datos['vista'] = 'planRuta/pedido_encabezado';
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('plantillas/master_page', $datos);
@@ -211,6 +215,10 @@ class PedidosController extends CI_Controller {
         }
     }
 
+    /**
+     * muestra la información general del pedido antes de que el usuario lo guarde o lo cancele
+     * @return
+     */
     public function resumenPedido() {
 
         $this->validaSessionPedido();
@@ -242,7 +250,7 @@ class PedidosController extends CI_Controller {
             $datos['importe_min_venta']=$registro['ImporteMinVenta'];
         }
 
-        $datos['vista']='resumen_pedido';
+        $datos['vista']='planRuta/resumen_pedido';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -265,7 +273,7 @@ class PedidosController extends CI_Controller {
         #inicializamos la varibale accion como vacia
         $accion="";
 
-        //Si se seleccionó el botón para Finalizar el pedido, entonces
+        //Si se seleccionó el botón para Finalizar el pedido
         if (isset($finalizar)) {
             $accion="G";
         }
@@ -288,26 +296,38 @@ class PedidosController extends CI_Controller {
             #limpiamos variables de sesión referentes al pedido
             unset($_SESSION['cliente']);
             unset($_SESSION['pedido']);
+            # direccionamos la aplicación al plan de ruta
             redirect('planruta');
         }
     }
 
+    /**
+     * Permite cambiar en la BD la consignación del pedido
+     * @param  [string] $consignacion [el número de identificación de la consignación que se cambiara]
+     * @return
+     */
     public function cambiarConsignacion($consignacion){
 
+        #cambiamos la consignación del pedido en la BD
         $this->PedidosModel->cambiarConsignacion($this->session->pedido, $consignacion);
+        # regresamos a la  vista del resumen del pedido
         $this->resumenPedido();
     }
 
+    /**
+     *  obtiene las diversas consignaciones que tiene registradas el cliente del pedido
+     * @return
+     */
     public function mostrarConsignaciones(){
 
         $this->validaSessionPedido();
 
         $datos['titulo']='Consignaciones';
 
-        #obtenemos datos referentes al resumen del pedido
+        #obtenemos la información de la BD
         $datos['consignaciones'] = $this->PedidosModel->obtenerConsignaciones($this->session->cliente);
 
-        $datos['vista']='consignaciones_cliente';
+        $datos['vista']='planRuta/consignaciones_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
 

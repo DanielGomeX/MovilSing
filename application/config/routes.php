@@ -56,6 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['logout']='principal/logout';
 
 
 #Plan Ruta
@@ -66,9 +67,9 @@ $route['visitas']='PlanRutaController/mostrarVisitas';
 $route['entregas']='PlanRutaController/mostrarEntregas';
 $route['saldos']='PlanRutaController/mostrarSaldos';
 $route['cobranza']='PlanRutaController/mostrarCobranza';
+$route['registrar_cobranza']='PlanRutaController/registrarCobranza';
 $route['pedidos']='PlanRutaController/pedidosCliente';
 
-#Pedidos
 $route['pedido']='PedidosController/nuevo';
 $route['retomar/(:any)']='PedidosController/retomarPedido/$1';
 $route['buscar']='PedidosController/buscarProducto';
@@ -76,9 +77,9 @@ $route['partidas']='PedidosController/mostrarPartidas';
 $route['resumen']='PedidosController/ResumenPedido';
 $route['consignaciones']='pedidosController/mostrarConsignaciones';
 
-#Partidas
 $route['agregar']='PedidosController/agregarPartida';
 $route['eliminar/(:num)']='PedidosController/eliminarPartida/$1';
+
 
 #Reportes
 $route['liberados']='ReportesController/pedidosLiberados';
@@ -87,4 +88,3 @@ $route['pendientes']='ReportesController/pedidosPendientes';
 $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
 
-$route['logout']='principal/logout';

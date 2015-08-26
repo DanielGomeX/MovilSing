@@ -61,7 +61,8 @@ $(function(){
         "ordering": false,
         "info":     false,
         "language": {
-            "search":" Buscar"
+            "search":" Buscar",
+            "emptyTable":"Ningún dato disponible en esta tabla"
         }
     });
 
