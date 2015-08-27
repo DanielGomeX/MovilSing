@@ -89,7 +89,7 @@
                             <?php echo utf8_encode($pedido['CausaRetencion']); ?>
                         </td>
                         <td>
-                            <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>PedidosController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">
+                            <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>PlanRutaController/mostrarComentariosPedido/<?php echo $pedido['Pedido']; ?>">
                                 <i class="fa fa-commenting-o"></i>
                                 Comentarios
                             </a>

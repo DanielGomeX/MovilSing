@@ -161,6 +161,21 @@ class PedidosModel extends AbstractModel {
         return $this->get_row();
     }
 
+    /**
+     * Permite obtener los comentarios asociados al pedido
+     * @param  [string] $pedido [número de pedido del cual se requieren obtener los comentarios]
+     * @return [arreglo]
+     */
+    public function obtenerComentariosPedido($pedido) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerComentariosPedido (?)}";
+
+        #asignamos los valoes de los parametros
+        $this->params = array($pedido);
+
+        return $this->get_rows();
+    }
+
 }
 
 

@@ -332,4 +332,21 @@ class PlanRutaController extends CI_Controller {
         }
     }
 
+
+    public function mostrarComentariosPedido($pedido){
+
+        $datos['titulo']='Comentarios';
+        $datos['vista']='planRuta/comentarios_pedido';
+
+        #asignamos el valor de la variable se session cliente a una variable local
+        //$cliente=$this->session->cliente;
+        //$usuario=$this->session->usuario;
+
+        #Obtenemos los registros de las visitas realizadas
+        $datos['comentarios'] = $this->PedidosModel->obtenerComentariosPedido($pedido);
+
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+
 }
