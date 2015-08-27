@@ -22,6 +22,8 @@
 
 
   <!-- **********SCRIPTS GLOBALES********** -->
+
+  <!-- jQuery -->
   <script src="<?php echo base_url();?>static/js/jquery-1.11.3.min.js"></script>
 
 
@@ -60,11 +62,11 @@
 
         </ul>
 
-        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $_SESSION['usuario'] ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"> Salir</a></span>
+        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $this->session->usuario; ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a></span>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
-<?php else: ?>
+  <?php else: ?>
       <!-- Si existe una variable de sesion llamada cliente, entonces ocultamos el menu para completar
       de manera correcta el flujo de captura de un pedido -->
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -80,7 +82,7 @@
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
             </ul>
-            <span class="navbar-text navbar-right"> Cliente: <?php echo $_SESSION['cliente'] ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"> Salir</a></span>
+            <span class="navbar-text navbar-right"> <a href="<?php echo base_url();?>Principal/salirPlanRuta" class="navbar-link"><?php echo $this->session->cliente.' '.$this->session->nombre_cliente; ?></a> | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a></span>
           </div><!--/.nav-collapse -->
         </div>
       </nav>

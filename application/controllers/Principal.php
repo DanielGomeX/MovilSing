@@ -33,9 +33,17 @@ class Principal extends CI_Controller {
         unset($_SESSION['logged_in']);
         unset($_SESSION['usuario']);
         unset($_SESSION['cliente']);
+        unset($_SESSION['nombre_cliente']);
         unset($_SESSION['pedido']);
         session_destroy();
         redirect('');
+    }
+
+    function salirPlanRuta() {
+        unset($_SESSION['cliente']);
+        unset($_SESSION['nombre_cliente']);
+        unset($_SESSION['pedido']);
+        redirect('principal');
     }
 
 }

@@ -125,7 +125,7 @@
                     ?>
                     <tr>
                         <td>
-                            <a href="#"><i class="fa fa-wrench"></i><?php echo $producto['Clave']; ?></a>
+                            <a href="#"><?php echo $producto['Clave']; ?></a>
                         </td>
                         <td>
                             <?php echo utf8_encode($producto['Descripcion']); ?>

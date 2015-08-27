@@ -95,7 +95,6 @@ class PlanRutaController extends CI_Controller {
         //$datos = array();
 
         $datos_cliente= $this->ClientesModel->ObtenerDatosCliente($cliente);
-        //$datos['datos_cliente']= $this->ClientesModel->ObtenerDatosCliente($cliente);
 
         #Recorremos el registro encontrado para asignar los valores a las varibles y mostrar l información en pantalla
         foreach ($datos_cliente as $registro) {
@@ -134,6 +133,9 @@ class PlanRutaController extends CI_Controller {
         {
             #Creamos la variable de session "cliente" con el número de cliente seleccionado
             $_SESSION['cliente']=$cliente;
+
+            #Creamos la variable de session "nombre_cliente" con el número de cliente seleccionado
+            $_SESSION['nombre_cliente']=$datos['nombre'];
 
             $datos['cliente'] = $cliente;
             $datos['vista'] = 'planRuta/datos_cliente';

@@ -51,7 +51,6 @@
             </div>
             <div>
                 <button type="submit" id="btnBuscarCliente" class="btn btn-warning" tabindex="2">
-                    <!-- <span class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
                     <i class="fa fa-search"></i>
                     Buscar cliente
                 </button>
@@ -95,7 +94,6 @@
             </table>
 
             <a class="btn btn-warning" role="button" href="<?php echo base_url(); ?>PlanRutaController/index">
-                <!-- <span class="glyphicon glyphicon-user" aria-hidden="true"></span> -->
                 <i class="fa fa-users"></i>
                 Clientes en Plan de Ruta
             </a>

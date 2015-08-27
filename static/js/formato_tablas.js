@@ -46,8 +46,8 @@ $(function(){
                 "last":"Ultimo",
                 "next":"Siguiente",
                 "previous":"Anterior"
-            }
-        },
+            },
+        }
 
     });
 
@@ -73,13 +73,27 @@ $(function(){
     //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbPedidosLiberados').DataTable({
-        "paging":   true,
+        "searching": true,
+        "paging": true,
         "ordering": false,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
-        "bInfo":false,
         "language": {
-            "search":" Buscar"
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
         }
 
     });
@@ -90,13 +104,27 @@ $(function(){
     //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbPedidosRetenidos').DataTable({
-        "paging":   true,
+        "searching": true,
+        "paging": true,
         "ordering": false,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
-        "bInfo":false,
         "language": {
-            "search":" Buscar"
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
         }
 
     });
@@ -108,14 +136,29 @@ $(function(){
     //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbPedidosPendientes').DataTable({
-        "paging":   true,
+        "searching": true,
+        "paging": true,
         "ordering": false,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
-        "bInfo":false,
         "language": {
-            "search":" Buscar"
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
         }
+
     });
 
 

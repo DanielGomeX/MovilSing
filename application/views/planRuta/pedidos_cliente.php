@@ -35,10 +35,13 @@
 
                         </th>
                         <th>
+                            Status
+                        </th>
+                        <th>
                             Pedido
                         </th>
                         <th>
-                            Status
+                            Es Especial
                         </th>
                         <th>
                             Fecha Pedido
@@ -64,16 +67,19 @@
                     <?php foreach ($pedidos as $pedido): ?>
                     <tr>
                         <td>
-                            <a href="<?php echo base_url(); ?>PedidosController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">
-                                <i class="fa fa-bars"></i>
+                            <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>PedidosController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">
+                                <i class="fa fa-wrench"></i>
                                 Partidas
                             </a>
+                        </td>
+                        <td>
+                            <?php echo $pedido['Estacion']; ?>
                         </td>
                         <td>
                             <?php echo $pedido['Pedido']; ?>
                         </td>
                         <td>
-                            <?php echo $pedido['StatusPedido']; ?>
+                            <?php echo $pedido['pedidoespecial']; ?>
                         </td>
                         <td>
                             <?php echo $pedido['FechaPedido']; ?>
@@ -92,11 +98,11 @@
                         </td>
                         <td>
                             <!-- Si el status del pedidos es igual cualquiera de los satus permitidos contenidos en el arreglo "status_remotar"
-                            entonces, mostramos el link para poder retomar dicho pedido -->
-                            <?php if (in_array($pedido['StatusPedido'], $status_retomar)):  ?>
-                            <a href="<?php echo base_url(); ?>retomar/<?php echo $pedido['Pedido']; ?>">
-                                <i class="fa fa-edit"></i>
-                                Retomar
+                            y el pedido no es especial (0), entonces, mostramos el link para poder retomar dicho pedido -->
+                            <?php if (in_array($pedido['StatusPedido'], $status_retomar) and ($pedido['pedidoespecial']==0)):
+                            ?>
+                            <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>retomar/<?php echo $pedido['Pedido']; ?>">
+                                <i class="fa fa-edit"></i> Retomar
                             </a>
                             <?php endif;
                             ?>
