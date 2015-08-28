@@ -25,6 +25,7 @@ class PedidosController extends CI_Controller {
      * directamente a este método sin que haya seguido el flujo de captura de un pedido
      * @return [type] [description]
      */
+    /*
     private function validaSessionPedido(){
 
         if(is_null($this->session->pedido))
@@ -32,11 +33,14 @@ class PedidosController extends CI_Controller {
             redirect('planruta');
         }
     }
+    */
+
 
     /**
      * Permite registrar el encabezado de un nuevo pedido en la BD
      * @return string Retorna el número de pedido
      */
+    /*
     public function nuevo() {
         $datos['titulo'] = 'Registrar Partida';
 
@@ -46,7 +50,6 @@ class PedidosController extends CI_Controller {
         #Obtenemos el nuevo número de pedido asignado
         foreach ($consulta[0] as $key => $value) {
             $datos['pedido'] = $value;
-
         }
 
         #Creamos la variable de session pedido con el número de pedidos que nos regresó la consulta previa
@@ -55,6 +58,8 @@ class PedidosController extends CI_Controller {
         $datos['vista'] = 'planRuta/pedido_encabezado';
         $this->load->view('plantillas/master_page', $datos);
     }
+    */
+
 
     /**
      * Permite retomar del cliente seleccionado en el plan de ruta un pedido ,siempre y cuendo el pedido
@@ -62,6 +67,7 @@ class PedidosController extends CI_Controller {
      * @param  string $pedido número de pedido del cual se desea retomar
      * @return null
      */
+    /*
     public function retomarPedido($pedido) {
 
         #si la variable de sesion cliente contiene el valor de un número de cliente, entonces se procese a verificar si el pedido puede ser retomado
@@ -96,12 +102,14 @@ class PedidosController extends CI_Controller {
              redirect('logout','refresh');
         }
     }
+    */
 
     /**
      * muestra las partidas registradas al pedido, antes de mostrar dichas partidas se ejecuta el procedimiento
      * para el cálculo de descuentos y promociones
      * @return [type] [description]
      */
+    /*
     public function mostrarPartidas() {
 
         $this->validaSessionPedido();
@@ -123,12 +131,15 @@ class PedidosController extends CI_Controller {
 
         $this->load->view('plantillas/master_page', $datos);
     }
+    */
+
 
     /**
      * Consulta en la BD  los registros correspondientes a las partidas del pedido
      * @param  [string] $pedido numero de pedido del cual se desean consultar las partidas
      * @return [null]
      */
+    /*
     public function consultarPartidasPedido($pedido) {
         #Obtenemos las partidas del pedido
         $partidas=$this->PartidasModel->obtenerPartidasPedido($pedido);
@@ -139,12 +150,13 @@ class PedidosController extends CI_Controller {
 
         $this->load->view('plantillas/master_page', $datos);
     }
-
+    */
 
     /**
      * Permite agregar al pedido en la base de datos la partida capturada
      * @return
      */
+    /*
     public function agregarPartida() {
 
         $this->validaSessionPedido();
@@ -179,23 +191,29 @@ class PedidosController extends CI_Controller {
 
         }
     }
+    */
+
 
     /**
      * Permite eliminar de la base de datos la partida registrada previamente en el pedido
      * @param  [string] $id [identificador único de la partida a eliminar]
      * @return
      */
+    /*
     public function eliminarPartida($id) {
 
         $this->PartidasModel->eliminarPartida($id);
 
         $this->mostrarPartidas();
     }
+    */
+
 
     /**
      * Consulta en la base de datos aquellos productos que coincidan con el criterio de búsqueda capturado
      * @return
      */
+    /*
     public function buscarProducto() {
 
         # establecemos las reglas de validación correspondientes
@@ -214,11 +232,14 @@ class PedidosController extends CI_Controller {
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+    */
+
 
     /**
      * muestra la información general del pedido antes de que el usuario lo guarde o lo cancele
      * @return
      */
+    /*
     public function resumenPedido() {
 
         $this->validaSessionPedido();
@@ -253,11 +274,13 @@ class PedidosController extends CI_Controller {
         $datos['vista']='planRuta/resumen_pedido';
         $this->load->view('plantillas/master_page', $datos);
     }
+    */
 
     /**
      * Determina la acción final a realizar con el pedidos,es decir, se guarda o se cancela]
      * @return null
      */
+    /*
     public function accionResumenPedido(){
 
         #asignamos las variables de session a variables locales
@@ -300,12 +323,15 @@ class PedidosController extends CI_Controller {
             redirect('planruta');
         }
     }
+    */
+
 
     /**
      * Permite cambiar en la BD la consignación del pedido
      * @param  [string] $consignacion [el número de identificación de la consignación que se cambiara]
      * @return
      */
+    /*
     public function cambiarConsignacion($consignacion){
 
         #cambiamos la consignación del pedido en la BD
@@ -313,11 +339,14 @@ class PedidosController extends CI_Controller {
         # regresamos a la  vista del resumen del pedido
         $this->resumenPedido();
     }
+    */
+
 
     /**
      *  obtiene las diversas consignaciones que tiene registradas el cliente del pedido
      * @return
      */
+    /*
     public function mostrarConsignaciones(){
 
         $this->validaSessionPedido();
@@ -330,6 +359,6 @@ class PedidosController extends CI_Controller {
         $datos['vista']='planRuta/consignaciones_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
-
+    */
 
 }

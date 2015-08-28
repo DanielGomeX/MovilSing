@@ -57,7 +57,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>PedidosController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">
+                            <a class="btn btn-primary" role="button" href="<?php echo base_url(); ?>PlanRutaController/consultarPartidasPedido/<?php echo $pedido['Pedido']; ?>">
                                 <i class="fa fa-wrench"></i> Partidas
                             </a>
                         </td>

@@ -50,7 +50,7 @@
                     ?>
                     <tr>
                         <td>
-                            <a href="<?php echo base_url(); ?>PedidosController/cambiarConsignacion/<?php echo $consignacion['Consignacion']; ?>">
+                            <a href="<?php echo base_url(); ?>PlanRutaController/cambiarConsignacion/<?php echo $consignacion['Consignacion']; ?>">
                                 <i class="fa fa-exchange"></i>
                                 <?php echo $consignacion['Consignacion']; ?>
                             </a>

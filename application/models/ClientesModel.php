@@ -142,6 +142,7 @@ class ClientesModel extends AbstractModel {
      * @param  string $usuario     [usuario que registra la cobranza]
      * @param  string $cliente     [cliente al cual se le realiza la cobranza]
      * @param  string $formapago   [forma de pago: efectivo, cheque, transferencia]
+     * 
      * @param  string $recibo      [numero de recibo con el cual se registra la cobranza]
      * @param  string $importe     [importe por el cual se realiza la cobranza]
      * @param  string $referencia  [valor que sirve para rastrear el pago en el banco]
@@ -149,12 +150,12 @@ class ClientesModel extends AbstractModel {
      * @param  string $comentario  [generalmente se usa para registrar las facturas que avalan el pago recibido]
      * @return null
      */
-    public function registrarCobranza($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario)  {
+    public function registrarCobranza($usuario, $cliente, $formapago, $banco, $recibo, $importe, $referencia, $fechacobro, $comentario)  {
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_RegistrarCobranza(?,?,?,?,?,?,?,?)}";
+        $this->query = "{call MovilSing_RegistrarCobranza(?,?,?,?,?,?,?,?,?)}";
 
         #asignamos los valores de los parametros
-        $this->params = array($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario);
+        $this->params = array($usuario, $cliente, $formapago, $banco, $recibo, $importe, $referencia, $fechacobro, $comentario);
 
         return $this->get_rows();
     }

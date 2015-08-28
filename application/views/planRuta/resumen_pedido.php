@@ -29,7 +29,7 @@
 					</p>
 
 					<!-- FORMULARIO PARA GUARDAR O CANCELAR EL PEDIDO -->
-					<form id="frmAccionReumenPedido" action="<?php echo base_url(); ?>PedidosController/AccionResumenPedido" method="POST">
+					<form id="frmAccionReumenPedido" action="<?php echo base_url(); ?>PlanRutaController/AccionResumenPedido" method="POST">
 
 						<div class="form-group">
 							<div class="col-sm-12">
