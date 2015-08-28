@@ -19,8 +19,8 @@
         <div class="tabla-responsive">
             <?php if (isset($cobranza)):
             ?>
-            <!--el objeto tbCobranza ejecuta un plugin de js llamado DataTables (ver archivo formato_tablas.js) 
-                que sirve para aplicar diversos formatos a las tablas html 
+            <!--el objeto tbCobranza ejecuta un plugin de js llamado DataTables (ver archivo formato_tablas.js)
+                que sirve para aplicar diversos formatos a las tablas html
             -->
             <table id="tbCobranza" class="table table-hover table-condensed">
                 <thead>
@@ -29,7 +29,7 @@
                             Cliente
                         </th>
                         <th>
-                            Nombre
+                            Recibo
                         </th>
                         <th>
                             Fecha
@@ -38,7 +38,10 @@
                             Tipo
                         </th>
                         <th>
-                            Recibo
+                            Banco
+                        </th>
+                        <th>
+                            Referencia
                         </th>
                         <th>
                             Importe Pago
@@ -52,10 +55,10 @@
                     <?php foreach ($cobranza as $cob): ?>
                     <tr>
                         <td>
-                            <?php echo $cob['CustId']; ?>
+                            <?php echo utf8_encode($cob['name']); ?>
                         </td>
                         <td>
-                            <?php echo utf8_encode($cob['name']); ?>
+                            <?php echo $cob['NumRecibo']; ?>
                         </td>
                         <td>
                             <?php echo $cob['Fecha']; ?>
@@ -64,7 +67,10 @@
                             <?php echo $cob['Tipo']; ?>
                         </td>
                         <td>
-                            <?php echo $cob['NumRecibo']; ?>
+                            <?php echo $cob['Banco']; ?>
+                        </td>
+                        <td>
+                            <?php echo $cob['Docno']; ?>
                         </td>
                         <td>
                             <?php echo '$'.number_format($cob['TotalPago']); ?>

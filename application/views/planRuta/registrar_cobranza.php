@@ -77,9 +77,31 @@
 
 
             <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <p class="form-control-static"><strong>BANCO:</strong></p>
+                </div>
+
+                <div class="col-sm-offset-2 col-sm-10">
+
+                    <select class="form-control" name="banco" >
+                      <option selected disabled value="">Seleccione un banco</option>
+                      <option value="BANCOMER" <?php echo  set_select('banco', 'BANCOMER');?> >BANCOMER</option>
+                      <option value="BANAMEX" <?php echo  set_select('banco', 'BANAMEX');?> >BANAMEX</option>
+                      <option value="BANORTE" <?php echo  set_select('banco', 'BANORTE');?> >BANORTE</option>
+                      <option value="HSBC" <?php echo  set_select('banco', 'HSBC');?> >HSBC</option>
+                      <option value="SANTANDER" <?php echo  set_select('banco', 'SANTANDER');?> >SANTANDER</option>
+                      <option value="OTRO" <?php echo  set_select('banco', 'OTRO');?> >OTRO (Especifique en referencia)</option>
+                      <option value="EFECTIVO" <?php echo  set_select('banco', 'EFECTIVO');?> >EFECTIVO </option>
+                    </select>
+                    <?php echo form_error('banco'); ?>
+                </div>
+            </div>
+
+
+            <div class="form-group">
                 <label for="referencia" class="col-sm-2 control-label">Referencia pago:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="referencia" name="referencia" value="<?php echo  set_value('referencia'); ?>" class="form-control" placeholder="No. cheque o transferencia..." tabindex="6" autocomplete="off"/>
+                    <input type="text" id="referencia" name="referencia" value="<?php echo  set_value('referencia'); ?>" class="form-control" placeholder="No. cheque o No. Transferencia..." tabindex="6" autocomplete="off"/>
                     <?php echo form_error('referencia'); ?>
                 </div>
             </div>
