@@ -4,10 +4,13 @@
 class AbstractModel extends CI_Model {
     ############################### PROPIEDADES ABSTRACTAS ################################
 
-    private static $db_host = "srv-datos2\pruebas";
-    private static $db_user = "desarrollo";
-    private static $db_pass = "desarrollo";
-    protected $db_name = "ApHecort";
+    //private static $db_host = "srv-datos2\pruebas";
+    //private static $db_user = "desarrollo";
+    //private static $db_pass = "desarrollo";
+    private $db_host="";
+    private $db_user = "";
+    private $db_pass="";
+    protected $db_name = "";
     protected $query; #se usa para asignar una consulta o el nombre del stored procedure a ejecutar
     protected $params = array();
     protected $rows = array();
@@ -24,14 +27,14 @@ class AbstractModel extends CI_Model {
     # Conectar a la base de datos
     private function open_connection() {
         $parametrosConexion = array(
-            "UID" => self::$db_user,
-            "PWD" => self::$db_pass,
-            "Database" => $this->db_name);
+            "UID" => $this->config->item('db_user'), //self::$db_user,
+            "PWD" => $this->config->item('db_pass'), //self::$db_pass,
+            "Database" => $this->config->item('db_name') //$this->db_name
+            );
 
         # Establecemos la conexión con el servidor de base de datos
-        $this->conn = sqlsrv_connect(self::$db_host, $parametrosConexion);
-
-        //return $this->conn;
+        //$this->conn = sqlsrv_connect(self::$db_host, $parametrosConexion);
+        $this->conn = sqlsrv_connect($this->config->item('db_host'), $parametrosConexion);
 
 
         if( $this->conn )

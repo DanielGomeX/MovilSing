@@ -500,3 +500,19 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Propios
+|--------------------------------------------------------------------------
+|
+*/
+
+$config['db_host'] = 'srv-datos2\pruebas';
+#$config['db_host'] = 'srv-datos\produccion';
+$config['db_user'] = 'desarrollo';
+$config['db_pass'] = 'desarrollo';
+$config['db_name'] = 'ApHecort';
+
