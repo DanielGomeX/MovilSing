@@ -2,7 +2,7 @@
 
     <div class="col-md-12">
 
-        <h3>Pedidos Liberados del Periodo</h3>
+        <h2>Pedidos Liberados del Periodo</h2>
 
         <!-- Guardamos en una vaiable de sesion la url que manda llamar a las partidas, para que
         el link regresar nos mande nuevamente a esta pantalla -->

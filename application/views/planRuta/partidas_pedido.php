@@ -2,6 +2,8 @@
 
     <div class="col-md-12">
 
+        <h2>Partidas del pedido</h2>
+
         <a href="<?php echo base_url(); echo $this->session->regresar; ?>">
             <i class="fa fa-arrow-circle-left"></i>
             Regresar
