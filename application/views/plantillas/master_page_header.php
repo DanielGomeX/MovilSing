@@ -45,7 +45,7 @@
         <ul class="nav navbar-nav">
           <li><?php echo anchor('#','Indicadores') ?></li>
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
-          <li><?php echo anchor('#','Prospectos') ?></li>
+          <li><?php echo anchor('prospectos','Prospectos') ?></li>
           <li><?php echo anchor('#','Devoluciones') ?></li>
           <!-- Submenú Reportes -->
           <li class="dropdown">

@@ -1,6 +1,4 @@
 
-
-
   </section>
 
     <!-- Bootstrap core JavaScript -->
@@ -10,7 +8,8 @@
     <script src="<?php echo base_url();?>static/DataTables1.10.7/media/js/jquery.dataTables.js"></script>
 
     <!-- scripts propios-->
-    <script src="<?php echo base_url();?>static/js/funciones.js"></script>
+    <!-- <script src="<?php echo base_url();?>static/js/prospectos2.js"></script> --> 
+    <script src="<?php echo base_url();?>static/js/planRuta.js"></script>
     <script src="<?php echo base_url();?>static/js/formato_tablas.js"></script>
 
 </body>

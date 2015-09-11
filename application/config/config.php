@@ -506,6 +506,8 @@ $config['proxy_ips'] = '';
 /*
 |--------------------------------------------------------------------------
 | Propios
+| Aqui se configuran los valores para la conexión a la base de datos SQL Server
+|
 |--------------------------------------------------------------------------
 |
 */

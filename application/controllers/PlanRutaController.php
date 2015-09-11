@@ -20,7 +20,7 @@ class PlanRutaController extends CI_Controller {
     }
 
     /**
-     * muestra los clientes perteneceientes al usuario que debe de visitar conforme a la programación del plan de ruta
+     * muestra los clientes pertenecientes al usuario que debe de visitar conforme a la programación del plan de ruta
      * @return
      */
     public function index() {

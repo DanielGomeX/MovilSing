@@ -29,7 +29,8 @@ class AbstractModel extends CI_Model {
         $parametrosConexion = array(
             "UID" => $this->config->item('db_user'), //self::$db_user,
             "PWD" => $this->config->item('db_pass'), //self::$db_pass,
-            "Database" => $this->config->item('db_name') //$this->db_name
+            "Database" => $this->config->item('db_name'), //$this->db_name
+            "CharacterSet" => "UTF-8"
             );
 
         # Establecemos la conexión con el servidor de base de datos
