@@ -75,6 +75,15 @@ $route['resumen']='PlanRutaController/ResumenPedido';
 $route['consignaciones']='PlanRutaController/mostrarConsignaciones';
 $route['retomar/(:any)']='PlanRutaController/retomarPedido/$1';
 
+#Prospectos
+$route['prospectos']='ProspectosController/index';
+$route['prospectoCaptura']='ProspectosController/nuevoProspecto';
+$route['registrarProspecto']='ProspectosController/registrarProspecto';
+$route['actualizarProspecto']='ProspectosController/actualizarProspecto';
+$route['prospectoDatos/(:num)']='ProspectosController/mostrarDatosProspecto/$1';
+$route['eliminarProspecto/(:num)']='ProspectosController/eliminarProspecto/$1';
+
+
 #Reportes
 $route['liberados']='ReportesController/pedidosLiberados';
 $route['retenidos']='ReportesController/pedidosRetenidos';
@@ -84,4 +93,5 @@ $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
 
 
 #otros
-$route['ajax']='PlanRutaController/coordeneas';
+#$route['ajax']='PlanRutaController/coordeneas';
+$route['ajax/(:any)']='ProspectosController/asentamientos/$1';
