@@ -1,6 +1,4 @@
-//Funciones jQuery
 $(function(){
-
 
     //Dónde se usa:
     //En la vista (resumen_pedido.php)
