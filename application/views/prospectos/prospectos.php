@@ -13,18 +13,15 @@
 
         <!-- TABLA DE PROSPECTOS -->
         <div class="table-responsive">
-            <!-- Si la variable clientes_planruta no esta vacia, mostramos la tabla con los datos -->
+            <!-- Si la variable prospectos no esta vacia, mostramos la tabla con los datos -->
             <?php if (isset($prospectos)):
             ?>
             <table id="tbProspectos" class="table table-striped table-condensed">
                 <thead>
                     <tr>
                         <th>
-                            
+
                         </th>
-                        <th>
-                            
-                        </th>                        
                         <th>
                             Fecha
                         </th>
@@ -49,6 +46,9 @@
                         <th>
                             Status
                         </th>
+                        <th>
+
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,10 +57,7 @@
                         ?>
                     <tr>
                         <td>
-                              <a href="<?php echo base_url(); ?>prospectoDatos/<?php echo ($prospecto['IdProspecto']); ?>">Editar</a>
-                        </td>
-                        <td>
-                              <a href="<?php echo base_url(); ?>eliminarProspecto/<?php echo ($prospecto['IdProspecto']); ?>">Eliminar</a>
+                            <a href="<?php echo base_url(); ?>prospectoDatos/<?php echo ($prospecto['IdProspecto']); ?>">Ver</a>
                         </td>
                         <td>
                             <?php echo $prospecto['FechaSolicitud']; ?>
@@ -84,7 +81,17 @@
                             <?php echo $prospecto['Ciudad']; ?>
                         </td>
                         <td>
-                            <?php echo $prospecto['Status']; ?>
+                            <?php echo $prospecto['DescStatus']; ?>
+                        </td>
+                        <td>
+                            <!-- Si el status del prospecto es igual a captura (C),entonces, mostramos el link para poder eliminar dicho prospecto -->
+                            <?php if ($prospecto['Status']=="C"):
+                            ?>
+                            <a href="<?php echo base_url(); ?>eliminarProspecto/<?php echo ($prospecto['IdProspecto']); ?>">
+                                Eliminar
+                            </a>
+                            <?php endif;
+                            ?>
                         </td>
                     </tr>
                     <?php

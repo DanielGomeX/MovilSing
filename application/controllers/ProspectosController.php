@@ -43,7 +43,6 @@ class ProspectosController extends CI_Controller {
         #Obtenemos la información del clientre de la base de datos
         $datos_prospecto= $this->ProspectosModel->ObtenerDatosProspecto($idProspecto);
 
-        #$datos['idProspecto']=$datos_prospecto[0]['IdProspecto'];
         $datos['status']=$datos_prospecto[0]['Status'];
         $datos['folio']=$datos_prospecto[0]['Folio'];
         $datos['fechaSolicitud']=$datos_prospecto[0]['FechaSolicitud'];
@@ -214,6 +213,7 @@ class ProspectosController extends CI_Controller {
         $datos['vista'] = 'prospectos/editar_prospecto';
 
         //
+        $datos['status']= strtoupper($this->input->post('status'));
         $datos['folio']=strtoupper($this->input->post('folio'));
         $datos['tipoCliente']=strtoupper($this->input->post('tipoCliente'));
         $datos['nombre']=strtoupper($this->input->post('nombre'));
@@ -340,6 +340,26 @@ class ProspectosController extends CI_Controller {
         redirect('prospectos');
     }
 
+
+    /**
+     * 
+     * @return [null]
+     */
+    public function cambiarStatusProspecto() {
+
+        $idProspecto=$this->session->prospecto;
+        $status="C"; //Status Revisión Supervisor (RS)
+        $usuario=$this->session->usuario;
+        $comentario= $this->input->post('comentario');
+        $result=$this->ProspectosModel->actualizarStatusProspecto($idProspecto,$status,$usuario,$comentario);
+
+        if ($result==1) {
+            redirect('prospectos');
+        }
+        else{
+            redirect('principal');
+        }
+    }
 
     /**
      * permite convertir recursivamente todos los valores de un array al formato UTF8

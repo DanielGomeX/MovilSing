@@ -9,6 +9,11 @@ $(function(){
         $('#myModal').modal('show');
     });
 
+
+    $('#btnSupervisor').on('click',function (){
+        $('#frmModalStatus').modal('show');
+    });
+
     /**
      * Dónde se usa: En la vista (captura_prospecto.php y editar_prospecto.php)
      * Para que se usa:
@@ -18,6 +23,40 @@ $(function(){
         e.preventDefault();
         buscarAsentamientos();
     });
+
+
+    /**
+     * Dónde se usa: En la vista (editar_prospecto.php)
+     * Para que se usa:
+     * Para ocultar los botones que permiten interactuar con el prospecto, ya que al cargar el formulario con los datos
+     * del prospecto seleccionado obtenemos el valor del campo status, si el valor es diferente a C (captura), significa
+     * que el usuario ya no puede realizar ninguna acción sobre él.
+     */
+    var status=$('#status').val();
+    if (status!="C") {
+        $('#btnSupervisor').hide();
+        $('#btnCP').hide();
+        $('#btnProspecto').hide();
+    }
+
+
+    /**
+     * Dónde se usa: En la vista (editar_prospecto.php)
+     * Para que se usa:
+     * Para validar que se registre un texto de comentario como obligatorio antes de enviar el formulario
+     * al servidor para cambiar de status al prospecto
+     */
+    $('#frmCambiarStatus').on('submit', function(e){
+        var textarea_length = $('#comentario').val().length;
+        //si la longitud del comentario es cero, significa que está vacia, por lo cual debemos impedir el submit del fromulario
+        if (textarea_length==0){
+            e.preventDefault();
+            $("#msj").addClass('error');
+            $("#msj").text( "El comentario es obligatorio." ).show();
+            $('#comentario').focus();
+        }
+    });
+
 
     /**
      * Dónde se usa: En la vista (captura_prospecto.php y editar_prospecto.php)
@@ -51,6 +90,7 @@ $(function(){
         });
     }
 
+
     /**
      * Dónde se usa: En la vista (captura_prospecto.php y editar_prospecto.php)
      * Para que se usa:
@@ -78,7 +118,8 @@ $(function(){
     /**
      * Dónde se usa: En la vista (editar_prospecto.php)
      * Para que se usa:
-     * Permite establecer como seleccionado el elemento que tienen guardado el prospecto en la base de datos a las campos input del tipo select
+     * Permite establecer como seleccionado el elemento que tienen guardado el prospecto en la base de datos a los campos input del tipo select
+     * una vez que se carga el formulario
      */
     $('#tipoCliente option[value="'+ $('#hdTipoCliente').val() +'"]').attr('selected', 'selected');
     $('#localidad option[value="'+ $('#hdLocalidad').val() +'"]').attr('selected', 'selected');

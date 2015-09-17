@@ -42,14 +42,62 @@
                      </div>
                  </div>
              </div>
-         </div>
-         <!-- //Modal -->
+        </div>
+        <!-- //Modal -->
 
+        <!-- Formulario Modal para  -->
+        <div class="modal fade" id="frmModalStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                         <h4 class="modal-title" id="myModalLabel">Enviar a supervisor para revisión</h4>
+                    </div>
+                    <div class="modal-body">
 
-         <!-- FROMULARIO PARA MOSTRAR LOS DATOS GENERALES DEL PROSPECTO -->
-         <form class="form-horizontal" method="post" action="<?php echo base_url() ?>actualizarProspecto">
+                        <!-- FORMULARIO -->
+                        <form id="frmCambiarStatus" class="form-horizontal" method="post" action="<?php base_url() ?>/ProspectosController/cambiarStatusProspecto">
 
+                                <label for="comentario">Comentario </label>
 
+                                <!--
+                                <input type="text" class="form-control" id="comentario" name="comentario" placeholder="" autocomplete="off"/>
+                                -->
+
+                                <textarea class="form-control" id="comentario"></textarea>
+
+                            <div id="msj">
+                             <!-- AQUI SE MUESTRA EL MENSAJE DE VALIDACION CORRESPONDIENTE -->
+                            </div>
+
+                            <!-- este objeto ejecuta un javascript, ver script llamado prospectos.js -->
+                            <button type="submit" id="btnEnviar" class="btn btn-info">
+                                <i class="fa fa-save"></i>
+                                   Enviar
+                            </button>
+
+                        </form>
+
+                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //Modal -->
+
+        <div class="form-group">
+            <button  type="submit" id="btnSupervisor" class="col-sm-offset-2 btn btn-info ">
+                <i class="fa fa-user"></i>
+                 Enviar supervisor
+            </button>
+        </div>
+
+        <!-- FROMULARIO PARA MOSTRAR LOS DATOS GENERALES DEL PROSPECTO -->
+        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>actualizarProspecto">
+
+            <input type="hidden" id="status" name="status" value="<?php echo $status ?>">
 
             <!-- Datos Generales -->
             <div class="form-group">
@@ -305,11 +353,10 @@
 
             <div class="form-group">
                 <button  type="submit" id="btnProspecto" class="col-sm-offset-2 btn btn-warning " tabindex="29">
-                    <i class="fa fa-folder-open-o"></i>
-                    Actualizar Prospecto
+                    <i class="fa fa-pencil-square-o"></i>
+                    Actualizar Información
                 </button>
             </div>
-
         </form>
 
     </div><!-- //columna -->

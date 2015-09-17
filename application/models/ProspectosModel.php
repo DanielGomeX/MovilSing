@@ -96,4 +96,20 @@ class ProspectosModel extends AbstractModel {
         $this->execute_delete();
     }
 
+
+    /**
+     *  Permite cambiar el staus del prospecto y actualizar o insertar comentario
+     */
+    public function actualizarStatusProspecto($idProspecto, $status, $usuario, $comentario){
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ActualizarStatusProspecto(?,?,?,?)}";
+        # asignamos los valores de los parametros, en este caso la variable "$datosProspecto" ya es un array
+        $this->params=array($idProspecto,
+                            $status,
+                            $usuario,
+                            $comentario);
+
+        return $this->execute_update();
+    }
+
 }
