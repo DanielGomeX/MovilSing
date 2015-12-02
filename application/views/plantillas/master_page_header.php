@@ -15,16 +15,20 @@
   <!-- DataTables -->
   <link href="<?php echo base_url();?>static/DataTables1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
 
+  <!--Font Awesome -->
   <link href="<?php echo base_url();?>static/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
   <!-- Mis estilos -->
   <link href="<?php echo base_url();?>static/css/master_page.css" rel="stylesheet">
 
 
-  <!-- **********SCRIPTS GLOBALES********** -->
+  <!-- ********** SCRIPTS GLOBALES ********** -->
 
   <!-- jQuery -->
   <script src="<?php echo base_url();?>static/js/jquery-1.11.3.min.js"></script>
+
+  <!-- jQuery Validation-->
+  <script src="<?php echo base_url();?>static/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 
 
 </head>
@@ -46,7 +50,7 @@
           <li><?php echo anchor('#','Indicadores') ?></li>
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
           <li><?php echo anchor('prospectos','Prospectos') ?></li>
-          <li><?php echo anchor('#','Devoluciones') ?></li>
+          <li><?php echo anchor('devoluciones','Devoluciones') ?></li>
           <!-- Submenú Reportes -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>

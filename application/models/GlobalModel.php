@@ -44,5 +44,52 @@ class GlobalModel extends AbstractModel {
     }
 
 
+    /**
+     * Permite obtener el email que tiene registrado al supervisor del usuario
+     * @param  [string] $usuario [description]
+     * @return email
+     */
+    public function obtenerEmailSupervisor($usuario){
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerEmailSupervisor(?)}";
+
+        # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
+        $this->params=array($usuario);
+
+        return $this->get_row();
+    }
+
+
+    /**
+     * Permite obtener el email que tiene registrado el usuario
+     * @param  [string] $usuario [description]
+     * @return email
+     */
+    public function obtenerEmailUsuario($usuario){
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerEmailUsuario(?)}";
+
+        # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
+        $this->params=array($usuario);
+
+        return $this->get_row();
+    }
+
+
+    /**
+     * Obtiene los destinatarios de correo del personal administrativo que sebe estar enterado de que se ha enviado una devolución
+     * @param  [string] $proceso [nombre del procesos del cual se obtendran los registros de los email de los destinatarios a notificar]
+     * @param  [string] $status  [nombre del status del cual se filtraran los registros de los email de los destinatarios a notificar]
+     * @return [arreglo con los emails de los destinatarios]
+     */
+    public function obtenerEmailAdministrativosNotificacionDevolucion($proceso, $status){
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_AnomaliasPostVenta_NotificacionDevolucionAdministrativos(?,?)}";
+
+        # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
+        $this->params=array($proceso,$status);
+
+        return $this->get_rows();
+    }
 
 }

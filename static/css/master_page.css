@@ -13,6 +13,18 @@ body {
 	text-align: center;
 }
 
+.texto-justificado {
+	text-align : justify;
+}
+
+.texto-color-rojo {
+	color: #FF0000;
+}
+
+.texto-color-azul {
+	color: #0000FF;
+}
+
 
 .padding-arriba-abajo {
     padding-top: 15px;

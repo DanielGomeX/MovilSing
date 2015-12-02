@@ -91,7 +91,15 @@ $route['pendientes']='ReportesController/pedidosPendientes';
 $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
 
+#Devoluciones
+#$route['devoluciones']='DevolucionesController/index';
+$route['devoluciones']='DevolucionesController/devolucionesPorUsuario';
+$route['devolucionCaptura']='DevolucionesController/factura';
+$route['devolucionEditar/(:any)']='DevolucionesController/mostrarDatosDevolucion/$1';
+$route['devolucionEliminar/(:any)']='DevolucionesController/eliminarDevolucionCaptura/$1';
+$route['datosFactura/(:any)']='DevolucionesController/mostrarDatosFactura/$1';
+
 
 #otros
 #$route['ajax']='PlanRutaController/coordeneas';
-$route['ajax/(:any)']='ProspectosController/asentamientos/$1';
+#$route['ajax/(:any)']='ProspectosController/asentamientos/$1';
