@@ -402,8 +402,6 @@ class PlanRutaController extends CI_Controller {
         $datos['titulo'] = 'Datos Cliente';
 
         #Obtenemos la información del clientre de la base de datos
-        //$datos = array();
-
         $datos_cliente= $this->ClientesModel->ObtenerDatosCliente($cliente);
 
         #Recorremos el registro encontrado para asignar los valores a las varibles y mostrar l información en pantalla

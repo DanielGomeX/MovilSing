@@ -76,6 +76,13 @@
             </div>
 
             <div class="form-group" >
+                <label for="telefono" class="col-sm-2 control-label">Telefono:</label>
+                <div class="col-sm-8">
+                    <input type="text" id="telefono" name="telefono" value="<?php echo utf8_encode($telefono); ?>" class="form-control" tabindex="8" readonly/>
+                </div>
+            </div>
+
+            <div class="form-group" >
                 <label for="email" class="col-sm-2 control-label">email:</label>
                 <div class="col-sm-8">
                     <input type="text" id="email" name="email" value="<?php echo $email; ?>" class="form-control" tabindex="9" readonly/>
@@ -149,7 +156,6 @@
 
             <div class="form-group">
                 <button  type="submit" id="btnPedido" class="col-sm-offset-2 btn btn-warning " tabindex="16">
-                    <!-- <span class="glyphicon glyphicon-file" aria-hidden="true"></span> --> 
                     <i class="fa fa-folder-open-o"></i>
                     Registar Pedido
                 </button>

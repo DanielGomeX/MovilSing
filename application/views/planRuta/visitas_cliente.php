@@ -51,7 +51,7 @@
         <!-- FORMULARIO PARA LA CAPTURA DE UNA VISITA NO EXITOSA -->
         <form action='<?php echo base_url(); ?>PlanRutaController/registrarVisitaNoExitosa' method="post">
             <div class="form-group">
-                <label for="comentario">Registrar una visita NO exitosa:</label>
+                <label for="comentario">En caso de no haber registrado un pedido o una cobranza deberá registrar un comentario referente a la visita :</label>
                 <input type="text" id="comentario" name="comentario" class="form-control" autocomplete="off" tabindex="1"  placeholder="breve motivo por lo que no fue exitosa la visita" />
                 <?php echo form_error('comentario'); ?>
             </div>

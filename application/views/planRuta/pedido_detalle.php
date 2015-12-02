@@ -17,7 +17,7 @@
             <?php echo "Partidas: ".$total_partidas;  ?>
         </div>
         <div>
-            <?php echo "Importe: ".'$'.number_format(round($subtotal, 2),2); ?>
+            <?php echo "Importe antes de impuestos: ".'$'.number_format(round($subtotal, 2),2); ?>
         </div>
 
         <!-- TABLA DE PRODUCTOS REGISTRADOS -->
