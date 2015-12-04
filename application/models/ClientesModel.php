@@ -182,5 +182,18 @@ class ClientesModel extends AbstractModel {
     }
 
 
+    /**
+     * Obtiene aquellas partidas que se encuentran actualmente en BackOrder
+     * @param  [string] $usuario  [usuario del cual se van a obtener las cobranzas registradas]
+     * @return [arreglo]          [registros encontrados]
+     */
+    public function obtenerBackOrder($usuario) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerBackOrder (?)}";
 
+        # asignamos los valores de los parametros
+        $this->params = array($usuario);
+
+        return $this->get_rows();
+    }
 }

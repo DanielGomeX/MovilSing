@@ -61,6 +61,7 @@
               <li role="separator" class="divider"></li>
               <li><?php echo anchor('visitas_periodo','Visitas Periodo') ?></li>
               <li><?php echo anchor('cobranza_periodo','Cobranza Periodo') ?></li>
+              <li><?php echo anchor('back_order','Back Order') ?></li>
             </ul>
           </li>
 

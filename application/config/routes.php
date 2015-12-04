@@ -90,6 +90,7 @@ $route['retenidos']='ReportesController/pedidosRetenidos';
 $route['pendientes']='ReportesController/pedidosPendientes';
 $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
+$route['back_order']='ReportesController/backOrder';
 
 #Devoluciones
 #$route['devoluciones']='DevolucionesController/index';

@@ -97,6 +97,23 @@ class ReportesController extends CI_Controller {
         $this->load->view('plantillas/master_page', $datos);
 	}
 
+
+    /**
+     * Muestra la información encontrada correspondiente a la cobranza registradas en el periodo actual
+     * @return [null]
+     */
+    public function backOrder() {
+
+        $datos['titulo']='BackOrder';
+        $datos['vista']='reportes/back_order';
+
+        #obtenemos datos referentes al resumen del pedido
+        $datos['backOrder'] = $this->ClientesModel->obtenerDatosCliente($this->session->usuario);
+
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+
 }
 
 /* End of file ReportesController.php */
