@@ -91,9 +91,9 @@ $route['pendientes']='ReportesController/pedidosPendientes';
 $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
 $route['back_order']='ReportesController/backOrder';
+$route['indicadores_ventas']='ReportesController/indicadoresVentasUsuario';
 
 #Devoluciones
-#$route['devoluciones']='DevolucionesController/index';
 $route['devoluciones']='DevolucionesController/devolucionesPorUsuario';
 $route['devolucionCaptura']='DevolucionesController/factura';
 $route['devolucionEditar/(:any)']='DevolucionesController/mostrarDatosDevolucion/$1';

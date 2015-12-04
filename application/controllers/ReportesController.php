@@ -19,7 +19,6 @@ class ReportesController extends CI_Controller {
         }
     }
 
-
     /**
      * Muestra los pedidos del usuario con status de liberado (L) del periodo actual
      * @return [null]
@@ -97,9 +96,8 @@ class ReportesController extends CI_Controller {
         $this->load->view('plantillas/master_page', $datos);
 	}
 
-
     /**
-     * Muestra la información encontrada correspondiente a la cobranza registradas en el periodo actual
+     * Muestra la información encontrada correspondiente a las partidas que se encuentran actualmente con BackOrder
      * @return [null]
      */
     public function backOrder() {
@@ -109,6 +107,29 @@ class ReportesController extends CI_Controller {
 
         #obtenemos datos referentes al resumen del pedido
         $datos['backOrder'] = $this->ClientesModel->obtenerDatosCliente($this->session->usuario);
+
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+    /**
+     * Muestra la información encontrada correspondiente a las partidas que se encuentran actualmente con BackOrder
+     * @return [null]
+     */
+    public function indicadoresVentasUsuario() {
+
+        $datos['titulo']='Indicadores';
+        $datos['vista']='reportes/indicadores_ventas';
+
+        #obtenemos datos referentes al resumen del pedido
+        $respuesta = $this->ClientesModel->indicadoresVentasUsuario($this->session->usuario);
+
+        $datos['ObjMensual']=$respuesta[0]['ObjMensual'];
+        $datos['FactMensual']=$respuesta[0]['FactMensual'];
+        $datos['CobMensual']=$respuesta[0]['CobMensual'];
+        $datos['Faltan']=$respuesta[0]['Faltan'];
+        $datos['ObjDia']=$respuesta[0]['ObjDia'];
+        $datos['MontoPedidosLib']=$respuesta[0]['MontoPedidosLib'];
+        $datos['MontoPedidosret']=$respuesta[0]['MontoPedidosret'];
 
         $this->load->view('plantillas/master_page', $datos);
     }

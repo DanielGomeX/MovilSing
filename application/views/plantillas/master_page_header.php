@@ -47,7 +47,7 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><?php echo anchor('#','Indicadores') ?></li>
+          <!-- <li><?php echo anchor('#','Indicadores') ?></li> -->
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
           <li><?php echo anchor('prospectos','Prospectos') ?></li>
           <li><?php echo anchor('devoluciones','Devoluciones') ?></li>
@@ -62,6 +62,7 @@
               <li><?php echo anchor('visitas_periodo','Visitas Periodo') ?></li>
               <li><?php echo anchor('cobranza_periodo','Cobranza Periodo') ?></li>
               <li><?php echo anchor('back_order','Back Order') ?></li>
+              <li><?php echo anchor('indicadores_ventas','Indicadores') ?></li>
             </ul>
           </li>
 

@@ -196,4 +196,21 @@ class ClientesModel extends AbstractModel {
 
         return $this->get_rows();
     }
+
+    /**
+     * Obtiene aquellas partidas que se encuentran actualmente en BackOrder
+     * @param  [string] $usuario  [usuario del cual se van a obtener las cobranzas registradas]
+     * @return [arreglo]          [registros encontrados]
+     */
+    public function indicadoresVentasUsuario($usuario) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_IndicadoresVentas (?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($usuario);
+
+        return $this->get_rows();
+    }
+
+
 }
