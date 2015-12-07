@@ -1,13 +1,13 @@
 <article class="row">
 
-    <div class="col-md-10">
+    <div class="col-md-8 col-md-offset-2">
 
         <h2 class="texto-centrado">Indicadores del Mes</h2>
 
         <br>
 
         <!-- FROMULARIO PARA MOSTRAR LOS DATOS GENERALES DEL CLIENTE Y REGISTRAR UN NUEVO PEDIDO-->
-        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>pedido">
+        <form class="form-horizontal">
 
             <div class="form-group">
                 <label for="ObjMensual" class="col-sm-4 control-label">Objetivo Venta (Mes Actual):</label>
