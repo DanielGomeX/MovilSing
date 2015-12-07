@@ -274,10 +274,16 @@ class PlanRutaController extends CI_Controller {
             $visita=$this->ClientesModel->registrarVisita($cliente,$usuario, $motivo, strtoupper($comentario), "cliente");
 
             #limpiamos variables de sesión referentes al pedido
-            unset($_SESSION['cliente']);
+            //unset($_SESSION['cliente']);
             unset($_SESSION['pedido']);
+
+
             # direccionamos la aplicación al plan de ruta
-            redirect('planruta');
+            //redirect('planruta');
+
+            $datos['vista']='planRuta/que_deseas_hacer';
+            $datos['mensaje']='¿Qué deseas hacer ahora...?';
+            $this->load->view('plantillas/master_page', $datos);
         }
     }
 

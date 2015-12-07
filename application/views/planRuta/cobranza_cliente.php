@@ -90,10 +90,22 @@
 
         <br>
 
-        <a class="btn btn-warning" role="button" href="<?php echo base_url() ?>registrar_cobranza">
-            <i class="fa fa-usd"></i>
-            Registrar
-        </a>
+        <div>
+
+            <a class="btn btn-warning" role="button" href="<?php echo base_url() ?>registrar_cobranza">
+                <i class="fa fa-usd"></i>
+                Registrar Cobranza
+            </a>
+
+            <a class="btn btn-warning" role="button" href="<?php echo base_url() ?>pedido">
+                <i class="fa fa-folder-open-o"></i>
+                Registrar Pedido
+            </a>
+
+
+
+        </div>
+
 
     </div><!-- //columna -->
 
