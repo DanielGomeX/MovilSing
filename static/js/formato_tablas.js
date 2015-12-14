@@ -75,7 +75,7 @@ $(function(){
     $('#tbPedidosLiberados').DataTable({
         "searching": true,
         "paging": true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "language": {
@@ -106,7 +106,7 @@ $(function(){
     $('#tbPedidosRetenidos').DataTable({
         "searching": true,
         "paging": true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "language": {
@@ -138,7 +138,7 @@ $(function(){
     $('#tbPedidosPendientes').DataTable({
         "searching": true,
         "paging": true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "language": {
@@ -169,7 +169,7 @@ $(function(){
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbCobranzaPeriodo').DataTable({
         "paging":   true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "bInfo":false,
@@ -185,7 +185,7 @@ $(function(){
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbVisitasPeriodo').DataTable({
         "paging":   true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "bInfo":false,
@@ -205,7 +205,7 @@ $(function(){
     $('#tbProspectos').DataTable({
         "searching": true,
         "paging": true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "language": {
@@ -302,7 +302,7 @@ $(function(){
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbBackOrder').DataTable({
         "paging":   true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "bInfo":false,

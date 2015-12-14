@@ -120,11 +120,11 @@ class DevolucionesController extends CI_Controller {
 
     public function localWS() {
 
-        //$url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
+        $url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
         //$url="https://label.estafeta.com/EstafetaLabel20/services/EstafetaLabelWS?wsdl";
         //$url="http://www.aeroflashonline.com.mx/aero_guiaweb/AE_WSGuide.asmx?wsdl";
         //$url="http://www.tinypack.mx/tpclientes/public/index.php/webservice?wsdl";
-        $url="http://187.141.146.60:8082/wsPaquetexpress/services/DocumentacionSOAP?wsdl";
+        //$url="http://187.141.146.60:8082/wsPaquetexpress/services/DocumentacionSOAP?wsdl";
 
         $client = new SoapClient($url);
 
