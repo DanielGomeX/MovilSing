@@ -7,13 +7,13 @@
         <!-- FROMULARIO DE CAPTURA PARA LA SOLICITUD DE GUIAS -->
         <form class="form-horizontal" method="post" action="<?php echo base_url() ?>DevolucionesController/registrarGuiaDevolucion">
 
-            <div class="form-group">
+<!--             <div class="form-group">
                 <label for="remitente" class="col-sm-2 control-label">Remitente:</label>
                 <div class="col-sm-10">
                     <input type="text" id="remitente" name="remitente" value="<?php echo  set_value('remitente'); ?>" class="form-control" tabindex="1" autocomplete="off" />
                     <?php echo form_error('remitente'); ?>
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -24,14 +24,16 @@
 
                     <select class="form-control" name="transportista" tabindex="2">
                       <option selected disabled value="">Seleccione un Transportista</option>
-                      <option value="ESTAFETA" <?php echo  set_select('transportista', 'ESTAFETA');?> >ESTAFETA</option>
-                      <option value="ESTAFETA LTL" <?php echo  set_select('transportista', 'ESTAFETA LTL');?> >ESTAFETA TARIMA</option>
+                      <option value="EF" <?php echo  set_select('transportista', 'EF');?> >ESTAFETA</option>
+                      <!--
+                      <option value="EF LTL" <?php echo  set_select('transportista', 'EF LTL');?> >ESTAFETA TARIMA</option>
                       <option value="TINYPACK" <?php echo  set_select('transportista', 'TINYPACK');?> >TINYPACK</option>
                       <option value="VENCEDOR" <?php echo  set_select('transportista', 'VENCEDOR');?> >VENCEDOR</option>
                       <option value="AEROFLASH" <?php echo  set_select('transportista', 'AEROFLASH');?> >AEROFLASH</option>
                       <option value="PMM" <?php echo  set_select('transportista', 'PMM');?> >PMM</option>
                       <option value="PAQUETEXPRESS" <?php echo  set_select('transportista', 'PAQUETEXPRESS');?> >PAQUETEXPRESS</option>
                       <option value="OTRO" <?php echo  set_select('transportista', 'OTRO');?> >OTRO (Especifique)</option>
+                      -->
                     </select>
                     <?php echo form_error('transportista'); ?>
                 </div>
@@ -47,27 +49,27 @@
             </div>
 
             <div class="form-group">
-                <label for="direccion1" class="col-sm-2 control-label">Calle:</label>
+                <label for="calle" class="col-sm-2 control-label">Calle:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="direccion1" name="direccion1" value="<?php echo  set_value('direccion1'); ?>" class="form-control" tabindex="4" autocomplete="off" />
-                    <?php echo form_error('direccion1'); ?>
+                    <input type="text" id="calle" name="calle" value="<?php echo  set_value('calle'); ?>" class="form-control" tabindex="4" autocomplete="off" />
+                    <?php echo form_error('calle'); ?>
                 </div>
             </div>
 
 
             <div class="form-group">
-                <label for="direccion2" class="col-sm-2 control-label">Número:</label>
+                <label for="numero" class="col-sm-2 control-label">Número:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="direccion2" name="direccion2" value="<?php echo  set_value('direccion2'); ?>" class="form-control" tabindex="5"  autocomplete="off"/>
-                    <?php echo form_error('direccion2'); ?>
+                    <input type="text" id="numero" name="numero" value="<?php echo  set_value('numero'); ?>" class="form-control" tabindex="5"  autocomplete="off"/>
+                    <?php echo form_error('numero'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="direccion3" class="col-sm-2 control-label">Colonia:</label>
+                <label for="colonia" class="col-sm-2 control-label">Colonia:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="direccion3" name="direccion3" value="<?php echo  set_value('direccion3'); ?>" class="form-control" tabindex="6" autocomplete="off"/>
-                    <?php echo form_error('direccion3'); ?>
+                    <input type="text" id="colonia" name="colonia" value="<?php echo  set_value('colonia'); ?>" class="form-control" tabindex="6" autocomplete="off"/>
+                    <?php echo form_error('colonia'); ?>
                 </div>
             </div>
 
@@ -112,13 +114,13 @@
             </div>
             -->
 
-            <div class="form-group">
+<!--             <div class="form-group">
                 <label for="tel1" class="col-sm-2 control-label">Mi telefono:</label>
                 <div class="col-sm-10">
                     <input type="text" id="tel1" name="tel1" value="<?php echo  set_value('tel1'); ?>" class="form-control" tabindex="11" autocomplete="off"/>
                     <?php echo form_error('tel1'); ?>
                 </div>
-            </div>
+            </div> -->
 
             <!--
             <div class="form-group">
@@ -144,10 +146,11 @@
                 <div>
                     <strong>
                     <p class="texto-centrado texto-color-azul">
-                        Una vez registrados sus datos, le seran enviados por correo electronico los archivos PDF correspondientes a las guias de los paquetes solicitados.
-                        En caso de que aplique para la paquetería seleccionada.
+                        Una vez registrados los datos datos, se generarán las guias de envío corrrespondientes en automático, las cuales le serán enviadas por correo electronico
+                        como una archivo adjunto de formato PDF el cual posteriormente tendra que imprimir y pegar en los paquetes solicitados. <br>
+                        En caso de que las guias no le lleguen a su correo debrá intentarlo nuevamente para verificar si fué un error de conexión o quizá exista 
+                        algún problema, en caso de que el problema persiste, favor de reportarlo al departamento de T.I.
                     </p>
-
                     </strong>
 
                 </div>

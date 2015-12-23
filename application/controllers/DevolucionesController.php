@@ -12,7 +12,6 @@ class DevolucionesController extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('GlobalModel');
 
-
         #si el usuario no está autenticado, se redirecciona para que se registre
         if($this->session->logged_in<>"SI")
         {
@@ -28,32 +27,6 @@ class DevolucionesController extends CI_Controller {
         $url="https://tracking.estafeta.com/Service.asmx?wsdl";
         $client = new SoapClient($url);
 
-        /*
-        $contextOptions = array(
-            'ssl' => array(
-                'verify_peer'   => false,
-                'verify_peer_name' => false,
-                'allow_self_signed' => true
-            ),
-            'http' => array(
-                'timeout' => 5 //seconds
-            )
-        );
-
-        //create stream context
-        $stream_context = stream_context_create($contextOptions);
-
-        //create client instance (over HTTPS)  ESTAFETA
-        $client = new SoapClient('https://tracking.estafeta.com/Service.asmx?wsdl', array(
-            'cache_wsdl'  => WSDL_CACHE_NONE,
-            'exceptions' => 1,
-            'trace' => 1,
-            'stream_context' => $stream_context,
-            #'soap_version'=> SOAP_1_1,
-            'connection_timeout' => 5 //seconds
-        ));//SoapClient
-
-        */
 
         $ArrayOfString = array('6055027300654700200626');
 
@@ -106,48 +79,52 @@ class DevolucionesController extends CI_Controller {
         echo "Guia: ". $TrackingData->TrackingData->statusENG;
         echo "Guia: ". $TrackingData->TrackingData->statusSPA;
 
-
-        /*
-        foreach ($TrackingData->TrackingData as $valor) {
-            echo $valor;
-        }
-        */
-
         $datos['vista'] = 'devoluciones/devoluciones';
 
         $this->load->view('plantillas/master_page', $datos);
     }
 
-    public function localWS() {
-
-        $url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
-        //$url="https://label.estafeta.com/EstafetaLabel20/services/EstafetaLabelWS?wsdl";
-        //$url="http://www.aeroflashonline.com.mx/aero_guiaweb/AE_WSGuide.asmx?wsdl";
-        //$url="http://www.tinypack.mx/tpclientes/public/index.php/webservice?wsdl";
-        //$url="http://187.141.146.60:8082/wsPaquetexpress/services/DocumentacionSOAP?wsdl";
-
-        $client = new SoapClient($url);
-
-        $fcs = $client->__getFunctions();
-        var_dump($fcs);
-
-        $datos['vista'] = 'devoluciones/devoluciones';
-
-        $this->load->view('plantillas/master_page', $datos);
-    }
-
-    public function crearGuiaEstafeta() {
+    public function localWS($datos) {
 
         //$url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
-        $url="https://label.estafeta.com/EstafetaLabel20/services/EstafetaLabelWS";
+        $url="http://localhost:6963/WebService1.asmx?wsdl";
+
         $client = new SoapClient($url);
 
-        $fcs = $client->__getFunctions();
-        var_dump($fcs);
+        //$fcs = $client->__getFunctions();
+        //var_dump($fcs);
 
-        $datos['vista'] = 'devoluciones/devoluciones';
+        $res = new StdClass();
 
-        $this->load->view('plantillas/master_page', $datos);
+        /*
+        $res = $client->SolicitarGuiasDevolucion(array('pIdAnomalia' => '3609',
+                                                       'pTransportista' => 'EF',
+                                                       'pOficina' => '1',
+                                                       'pRemitente' => $this->usuaio;,
+                                                       'pDireccion1' => 'Gregorio Ruiz Velazco',
+                                                       'pDireccion2' => '201',
+                                                       'pDireccion3' => 'Gregorio Ruiz Velazco',
+                                                       'pCiudad' => 'Aguascalientes',
+                                                       'pEstado' => 'Aguascalientes',
+                                                       'pCp' => '20290',
+                                                       'pPaquetes' => '1',
+                                                       'pPeso' => '1',
+                                                       'pAtencionA' => 'Rocio Puentes',
+                                                       'pTel1' => '4491056610',
+                                                       )
+                                                );
+        */
+
+        $res = $client->SolicitarGuiasDevolucion($datos);
+
+        if ($res)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     /**************** FIN PRUEBAS WEBSERVICE **********************/
@@ -232,27 +209,9 @@ class DevolucionesController extends CI_Controller {
         $datos['pesoPaquetes']=$datos_factura[0]['PesoPaquetes'];
         $datos['monto']=$datos_factura[0]['Monto'];
         $datos['monto2']=$datos_factura[0]['Monto2'];
-        //$datos['shipperid']=$datos_factura[0]['Shipperid'];
-        //$datos['custOrdNbr']=$datos_factura[0]['CustOrdNbr'];
-        //$datos['comentarioAcuse']=$datos_factura[0]['ComentarioAcuse'];
-        //$datos['zona']=$datos_factura[0]['Zona'];
-        //$datos['vendedor']=$datos_factura[0]['Vendedor'];
 
         $datos['vista'] = 'devoluciones/datos_factura';
         $this->load->view('plantillas/master_page', $datos);
-
-        /*
-        //Si la zona de ventas es igual al usuario logeado, entonces mostramos los datos de la factura
-        if(trim($datos['zona'])==trim($this->session->usuario))
-        {
-            $datos['vista'] = 'devoluciones/datos_factura';
-            $this->load->view('plantillas/master_page', $datos);
-        }
-        else {
-            $datos['mensaje']="Esta factura no pertenece a tu zona de ventas.";
-            $datos['vista'] = 'errors/aviso';
-            $this->load->view('plantillas/master_page', $datos);
-        }*/
     }
 
     /**
@@ -284,6 +243,7 @@ class DevolucionesController extends CI_Controller {
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+
 
     /**
      * Guarda registro de devolución de la factura seleccionada en la base de datos y crea las variables se session
@@ -326,8 +286,6 @@ class DevolucionesController extends CI_Controller {
         $datos['vista'] = 'devoluciones/captura_devolucion';
 
         $resp=$this->DevolucionesModel->obtenerDatosDevolucion($idAnomalia);
-
-        //$total_paquetes=$this->DevolucionesModel->obtenerDatosDevolucion($idAnomalia);
 
         $datos['anomalia'] = $idAnomalia;
         $datos['invcNbr']=$resp[0]['InvcNbr'];
@@ -581,17 +539,17 @@ class DevolucionesController extends CI_Controller {
 
         #Establecemos las reglas de validación
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-        $this->form_validation->set_rules('remitente','Remitente', 'required');
+        //$this->form_validation->set_rules('remitente','Remitente', 'required');
         $this->form_validation->set_rules('transportista', 'Transportista', 'required');
         $this->form_validation->set_rules('oficina', 'Oficina', 'required|numeric');
-        $this->form_validation->set_rules('direccion1', 'Calle', 'required');
-        $this->form_validation->set_rules('direccion2', 'Número', 'required|numeric');
-        $this->form_validation->set_rules('direccion3', 'Colonia', 'required');
+        $this->form_validation->set_rules('calle', 'Calle', 'required');
+        $this->form_validation->set_rules('numero', 'Número', 'required|numeric');
+        $this->form_validation->set_rules('colonia', 'Colonia', 'required');
         $this->form_validation->set_rules('ciudad', 'Ciudad', 'required');
         $this->form_validation->set_rules('estado', 'Estado', 'required');
-        $this->form_validation->set_rules('cp', 'cp', 'required|numeric|exact_length[5]');
+        $this->form_validation->set_rules('cp', 'CP', 'required|numeric|exact_length[5]');
         $this->form_validation->set_rules('paquetes', 'paquetes', 'required|is_natural_no_zero|max_length[2]');
-        $this->form_validation->set_rules('tel1', 'Teléfono', 'required|numeric|exact_length[10]');
+        //$this->form_validation->set_rules('tel1', 'Teléfono', 'required|numeric|exact_length[10]');
         $this->form_validation->set_rules('atencion', 'Atención a', 'required');
 
         #Validamos el formulario, si es igual a false, entonces algún campo no cumple con las reglas establecidas
@@ -602,9 +560,9 @@ class DevolucionesController extends CI_Controller {
             $devolucion=$this->session->devolucion;
             $remitente =  $this->input->post('remitente');
             $oficina =  $this->input->post('oficina');
-            $direccion1 = $this->input->post('direccion1');
-            $direccion2 = $this->input->post('direccion2');
-            $direccion3 = $this->input->post('direccion3');
+            $calle = $this->input->post('calle');
+            $numero = $this->input->post('numero');
+            $colonia = $this->input->post('colonia');
             $ciudad = $this->input->post('ciudad');
             $estado = $this->input->post('estado');
             $cp =  $this->input->post('cp');
@@ -618,9 +576,9 @@ class DevolucionesController extends CI_Controller {
                                 $devolucion,
                                 $oficina,
                                 $remitente,
-                                $direccion1,
-                                $direccion2,
-                                $direccion3,
+                                $calle,
+                                $numero,
+                                $colonia,
                                 $ciudad,
                                 $estado,
                                 $cp,
@@ -635,12 +593,28 @@ class DevolucionesController extends CI_Controller {
             #ejecutamos query
             $respuesta=$this->DevolucionesModel->registrarGuiaDevolucion($parametrosGuia);
 
-            if ($respuesta==1) {
+            //Se invoca al WebService para poder generar las guias y enviarlas por correo al usuario
+            $datosGuia = array('pNoAnomalia' => $devolucion,
+                               'pCveTransportista' => $transportista,
+                               'pOficina' => $oficina,
+                               'pCalle' => $calle,
+                               'pNumero' => $numero,
+                               'pColonia' => $colonia,
+                               'pCiudad' => $ciudad,
+                               'pEstado' => $estado,
+                               'pCp' => $cp,
+                               'pPaquetes' => $paquetes,
+                               'pAtencionA' => $atenacionA,
+                               );
+
+            $respuestaWS=$this->localWS($datosGuia);
+
+            if ($respuestaWS==1) {
                 //Si se guardó corretamenete el registro, entonces redireccionamos al usuaerio a la sección de Devoluciones
                 redirect('devoluciones');
             }
             else{
-                $datos['mensaje']="Ocurrio un error al tratar de guardar los datos para generar la guia.";
+                $datos['mensaje']="Ocurrio un error al tratar de guardar los datos para generar la guia, intentar nuevamente en unos minutos más, en caso de volver a ocurrir reportarlo a Sistemas.";
                 $datos['vista'] = 'errors/error';
                 $this->load->view('plantillas/master_page', $datos);
             }
