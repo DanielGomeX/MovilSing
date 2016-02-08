@@ -669,4 +669,37 @@ class PlanRutaController extends CI_Controller {
     }
 
 
+
+    /**
+     *  Muestra los diferentes plazos (condiciones de crédito) que se pueden elegiar para cambiar el plazo de un pedido
+     * @return
+     */
+    public function mostrarCondicionesPagoEspecial(){
+
+        $this->validaSessionPedido();
+
+        $datos['titulo']='Condiciones Pago';
+
+        #obtenemos la información de la BD
+        $datos['condicionesPago'] = $this->PedidosModel->obtenerCondicionesPagoEspecial();
+
+        $datos['vista']='planRuta/condiciones_pago_cliente';
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+
+
+    /**
+     * Permite cambiar en la BD la consignación del pedido
+     * @param  [string] $consignacion [el número de identificación de la consignación que se cambiara]
+     * @return
+     */
+    public function cambiarCondicionPago($condicion){
+
+        #cambiamos la consignación del pedido en la BD
+        $this->PedidosModel->cambiarCondicionPagoEspecial($condicion, $this->session->pedido);
+        # regresamos a la  vista del resumen del pedido
+        $this->resumenPedido();
+    }
+
 }

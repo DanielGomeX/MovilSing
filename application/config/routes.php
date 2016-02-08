@@ -74,6 +74,8 @@ $route['buscar']='PlanRutaController/buscarProducto';
 $route['resumen']='PlanRutaController/ResumenPedido';
 $route['consignaciones']='PlanRutaController/mostrarConsignaciones';
 $route['retomar/(:any)']='PlanRutaController/retomarPedido/$1';
+$route['condicionesPago']='PlanRutaController/mostrarCondicionesPagoEspecial';
+
 
 #Prospectos
 $route['prospectos']='ProspectosController/index';

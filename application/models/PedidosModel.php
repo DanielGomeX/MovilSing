@@ -176,6 +176,38 @@ class PedidosModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
+    /**
+     * Se obtienen las diferentes condiciones (plazos) que se pueden otorgar para un pedido con plazo especial
+     * @return [arreglo]
+     */
+    public function obtenerCondicionesPagoEspecial() {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerCondicionesCreditoEspeciales}";
+
+        #asignamos los valoes de los parametros
+        //$this->params = array($cliente);
+
+        return $this->get_rows();
+    }
+
+    /**
+     * Permite cambiar la condición (plazo) original del pedido
+     * @param  [string] $condicion valor de la condicion de pago a cambiar
+     * @param  [string] $pedido    número de pedido al cual se le realizará el cambio de condición de pago
+     * @return []
+     */
+    public function cambiarCondicionPagoEspecial($condicion, $pedido) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_CambiarCondicionPagoEspecial (?,?)}";
+
+        #asignamos los valoes de los parametros
+        $this->params = array($condicion, $pedido);
+
+        return $this->execute_update();
+    }
+
+
 }
 
 

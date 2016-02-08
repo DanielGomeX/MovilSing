@@ -144,6 +144,10 @@
 						<label for="Condiciones Pago" class="col-sm-2 control-label">Condiciones Pago:</label>
 						<div class="col-sm-10">
 							<input type="text" name="cond_pago" value="<?php echo $cond_pago; ?>"  class="form-control" readonly>
+								<a href="<?php echo base_url(); ?>condicionesPago">
+									<i class="fa fa-truck"></i>
+									Cambiar
+								</a>
 						</div>
 					</div>
 
