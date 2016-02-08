@@ -307,8 +307,6 @@ class DevolucionesController extends CI_Controller {
 
         $datos['productos_devolucion'] =$this->DevolucionesModel->obtenerDetalleProductosDevolucion($this->session->devolucion);
 
-        $this->myvar = 'prueba';
-
         $this->load->view('plantillas/master_page', $datos);
     }
 
