@@ -21,8 +21,8 @@ class Login extends CI_Controller {
 
     # establecemos las reglas de validación requeridas
     $this->form_validation->set_rules('username', 'Username', 'trim|required');
-    #$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
-    $this->form_validation->set_rules('password', 'Password', 'trim|required');
+    $this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
+    //$this->form_validation->set_rules('password', 'Password', 'trim|required');
 
     if($this->form_validation->run() == FALSE)
     {

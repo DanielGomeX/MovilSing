@@ -56,6 +56,7 @@ $route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['logout']='principal/logout';
+$route['Pwd']='principal/Password';
 
 #Plan Ruta
 $route['planruta']='PlanRutaController/index';

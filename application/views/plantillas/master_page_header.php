@@ -68,7 +68,10 @@
 
         </ul>
 
-        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $this->session->usuario; ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a></span>
+        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $this->session->usuario; ?>
+          | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a>
+          | <a href="<?php echo base_url();?>Pwd" class="navbar-link"><i class="fa fa-lock"></i> Cambiar</a>
+        </span>
       </div><!--/.nav-collapse -->
     </div>
   </nav>

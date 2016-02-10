@@ -45,6 +45,26 @@ class GlobalModel extends AbstractModel {
 
 
     /**
+     * Permite cambiar el password del usuario
+     * @param  [type] $usuario  [identificador del usuario en la base de datos]
+     * @param  [type] $password [nuevo password que será  registrado en la base de datos]
+     * @return [int]          [valor entero con los registros afectados ]
+     */
+    public function cambiarPassword($usuario, $password) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_CambiarPassword (?,?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($usuario, $password);
+
+        return  $this->execute_update();
+    }
+
+
+
+
+
+    /**
      * Permite obtener el email que tiene registrado al supervisor del usuario
      * @param  [string] $usuario [description]
      * @return email
