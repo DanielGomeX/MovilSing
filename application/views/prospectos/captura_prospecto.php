@@ -50,6 +50,9 @@
          <!-- FROMULARIO PARA MOSTRAR LOS DATOS GENERALES DEL PROSPECTO -->
          <form class="form-horizontal" method="post" action="<?php echo base_url() ?>ProspectosController/registrarProspecto">
 
+            <!-- establecemos el status inicial como (C) "captura" para que el script no oculte los botons de CP y Regitrar Prospecto -->
+            <input type="hidden" id="status" name="status" value="C">
+
             <!-- Datos Generales -->
             <div class="form-group">
                 <label for="folio" class="col-sm-2 control-label">Folio:</label>
@@ -92,7 +95,7 @@
             </div>
 
             <div class="form-group">
-                <label for="rfc" class="col-sm-2 control-label">RFC</label>
+                <label for="rfc" class="col-sm-2 control-label">RFC:</label>
                 <div class="col-sm-10">
                     <input type="text" id="rfc" name="rfc" value="<?php echo  set_value('rfc'); ?>" class="form-control" tabindex="5" placeholder="12 caracteres persona física, 13 persona moral" autocomplete="off"/>
                     <?php echo form_error('rfc'); ?>
@@ -117,13 +120,14 @@
             </div>
 
             <div class="form-group">
-                <!-- este objeto ejecuta un javascript, ver script llamado prospectos.js -->
-                <button type="button" class="btn btn-primary btn-sm col-sm-offset-2 " id="btnCP" tabindex="8">
+                
+                <button type="button" class="btn btn-primary btn-sm col-sm-offset-2" id="btnCP" tabindex="8">
+                    <!-- este objeto ejecuta un javascript, ver script llamado prospectos.js  -->
                     <i class="fa fa-search"></i>
                     Código Postal
                 </button>
             </div>
-
+            
             <div class="form-group">
                 <label for="colonia" class="col-sm-2 control-label">Colonia:</label>
                 <div class="col-sm-10">

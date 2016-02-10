@@ -21,68 +21,6 @@ class DevolucionesController extends CI_Controller {
 
 
     /**************** PRUEBAS WEBSERVICE **********************/
-    public function index() {
-        $datos['titulo'] = 'Mis Devoluciones';
-
-        $url="https://tracking.estafeta.com/Service.asmx?wsdl";
-        $client = new SoapClient($url);
-
-
-        $ArrayOfString = array('6055027300654700200626');
-
-        $WaybillList = array('waybillType' => 'G',
-                             'waybills'=>$ArrayOfString
-                             );
-
-        $SearchType = array('type' => 'L',
-                            'waybillList'=>$WaybillList
-                            );
-
-
-        $HistoryConfiguration = array('includeHistory' => false);
-
-        $Filter = array('filterInformation' => false);
-
-
-        $SearchConfiguration = array('includeDimensions' => false,
-                                     'includeWaybillReplaceData' => false,
-                                     'includeReturnDocumentData' => false,
-                                     'includeMultipleServiceData' => false,
-                                     'includeInternationalData' => false,
-                                     'includeSignature' => false,
-                                     'includeCustomerInfo' => false,
-                                     'historyConfiguration'=> $HistoryConfiguration,
-                                     'filterType'=> $Filter
-                                    );
-
-
-        $fcs = $client->__getFunctions();
-        //var_dump($fcs);
-
-
-        $res = new StdClass();
-
-        $res = $client->ExecuteQuery(array('suscriberId' => '74',
-                                           'login' => '5027300',
-                                           'password' => 'EY5L48dI',
-                                           'searchType' => $SearchType,
-                                           'searchConfiguration' => $SearchConfiguration
-                                           )
-                                    );
-
-        //print_r($res);
-
-        echo 'Codigo: '.$resp=$res->ExecuteQueryResult->errorCode;
-        echo 'Descripcion: '.$resp2=$res->ExecuteQueryResult->errorCodeDescriptionSPA;
-
-        $TrackingData = $res->ExecuteQueryResult->trackingData;
-        echo "Guia: ". $TrackingData->TrackingData->statusENG;
-        echo "Guia: ". $TrackingData->TrackingData->statusSPA;
-
-        $datos['vista'] = 'devoluciones/devoluciones';
-
-        $this->load->view('plantillas/master_page', $datos);
-    }
 
     public function localWS($datos) {
 
