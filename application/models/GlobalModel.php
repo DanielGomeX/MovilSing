@@ -10,7 +10,6 @@ class GlobalModel extends AbstractModel {
         parent::__construct();
     }
 
-
     /**
      * Permite la salida del usuario en la aplicación registrandolo como desconectado en la BD
      * @param  [string] $usuario [identificador del usuario del cual se desconectará de la aplicacion en la BD]
@@ -25,7 +24,6 @@ class GlobalModel extends AbstractModel {
 
         $this->execute_update();
     }
-
 
     /**
      * Permite la entrada del usuario a la aplicación registrandolo como conectado en la BD
@@ -43,7 +41,6 @@ class GlobalModel extends AbstractModel {
         return $this->get_rows();
     }
 
-
     /**
      * Permite cambiar el password del usuario
      * @param  [type] $usuario  [identificador del usuario en la base de datos]
@@ -60,10 +57,6 @@ class GlobalModel extends AbstractModel {
         return  $this->execute_update();
     }
 
-
-
-
-
     /**
      * Permite obtener el email que tiene registrado al supervisor del usuario
      * @param  [string] $usuario [description]
@@ -79,7 +72,6 @@ class GlobalModel extends AbstractModel {
         return $this->get_row();
     }
 
-
     /**
      * Permite obtener el email que tiene registrado el usuario
      * @param  [string] $usuario [description]
@@ -94,7 +86,6 @@ class GlobalModel extends AbstractModel {
 
         return $this->get_row();
     }
-
 
     /**
      * Obtiene los destinatarios de correo del personal administrativo que sebe estar enterado de que se ha enviado una devolución

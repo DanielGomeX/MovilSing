@@ -85,6 +85,13 @@
                 Buscar Producto
             </button>
         </form>
+    </div><!-- //columna -->
+
+</article><!-- //renglon 1-->
+
+<article class="row">
+
+    <div class="col-md-10">
 
         <!-- TABLA DE PRODUCTOS ENCONTRADOS -->
         <div class="table-responsive">
@@ -156,7 +163,6 @@
             <?php endif;
             ?>
         </div>
-
     </div><!-- //columna -->
 
-</article><!-- //renglon -->
+</article><!-- //renglon 2-->

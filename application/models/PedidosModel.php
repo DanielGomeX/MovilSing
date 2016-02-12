@@ -2,7 +2,6 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-
 #línea requerida para poder heredar de la clase padre
 require_once APPPATH.'models/AbstractModel.php';
 
@@ -45,6 +44,13 @@ class PedidosModel extends AbstractModel {
         return $this->execute_update();
     }
 
+    /**
+     *  Procedimiento que analiza si un pedido puede ser liberado automáticamente
+     *  si el cliente tiene buenas condiciones crediticias, caso contrario,
+     *  se indica el motivo por el cual el pedido quedará retenido
+     * @param  [string] $pedido
+     * @return [null]
+     */
     public function aplicarCondicionesCrediticias($pedido) {
         $this->query="{call MovilSing_ProcesadorCondicionesCredito(?)}" ;
 
@@ -54,6 +60,11 @@ class PedidosModel extends AbstractModel {
         return $this->execute_update();
     }
 
+    /**
+     * Permite obtener los datos generales del pedido a manera de resumen
+     * @param  [string] $pedido
+     * @return [arreglo]
+     */
     public function obtenerDatosResumenPedido($pedido) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerDatosResumenPedido(?)}";
@@ -64,6 +75,12 @@ class PedidosModel extends AbstractModel {
         return $this->get_row();
     }
 
+    /**
+     * Permite cambiar la consignación default de un pedido
+     * @param  [string] $pedido
+     * @param  [string] $consignacion
+     * @return [arreglo]
+     */
     public function cambiarConsignacion($pedido, $consignacion) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_CambiarConsignacion(?,?)}";
@@ -74,6 +91,11 @@ class PedidosModel extends AbstractModel {
         $this->execute_update();
     }
 
+    /**
+     * Permite obtener las diferentes direcciones de consignación (envio) que tiene registradas el cliente
+     * @param  [string] $cliente
+     * @return [arreglo]
+     */
     public function obtenerConsignaciones($cliente) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerDireccionesConsignacion (?)}";
@@ -176,7 +198,6 @@ class PedidosModel extends AbstractModel {
         return $this->get_rows();
     }
 
-
     /**
      * Se obtienen las diferentes condiciones (plazos) que se pueden otorgar para un pedido con plazo especial
      * @return [arreglo]
@@ -206,7 +227,6 @@ class PedidosModel extends AbstractModel {
 
         return $this->execute_update();
     }
-
 
 }
 

@@ -51,11 +51,7 @@ class PlanRutaController extends CI_Controller {
                               );
         }
 
-        //echo print_r($json);
-
         echo json_encode($json);
-
-        //echo json_encode($planRuta);
     }
 
     /**
@@ -189,8 +185,7 @@ class PlanRutaController extends CI_Controller {
         } else {
             $cliente =  $this->session->cliente;
             $contiene = $this->input->post('descripcion');
-            $datos['productos'] = $this->PartidasModel->obtenerProductosPorDescripcion($cliente, $contiene);
-
+            $datos['productos'] = $this->PartidasModel->obtenerProductosPorFiltro($contiene);
             $this->load->view('plantillas/master_page', $datos);
         }
     }
@@ -274,12 +269,7 @@ class PlanRutaController extends CI_Controller {
             $visita=$this->ClientesModel->registrarVisita($cliente,$usuario, $motivo, strtoupper($comentario), "cliente");
 
             #limpiamos variables de sesión referentes al pedido
-            //unset($_SESSION['cliente']);
             unset($_SESSION['pedido']);
-
-
-            # direccionamos la aplicación al plan de ruta
-            //redirect('planruta');
 
             $datos['vista']='planRuta/que_deseas_hacer';
             $datos['mensaje']='¿Qué deseas hacer ahora...?';
@@ -577,8 +567,6 @@ class PlanRutaController extends CI_Controller {
             #asignamos las variables de session a variables locales
             $cliente=$this->session->cliente;
             $usuario=$this->session->usuario;
-
-            #si la página se validó correctamente
             $comentario = $this->input->post('comentario');
 
             #registramos la visita al cliente como visita de venta
@@ -658,16 +646,11 @@ class PlanRutaController extends CI_Controller {
         $datos['titulo']='Comentarios';
         $datos['vista']='planRuta/comentarios_pedido';
 
-        #asignamos el valor de la variable se session cliente a una variable local
-        //$cliente=$this->session->cliente;
-        //$usuario=$this->session->usuario;
-
         #Obtenemos los registros de las visitas realizadas
         $datos['comentarios'] = $this->PedidosModel->obtenerComentariosPedido($pedido);
 
         $this->load->view('plantillas/master_page', $datos);
     }
-
 
 
     /**
@@ -686,7 +669,6 @@ class PlanRutaController extends CI_Controller {
         $datos['vista']='planRuta/condiciones_pago_cliente';
         $this->load->view('plantillas/master_page', $datos);
     }
-
 
 
     /**

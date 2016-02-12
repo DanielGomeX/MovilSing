@@ -2,11 +2,8 @@
 
 
 class AbstractModel extends CI_Model {
-    ############################### PROPIEDADES ABSTRACTAS ################################
 
-    //private static $db_host = "srv-datos2\pruebas";
-    //private static $db_user = "desarrollo";
-    //private static $db_pass = "desarrollo";
+    ############################### PROPIEDADES ABSTRACTAS ################################
     private $db_host="";
     private $db_user = "";
     private $db_pass="";
@@ -34,7 +31,6 @@ class AbstractModel extends CI_Model {
             );
 
         # Establecemos la conexión con el servidor de base de datos
-        //$this->conn = sqlsrv_connect(self::$db_host, $parametrosConexion);
         $this->conn = sqlsrv_connect($this->config->item('db_host'), $parametrosConexion);
 
 
@@ -113,7 +109,10 @@ class AbstractModel extends CI_Model {
         $this->close_connection();
     }
 
-    # Traer resultados de una consulta en un Array (un solo registro con uno o varios campos)
+    /**
+     * Obtiene los resultados de una consulta  (un solo registro con uno o varios campos)
+     * @return [arreglo]
+     */
     protected function get_row() {
         #
         $result = sqlsrv_query($this->open_connection(), $this->query, $this->params);
@@ -134,7 +133,10 @@ class AbstractModel extends CI_Model {
         return $this->rows;
     }
 
-    # Traer resultados de una consulta en un Array (varios registros con uno o varios campos)
+    /**
+     * Obtiene los resultados de una consulta (varios registros con uno o varios campos)
+     * @return [arreglo] 
+     */
     protected function get_rows() {
 
         $result = array();
@@ -156,31 +158,6 @@ class AbstractModel extends CI_Model {
 
         return $result;
     }
-
-
-    /*
-    protected function get_multiple_rows() {
-
-        $result = array();
-
-        #
-        $sentencia = sqlsrv_query($this->open_connection(), $this->query, $this->params);
-
-        // Get return value
-        do {
-           while ($row = sqlsrv_fetch_array($sentencia, SQLSRV_FETCH_ASSOC)) {
-               // Loop through each result set and add to result array
-               $result[] = $row;
-           }
-        } while (sqlsrv_next_result($sentencia));
-
-        # Free statement and connection resources
-        sqlsrv_free_stmt($sentencia);
-        $this->close_connection();
-
-        return $result;
-    }
-    */
 
 
 }
