@@ -63,6 +63,7 @@
               <li><?php echo anchor('cobranza_periodo','Cobranza Periodo') ?></li>
               <li><?php echo anchor('back_order','Back Order') ?></li>
               <li><?php echo anchor('indicadores_ventas','Indicadores') ?></li>
+              <li><?php echo anchor('existencias','Consultar Existencias') ?></li>
             </ul>
           </li>
 

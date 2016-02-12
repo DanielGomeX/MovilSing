@@ -95,10 +95,11 @@ $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
 $route['back_order']='ReportesController/backOrder';
 $route['indicadores_ventas']='ReportesController/indicadoresVentasUsuario';
+$route['existencias']='ReportesController/Existencias';
+$route['buscarExistencia']='ReportesController/buscarExistencia';
 
 #Devoluciones
 $route['devoluciones']='DevolucionesController/devolucionesPorUsuario';
-#$route['devoluciones']='DevolucionesController/localWS';
 $route['devolucionCaptura']='DevolucionesController/factura';
 $route['devolucionEditar/(:any)']='DevolucionesController/mostrarDatosDevolucion/$1';
 $route['devolucionEliminar/(:any)']='DevolucionesController/eliminarDevolucionCaptura/$1';
