@@ -39,7 +39,7 @@
                 ?>
                 <!-- mostramos alerta color amarillo que indica que el producto ha tenido algún detalle al momento de regiostrarlo -->
                 <div class="alert alert-warning" role="alert">
-                    <i class="fa fa-exclamation-triangle"></i>&nbsp; <?php   echo $mensaje;
+                    <i class="fa fa-exclamation-triangle"></i>&nbsp; <?php echo $mensaje;
                     ?>
                 </div>
                 <?php endif;
