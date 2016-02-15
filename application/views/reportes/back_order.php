@@ -86,10 +86,10 @@
                             <?php echo utf8_encode($registro['CantBackOrder']); ?>
                         </td>
                         <td>
-                            <?php echo utf8_encode($registro['PrecioVenta']); ?>
+                            <?php echo '$'.number_format($registro['PrecioVenta']); ?>
                         </td>
                         <td>
-                            <?php echo utf8_encode($registro['Importe']); ?>
+                            <?php echo '$'.number_format($registro['Importe']); ?>
                         </td>
                     </tr>
                     <?php endforeach;

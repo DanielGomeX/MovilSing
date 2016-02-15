@@ -107,7 +107,7 @@ class ReportesController extends CI_Controller {
         $datos['vista']='reportes/back_order';
 
         #obtenemos datos referentes al resumen del pedido
-        $datos['backOrder'] = $this->ClientesModel->obtenerDatosCliente($this->session->usuario);
+        $datos['backOrder'] = $this->ClientesModel->obtenerBackOrder($this->session->usuario);
 
         $this->load->view('plantillas/master_page', $datos);
     }
