@@ -512,8 +512,8 @@ $config['proxy_ips'] = '';
 |
 */
 
-$config['db_host'] = 'srv-datos2\pruebas';
-#$config['db_host'] = 'srv-datos\produccion';
+#$config['db_host'] = 'srv-datos2\pruebas';
+$config['db_host'] = 'srv-datos\produccion';
 $config['db_user'] = 'desarrollo';
 $config['db_pass'] = 'desarrollo';
 $config['db_name'] = 'ApHecort';

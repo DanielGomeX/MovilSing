@@ -11,7 +11,7 @@
         <!--el objeto tbPedidosRetenidos ejecuta un plugin de js llamado DataTables (ver archivo formato_tablas.js)
             que sirve para aplicar diversos formatos a las tablas html
         -->
-        <div class="tabla-responsive">
+        <div class="table-responsive">
             <?php if (isset($pedidos)):
             ?>
             <table id="tbPedidosRetenidos" class="table table-hover table-condensed">
