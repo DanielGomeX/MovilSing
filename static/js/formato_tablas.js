@@ -46,8 +46,8 @@ $(function(){
                 "last":"Ultimo",
                 "next":"Siguiente",
                 "previous":"Anterior"
-            }
-        },
+            },
+        }
 
     });
 
@@ -61,7 +61,8 @@ $(function(){
         "ordering": false,
         "info":     false,
         "language": {
-            "search":" Buscar"
+            "search":" Buscar",
+            "emptyTable":"Ningún dato disponible en esta tabla"
         }
     });
 
@@ -72,13 +73,27 @@ $(function(){
     //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbPedidosLiberados').DataTable({
-        "paging":   true,
-        "ordering": false,
+        "searching": true,
+        "paging": true,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
-        "bInfo":false,
         "language": {
-            "search":" Buscar"
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
         }
 
     });
@@ -89,13 +104,27 @@ $(function(){
     //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbPedidosRetenidos').DataTable({
-        "paging":   true,
-        "ordering": false,
+        "searching": true,
+        "paging": true,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
-        "bInfo":false,
         "language": {
-            "search":" Buscar"
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
         }
 
     });
@@ -107,14 +136,29 @@ $(function(){
     //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbPedidosPendientes').DataTable({
-        "paging":   true,
-        "ordering": false,
+        "searching": true,
+        "paging": true,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
-        "bInfo":false,
         "language": {
-            "search":" Buscar"
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
         }
+
     });
 
 
@@ -125,7 +169,7 @@ $(function(){
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbCobranzaPeriodo').DataTable({
         "paging":   true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "bInfo":false,
@@ -141,7 +185,7 @@ $(function(){
     //y busqueda de elementos dentro de los valores de la tabla
     $('#tbVisitasPeriodo').DataTable({
         "paging":   true,
-        "ordering": false,
+        "ordering": true,
         "lengthMenu": [10],
         "bLengthChange" : false, //esta linea oculta el LengthMenu
         "bInfo":false,
@@ -149,5 +193,123 @@ $(function(){
             "search":" Buscar"
         }
     });
+
+
+
+
+    //Dónde se usa:
+    //En la vista (prospectos.php) en la tabla con el identificador tbProspectos
+    //Para que se usa:
+    //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
+    //y busqueda de elementos dentro de los valores de la tabla
+    $('#tbProspectos').DataTable({
+        "searching": true,
+        "paging": true,
+        "ordering": true,
+        "lengthMenu": [10],
+        "bLengthChange" : false, //esta linea oculta el LengthMenu
+        "language": {
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
+        }
+
+    });
+
+
+
+    //Dónde se usa:
+    //En la vista (agregar_producto_devolucion.php) en la tabla con el identificador tbProductosFacturaDevolucion
+    //Para que se usa:
+    //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
+    //y busqueda de elementos dentro de los valores de la tabla
+    $('#tbProductosFacturaDevolucion').DataTable({
+        "searching": true,
+        "paging": true,
+        "ordering": true,
+        "lengthMenu": [10],
+        "bLengthChange" : false, //esta linea oculta el LengthMenu
+        "language": {
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
+        }
+
+    });
+
+
+
+    //Dónde se usa:
+    //En la vista (captura_devolucion.php) en la tabla con el identificador tbProductosDevolucion
+    //Para que se usa:
+    //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
+    //y busqueda de elementos dentro de los valores de la tabla
+    $('#tbProductosDevolucion').DataTable({
+        "searching": false,
+        "paging": true,
+        "ordering": true,
+        "lengthMenu": [5],
+        "bLengthChange" : false, //esta linea oculta el LengthMenu
+        "language": {
+            "processing":"Procesando...",
+            "lengthMenu":"Mostrar _MENU_ registros",
+            "zeroRecords":"No se encontraron resultados",
+            "emptyTable":"Ningún dato disponible en esta tabla",
+            "info":"Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
+            "infoFiltered":"(filtrado de un total de _MAX_ registros)",
+            "loadingRecords": "Cargando...",
+            "search":" Buscar producto:",
+            "paginate": {
+                "first":"Primero",
+                "last":"Ultimo",
+                "next":"Siguiente",
+                "previous":"Anterior"
+            },
+        }
+
+    });
+
+
+    //Dónde se usa:
+    //En la vista (back_order.php) en la tabla con el identificador tbBackOrder
+    //Para que se usa:
+    //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
+    //y busqueda de elementos dentro de los valores de la tabla
+    $('#tbBackOrder').DataTable({
+        "paging":   true,
+        "ordering": true,
+        "lengthMenu": [10],
+        "bLengthChange" : false, //esta linea oculta el LengthMenu
+        "bInfo":false,
+        "language": {
+            "search":" Buscar"
+        }
+    });
+
 
 });

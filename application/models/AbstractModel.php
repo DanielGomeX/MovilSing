@@ -2,12 +2,12 @@
 
 
 class AbstractModel extends CI_Model {
-    ############################### PROPIEDADES ABSTRACTAS ################################
 
-    private static $db_host = "srv-datos2\pruebas";
-    private static $db_user = "desarrollo";
-    private static $db_pass = "desarrollo";
-    protected $db_name = "ApHecort";
+    ############################### PROPIEDADES ABSTRACTAS ################################
+    private $db_host="";
+    private $db_user = "";
+    private $db_pass="";
+    protected $db_name = "";
     protected $query; #se usa para asignar una consulta o el nombre del stored procedure a ejecutar
     protected $params = array();
     protected $rows = array();
@@ -24,14 +24,14 @@ class AbstractModel extends CI_Model {
     # Conectar a la base de datos
     private function open_connection() {
         $parametrosConexion = array(
-            "UID" => self::$db_user,
-            "PWD" => self::$db_pass,
-            "Database" => $this->db_name);
+            "UID" => $this->config->item('db_user'), //self::$db_user,
+            "PWD" => $this->config->item('db_pass'), //self::$db_pass,
+            "Database" => $this->config->item('db_name'), //$this->db_name
+            "CharacterSet" => "UTF-8"
+            );
 
         # Establecemos la conexión con el servidor de base de datos
-        $this->conn = sqlsrv_connect(self::$db_host, $parametrosConexion);
-
-        //return $this->conn;
+        $this->conn = sqlsrv_connect($this->config->item('db_host'), $parametrosConexion);
 
 
         if( $this->conn )
@@ -109,7 +109,10 @@ class AbstractModel extends CI_Model {
         $this->close_connection();
     }
 
-    # Traer resultados de una consulta en un Array (un solo registro con uno o varios campos)
+    /**
+     * Obtiene los resultados de una consulta  (un solo registro con uno o varios campos)
+     * @return [arreglo]
+     */
     protected function get_row() {
         #
         $result = sqlsrv_query($this->open_connection(), $this->query, $this->params);
@@ -130,7 +133,10 @@ class AbstractModel extends CI_Model {
         return $this->rows;
     }
 
-    # Traer resultados de una consulta en un Array (varios registros con uno o varios campos)
+    /**
+     * Obtiene los resultados de una consulta (varios registros con uno o varios campos)
+     * @return [arreglo] 
+     */
     protected function get_rows() {
 
         $result = array();
@@ -152,31 +158,6 @@ class AbstractModel extends CI_Model {
 
         return $result;
     }
-
-
-    /*
-    protected function get_multiple_rows() {
-
-        $result = array();
-
-        #
-        $sentencia = sqlsrv_query($this->open_connection(), $this->query, $this->params);
-
-        // Get return value
-        do {
-           while ($row = sqlsrv_fetch_array($sentencia, SQLSRV_FETCH_ASSOC)) {
-               // Loop through each result set and add to result array
-               $result[] = $row;
-           }
-        } while (sqlsrv_next_result($sentencia));
-
-        # Free statement and connection resources
-        sqlsrv_free_stmt($sentencia);
-        $this->close_connection();
-
-        return $result;
-    }
-    */
 
 
 }

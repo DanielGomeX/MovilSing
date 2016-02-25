@@ -7,6 +7,7 @@ class ReportesController extends CI_Controller {
         parent::__construct();
         $this->load->model('PedidosModel');
         $this->load->model('ClientesModel');
+        $this->load->model('PartidasModel');
 
         #cargamos la libreria para validación de formularios de forma global
         #ya que varios métodos mandan llamar al mismo formulario
@@ -18,7 +19,6 @@ class ReportesController extends CI_Controller {
              redirect('','refresh');
         }
     }
-
 
     /**
      * Muestra los pedidos del usuario con status de liberado (L) del periodo actual
@@ -96,6 +96,78 @@ class ReportesController extends CI_Controller {
 
         $this->load->view('plantillas/master_page', $datos);
 	}
+
+    /**
+     * Muestra la información encontrada correspondiente a las partidas que se encuentran actualmente con BackOrder
+     * @return [null]
+     */
+    public function backOrder() {
+
+        $datos['titulo']='BackOrder';
+        $datos['vista']='reportes/back_order';
+
+        #obtenemos datos referentes al resumen del pedido
+        $datos['backOrder'] = $this->ClientesModel->obtenerDatosCliente($this->session->usuario);
+
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+    /**
+     * Muestra la información encontrada correspondiente a las partidas que se encuentran actualmente con BackOrder
+     * @return [null]
+     */
+    public function indicadoresVentasUsuario() {
+
+        $datos['titulo']='Indicadores';
+        $datos['vista']='reportes/indicadores_ventas';
+
+        #obtenemos datos referentes al resumen del pedido
+        $respuesta = $this->ClientesModel->indicadoresVentasUsuario($this->session->usuario);
+
+        $datos['ObjMensual']=$respuesta[0]['ObjMensual'];
+        $datos['FactMensual']=$respuesta[0]['FactMensual'];
+        $datos['CobMensual']=$respuesta[0]['CobMensual'];
+        $datos['Faltan']=$respuesta[0]['Faltan'];
+        $datos['ObjDia']=$respuesta[0]['ObjDia'];
+        $datos['MontoPedidosLib']=$respuesta[0]['MontoPedidosLib'];
+        $datos['MontoPedidosret']=$respuesta[0]['MontoPedidosret'];
+
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+
+
+
+    public function Existencias() {
+        $datos['titulo']='Consulta Existencias';
+        $datos['vista']='reportes/existencias';
+        $this->load->view('plantillas/master_page', $datos);
+    }
+
+
+    /**
+     * Consulta en la base de datos aquellos productos que coincidan con el criterio de búsqueda capturado
+     * @return
+     */
+    public function buscarExistencia() {
+
+        # establecemos las reglas de validación correspondientes
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('descripcion', 'Buscar', 'required|min_length[3]|max_length[15]');
+
+        $datos['vista'] = 'reportes/existencias';
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->Existencias();
+        } else {
+            //$cliente =  $this->session->cliente;
+            $contiene = $this->input->post('descripcion');
+
+            $datos['productos'] = $this->PartidasModel->obtenerProductosPorFiltro($contiene);
+            $this->load->view('plantillas/master_page', $datos);
+        }
+    }
+
 
 }
 

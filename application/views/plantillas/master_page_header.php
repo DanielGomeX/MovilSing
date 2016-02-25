@@ -15,11 +15,20 @@
   <!-- DataTables -->
   <link href="<?php echo base_url();?>static/DataTables1.10.7/media/css/jquery.dataTables.css" rel="stylesheet">
 
+  <!--Font Awesome -->
+  <link href="<?php echo base_url();?>static/font-awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- Mis estilos -->
   <link href="<?php echo base_url();?>static/css/master_page.css" rel="stylesheet">
 
-  <!-- **********SCRIPTS GLOBALES********** -->
+
+  <!-- ********** SCRIPTS GLOBALES ********** -->
+
+  <!-- jQuery -->
   <script src="<?php echo base_url();?>static/js/jquery-1.11.3.min.js"></script>
+
+  <!-- jQuery Validation-->
+  <script src="<?php echo base_url();?>static/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
 
 
 </head>
@@ -38,10 +47,10 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li><?php echo anchor('#','Indicadores') ?></li>
+          <!-- <li><?php echo anchor('#','Indicadores') ?></li> -->
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
-          <li><?php echo anchor('#','Prospectos') ?></li>
-          <li><?php echo anchor('#','Devoluciones') ?></li>
+          <li><?php echo anchor('prospectos','Prospectos') ?></li>
+          <li><?php echo anchor('devoluciones','Devoluciones') ?></li>
           <!-- Submenú Reportes -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
@@ -52,16 +61,22 @@
               <li role="separator" class="divider"></li>
               <li><?php echo anchor('visitas_periodo','Visitas Periodo') ?></li>
               <li><?php echo anchor('cobranza_periodo','Cobranza Periodo') ?></li>
+              <li><?php echo anchor('back_order','Back Order') ?></li>
+              <li><?php echo anchor('indicadores_ventas','Indicadores') ?></li>
+              <li><?php echo anchor('existencias','Consultar Existencias') ?></li>
             </ul>
           </li>
 
         </ul>
 
-        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $_SESSION['usuario'] ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"> Salir</a></span>
+        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $this->session->usuario; ?>
+          | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a>
+          | <a href="<?php echo base_url();?>Pwd" class="navbar-link"><i class="fa fa-lock"></i> Cambiar</a>
+        </span>
       </div><!--/.nav-collapse -->
     </div>
   </nav>
-<?php else: ?>
+  <?php else: ?>
       <!-- Si existe una variable de sesion llamada cliente, entonces ocultamos el menu para completar
       de manera correcta el flujo de captura de un pedido -->
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -76,9 +91,8 @@
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <!--<li><?php echo anchor('logout','salir') ?></li>-->
             </ul>
-            <span class="navbar-text navbar-right"> Cliente: <?php echo $_SESSION['cliente'] ?> | <a href="<?php echo base_url();?>logout" class="navbar-link"> Salir</a></span>
+            <span class="navbar-text navbar-right"> <a href="<?php echo base_url();?>Principal/salirPlanRuta" class="navbar-link"><?php echo $this->session->cliente.' '.$this->session->nombre_cliente; ?></a> | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a></span>
           </div><!--/.nav-collapse -->
         </div>
       </nav>

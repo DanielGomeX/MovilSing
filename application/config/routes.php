@@ -51,35 +51,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 
-
 #$route['default_controller'] = 'principal';
-$route['default_controller'] = 'LoginController';
+$route['default_controller'] = 'Login';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-
 $route['logout']='principal/logout';
+$route['Pwd']='principal/Password';
 
 #Plan Ruta
-$route['ajax']='PlanRutaController/coordeneas';
 $route['planruta']='PlanRutaController/index';
 $route['cliente']='PlanRutaController/mostrarDatosCliente';
 $route['visitas']='PlanRutaController/mostrarVisitas';
 $route['entregas']='PlanRutaController/mostrarEntregas';
 $route['saldos']='PlanRutaController/mostrarSaldos';
 $route['cobranza']='PlanRutaController/mostrarCobranza';
+$route['registrar_cobranza']='PlanRutaController/registrarCobranza';
 $route['pedidos']='PlanRutaController/pedidosCliente';
+$route['pedido']='PlanRutaController/nuevo';
+$route['agregar']='PlanRutaController/agregarPartida';
+$route['partidas']='PlanRutaController/mostrarPartidas';
+$route['eliminar/(:num)']='PlanRutaController/eliminarPartida/$1';
+$route['buscar']='PlanRutaController/buscarProducto';
+$route['resumen']='PlanRutaController/ResumenPedido';
+$route['consignaciones']='PlanRutaController/mostrarConsignaciones';
+$route['retomar/(:any)']='PlanRutaController/retomarPedido/$1';
+$route['condicionesPago']='PlanRutaController/mostrarCondicionesPagoEspecial';
 
-#Pedidos
-$route['pedido']='PedidosController/nuevo';
-$route['retomar/(:any)']='PedidosController/retomarPedido/$1';
-$route['buscar']='PedidosController/buscarProducto';
-$route['partidas']='PedidosController/mostrarPartidas';
-$route['resumen']='PedidosController/ResumenPedido';
-$route['consignaciones']='pedidosController/mostrarConsignaciones';
 
-#Partidas
-$route['agregar']='PedidosController/agregarPartida';
-$route['eliminar/(:num)']='PedidosController/eliminarPartida/$1';
+#Prospectos
+$route['prospectos']='ProspectosController/index';
+$route['prospectoCaptura']='ProspectosController/nuevoProspecto';
+$route['registrarProspecto']='ProspectosController/registrarProspecto';
+$route['actualizarProspecto']='ProspectosController/actualizarProspecto';
+$route['prospectoDatos/(:num)']='ProspectosController/mostrarDatosProspecto/$1';
+$route['eliminarProspecto/(:num)']='ProspectosController/eliminarProspecto/$1';
+
 
 #Reportes
 $route['liberados']='ReportesController/pedidosLiberados';
@@ -87,3 +93,19 @@ $route['retenidos']='ReportesController/pedidosRetenidos';
 $route['pendientes']='ReportesController/pedidosPendientes';
 $route['visitas_periodo']='ReportesController/visitasPeriodo';
 $route['cobranza_periodo']='ReportesController/cobranzaPeriodo';
+$route['back_order']='ReportesController/backOrder';
+$route['indicadores_ventas']='ReportesController/indicadoresVentasUsuario';
+$route['existencias']='ReportesController/Existencias';
+$route['buscarExistencia']='ReportesController/buscarExistencia';
+
+#Devoluciones
+$route['devoluciones']='DevolucionesController/devolucionesPorUsuario';
+$route['devolucionCaptura']='DevolucionesController/factura';
+$route['devolucionEditar/(:any)']='DevolucionesController/mostrarDatosDevolucion/$1';
+$route['devolucionEliminar/(:any)']='DevolucionesController/eliminarDevolucionCaptura/$1';
+$route['datosFactura/(:any)']='DevolucionesController/mostrarDatosFactura/$1';
+
+
+#otros
+#$route['ajax']='PlanRutaController/coordeneas';
+#$route['ajax/(:any)']='ProspectosController/asentamientos/$1';

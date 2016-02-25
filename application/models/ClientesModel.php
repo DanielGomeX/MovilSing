@@ -10,6 +10,11 @@ class ClientesModel extends AbstractModel {
         parent::__construct();
     }
 
+    /**
+     * Obtiene los clientes que le toca visitar conforme al plan de ruta
+     * @param  [string] $zona
+     * @return [arreglo]
+     */
     public function clientesPlanRuta($zona){
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerClientesPlanRuta(?)}";
@@ -20,6 +25,13 @@ class ClientesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+    /**
+     *  Obtiene solo aquellos clientes activos asignados a la zona de ventas que coincidan con el criterio
+     *  de búsqueda espeficada
+     * @param  [string] $buscar [valor que se desea busca]
+     * @param  [string] $zona
+     * @return [arreglo]
+     */
     public function buscarClientes($buscar, $zona) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_BuscarClientes(?,?)}";
@@ -45,9 +57,8 @@ class ClientesModel extends AbstractModel {
         return $this->get_rows();
     }
 
-
     /**
-     * (Por implementar )Regresa las coordenas de geolocalización (latitud, longitud) registradas para el cliente
+     * Regresa las coordenas de geolocalización (latitud, longitud) registradas para el cliente
      * @param  [string] $cliente [número de cliente a consultar en la BD]
      * @return [arreglo]         [un solo registro con la información encontrada]
      */
@@ -60,7 +71,6 @@ class ClientesModel extends AbstractModel {
 
         return $this->get_rows();
     }
-
 
     /**
      * Permite buscar en la base de datos las últimas 5 visitas registradas al cliente seleccionado
@@ -112,6 +122,12 @@ class ClientesModel extends AbstractModel {
         $this->execute_insert();
     }
 
+    /**
+     * Lista los últimos 10 registros de cobranza realizadas al cliente seleccionado
+     * @param  [string] $cliente
+     * @param  [string] $usuario
+     * @return [type]
+     */
     public function obtenerCobranza($cliente, $usuario) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerUltimasCobranzas (?,?)}";
@@ -149,17 +165,21 @@ class ClientesModel extends AbstractModel {
      * @param  string $comentario  [generalmente se usa para registrar las facturas que avalan el pago recibido]
      * @return null
      */
-    public function registrarCobranza($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario)  {
+    public function registrarCobranza($usuario, $cliente, $formapago, $banco, $recibo, $importe, $referencia, $fechacobro, $comentario)  {
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_RegistrarCobranza(?,?,?,?,?,?,?,?)}";
+        $this->query = "{call MovilSing_RegistrarCobranza(?,?,?,?,?,?,?,?,?)}";
 
         #asignamos los valores de los parametros
-        $this->params = array($usuario, $cliente, $formapago, $recibo, $importe, $referencia, $fechacobro, $comentario);
+        $this->params = array($usuario, $cliente, $formapago, $banco, $recibo, $importe, $referencia, $fechacobro, $comentario);
 
         return $this->get_rows();
     }
 
-
+    /**
+     * Se obtienen las ultimas 5 facturas de un cliente
+     * @param  [string] $cliente
+     * @return [arreglo]
+     */
     public function obtenerEntregas($cliente) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerUltimasEntregas (?)}";
@@ -170,6 +190,11 @@ class ClientesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+    /**
+     * Lista los documentos abiertos (saldos vencidos) a mas de X días
+     * @param  [string] $cliente
+     * @return [type]
+     */
     public function obtenerSaldos($cliente) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerSaldosVencidos (?)}";
@@ -180,6 +205,35 @@ class ClientesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+    /**
+     * Obtiene aquellas partidas que se encuentran actualmente en BackOrder
+     * @param  [string] $usuario  [usuario del cual se van a obtener las cobranzas registradas]
+     * @return [arreglo]          [registros encontrados]
+     */
+    public function obtenerBackOrder($usuario) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerBackOrder (?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($usuario);
+
+        return $this->get_rows();
+    }
+
+    /**
+     * Obtiene aquellas partidas que se encuentran actualmente en BackOrder
+     * @param  [string] $usuario  [usuario del cual se van a obtener las cobranzas registradas]
+     * @return [arreglo]          [registros encontrados]
+     */
+    public function indicadoresVentasUsuario($usuario) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_IndicadoresVentas (?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($usuario);
+
+        return $this->get_rows();
+    }
 
 
 }
