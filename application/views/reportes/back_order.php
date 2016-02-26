@@ -43,12 +43,15 @@
                         <th>
                             Cant. BackOrder
                         </th>
+                        <!--                        
                         <th>
                             Precio Vta
                         </th>
+
                         <th>
                             Importe
                         </th>
+                    -->
                     </tr>
                 </thead>
                 <tbody>
@@ -85,12 +88,15 @@
                         <td>
                             <?php echo utf8_encode($registro['CantBackOrder']); ?>
                         </td>
+                        <!--                        
                         <td>
                             <?php echo utf8_encode($registro['PrecioVenta']); ?>
                         </td>
+
                         <td>
                             <?php echo utf8_encode($registro['Importe']); ?>
                         </td>
+                    -->
                     </tr>
                     <?php endforeach;
                     ?>
