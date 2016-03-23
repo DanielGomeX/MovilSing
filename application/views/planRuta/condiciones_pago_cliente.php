@@ -53,7 +53,7 @@
 
             <div>
                 <p><strong>NOTA:</strong> Al cambiar la condición de crédito, el pedido será RETENIDO en automático
-                    independientemente de las otras condiciones de crédito que le apliquen.
+                    y marcado como pedido especial para ser analizado por el área de crédito.
                 </p>
             </div>
         </div>

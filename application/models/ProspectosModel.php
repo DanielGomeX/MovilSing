@@ -60,7 +60,7 @@ class ProspectosModel extends AbstractModel {
      */
     public function registrarProspecto($datosProspecto){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AgregarProspectoCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        $this->query = "{call MovilSing_AgregarProspectoCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosProspecto" ya es un array
         $this->params=$datosProspecto;
@@ -75,7 +75,7 @@ class ProspectosModel extends AbstractModel {
     public function actualizarProspecto($datosProspecto){
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ActualizarProspectoCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
-        #$this->query = "{call MovilSing_ActualizarProspectoCliente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+
         # asignamos los valores de los parametros, en este caso la variable "$datosProspecto" ya es un array
         $this->params=$datosProspecto;
 

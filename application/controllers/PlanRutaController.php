@@ -206,6 +206,7 @@ class PlanRutaController extends CI_Controller {
         #obtenemos datos referentes al resumen del pedido
         $datos_resumen = array();
         $datos_resumen = $this->PedidosModel->obtenerDatosResumenPedido($this->session->pedido);
+
         foreach ($datos_resumen as $registro) {
             $datos['tipo_cliente']=$registro['TipoCliente'];
             $datos['cond_pago']=$registro['CondicionesPago'];
@@ -223,6 +224,7 @@ class PlanRutaController extends CI_Controller {
             $datos['codigo_postal']=$registro['CodigoPostal'];
             $datos['causa_retencion']=$registro['CausaRetencion'];
             $datos['importe_min_venta']=$registro['ImporteMinVenta'];
+            $datos['retencion_directa']=$registro['RetencionDirecta'];
         }
 
         $datos['vista']='planRuta/resumen_pedido';
@@ -417,6 +419,10 @@ class PlanRutaController extends CI_Controller {
             $datos['cheques_devueltos']=$registro['ChequesDev'];
             $datos['saldo_actual']=$registro['Saldo'];
             $datos['zona']=$registro['Zona'];
+
+            $datos['digito_verificador']=$registro['DigVerificador'];
+            $datos['digito_verificador2']=$registro['DigitoVerificador2'];
+
         }
 
         #inicializamos las coordenadas en cero para el caso en que el cliente no tenga coordenadas registradas

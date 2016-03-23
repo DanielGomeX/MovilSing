@@ -26,6 +26,12 @@
                             Fecha
                         </th>
                         <th>
+                            Folio
+                        </th>
+                        <th>
+                            Status
+                        </th>                        
+                        <th>
                             Giro
                         </th>
                         <th>
@@ -35,16 +41,10 @@
                             Tipo Cliente
                         </th>
                         <th>
-                            Dirección
-                        </th>
-                        <th>
                             Colonia
                         </th>
                         <th>
                             Ciudad
-                        </th>
-                        <th>
-                            Status
                         </th>
                         <th>
 
@@ -63,6 +63,12 @@
                             <?php echo $prospecto['FechaSolicitud']; ?>
                         </td>
                         <td>
+                            <?php echo $prospecto['Folio']; ?>
+                        </td>
+                        <td>
+                            <?php echo $prospecto['DescStatus']; ?>
+                        </td>
+                        <td>
                             <?php echo $prospecto['Giro']; ?>
                         </td>
                         <td>
@@ -72,17 +78,12 @@
                             <?php echo $prospecto['TipoCliente']; ?>
                         </td>
                         <td>
-                            <?php echo $prospecto['Direccion']; ?>
-                        </td>
-                        <td>
                             <?php echo $prospecto['Colonia']; ?>
                         </td>
                         <td>
                             <?php echo $prospecto['Ciudad']; ?>
                         </td>
-                        <td>
-                            <?php echo $prospecto['DescStatus']; ?>
-                        </td>
+
                         <td>
                             <!-- Si el status del prospecto es igual a captura (C),entonces, mostramos el link para poder eliminar dicho prospecto -->
                             <?php if ($prospecto['Status']=="C"):

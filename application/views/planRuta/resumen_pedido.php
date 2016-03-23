@@ -43,9 +43,11 @@
 
 						<!--
 							el objeto id=accion sirve para que se le asigne un valor dínamicamnete (finalizar o cancelar) mediante javaScript
-							(ver archivo funciones.js) según se haya presionado alguno de los botones del formulario
+							(ver archivo PlanRuta.js) según se haya presionado alguno de los botones del formulario
 						-->
 						<input type="hidden" id="accion" name="accion" value="">
+
+						<input type="hidden" id="retencionDirecta" value="<?php echo $retencion_directa; ?>">
 
 						<button type="submit" id="btnFinalizar" name='finalizar' value="Finalizar" class="btn btn-warning" >
 							<i class="fa fa-floppy-o"></i>
@@ -144,10 +146,13 @@
 						<label for="Condiciones Pago" class="col-sm-2 control-label">Condiciones Pago:</label>
 						<div class="col-sm-10">
 							<input type="text" name="cond_pago" value="<?php echo $cond_pago; ?>"  class="form-control" readonly>
+
+								<!--
 								<a href="<?php echo base_url(); ?>condicionesPago">
-									<i class="fa fa-truck"></i>
+									<i class="fa fa-calendar"></i>
 									Cambiar
 								</a>
+								-->
 						</div>
 					</div>
 
