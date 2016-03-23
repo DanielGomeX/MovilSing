@@ -91,7 +91,7 @@ $(function(){
 
 
     //Dónde se usa:
-    //En la vista (pregistrar_cobranza.php)
+    //En la vista (registrar_cobranza.php)
     //Para que se usa:
     //Su usa para establecer por default el elemento EFECTIVO en los campos Banco y Referencia siempre y cuando se haya
     //seleccionado el elemento efectivo correspondiente a la forma de pago

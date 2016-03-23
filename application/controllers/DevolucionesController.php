@@ -128,6 +128,57 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
+
+    /**
+     * Permite mandar a la vista los asentamientos (colonias) encontrados que pertenecen al código postal en cuestion
+     * @return [null]
+     */
+    public function obtenerFacturasPorCliente() {
+        $cliente= $this->input->get('codigo');
+        $result = $this->DevolucionesModel->ObtenerFacturasCliente($cliente);
+        echo json_encode($this->utf8_converter($result));
+    }
+
+    /*
+    public function obtenerFacturasPorCliente2() {
+        $cliente= $this->input->post('txtBuscar2');
+        //$result = $this->DevolucionesModel->ObtenerFacturasCliente($cliente);
+        $datos['vista'] = 'devoluciones/devoluciones';
+        $datos['facturas']=$this->DevolucionesModel->ObtenerFacturasCliente($cliente);;
+        $this->load->view('plantillas/master_page', $datos);
+        //echo json_encode($this->utf8_converter($result));
+        //echo $result;
+    }
+    */
+
+    /*
+    public function buscarFacturasPorCliente() {
+
+        $cliente=$this->input->post('txtBuscar');
+        $usuario=$this->session->usuario;
+
+        $facturas_cliente = $this->DevolucionesModel->ObtenerFacturasCliente($cliente);
+
+        //contamos cuantos registros contiene el array de la consulta previa
+        $count = count($facturas_cliente);
+
+
+        //si existe al menos un registro, significa que se encontrontraon los datos de la factura como enviada mediante el SING
+        if ($count>0)
+        {
+            $this->mostrarDatosFactura($factura, $datos_factura);
+        }
+        else
+        {
+            $datos['mensaje']="Número de facura: no encontrado, no pertenece a tu zona de ventas o aun no tiene fecha de acuse de recibo registrada. Favor de verificar.";
+            $datos['vista'] = 'errors/aviso';
+            $datos['link_regresar'] = 'devoluciones';
+            $this->load->view('plantillas/master_page', $datos);
+        }
+    }
+    */
+
+
     /**
      * muestra los datos generales de la factura a la que se desea realizar la devolución, siempre y cuendo la factura
      * pertenezca al usuario logeado
@@ -771,6 +822,21 @@ class DevolucionesController extends CI_Controller {
     }
 
 
+    /**
+     * permite convertir recursivamente todos los valores de un array al formato UTF8
+     * @param  [array] $array [arreglo de datos que se desea convertir]
+     * @return [array]        [mismo arreglo convertido a formato UTF8]
+     */
+    private function utf8_converter($array) {
+        array_walk_recursive($array, function(&$item, $key){
+            //la función mb_detect_encoding revisa si el valor ya esta en formato UTF8
+            if(!mb_detect_encoding($item, 'utf-8', true)){
+                    $item = utf8_encode($item);
+                }
+            });
+
+        return $array;
+    }
 
 
 }
