@@ -36,6 +36,13 @@ class Login extends CI_Controller {
         $_SESSION['logged_in']='SI';
         $_SESSION['usuario']=$this->input->post('username');
 
+        //Verificamos en cual servidor estamos trabajando
+        $servidor=$this->config->item('db_host');
+        if ($servidor=="srv-datos2\pruebas") {
+          $_SESSION['servidor']='SERVIDOR DE PRUEBAS';
+        }
+
+
         //Entramos a la aplicación
         redirect('principal', 'refresh');
       }

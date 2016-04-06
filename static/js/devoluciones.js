@@ -3,11 +3,24 @@ $(function(){
     /**
      * Dónde se usa: En la vista (devoluciones.php)
      * Para que se usa:
-     * Para mostrar el formulario modal al hacer click sobre el botón (btnCaptura) que permitirá realizar la búsqueda de la factura
+     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá realizar la búsqueda de la factura en función del
+     * número de factura
      */
-    $('#btnCaptura').on('click', function() {
+    $('#btnBuscarPorFactura').on('click', function() {
         $('#modalBuscar').modal('show');
     });
+
+
+    /**
+     * Dónde se usa: En la vista (devoluciones.php)
+     * Para que se usa:
+     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá realizar la búsqueda de la factura en función del 
+     * número de cliente
+     */
+    $('#btnBuscarPorCliente').on('click', function() {
+        $('#modalBuscarFacturaPorCliente').modal('show');
+    });
+
 
     /**
      * Dónde se usa: En la vista (devoluciones.php)
@@ -25,11 +38,53 @@ $(function(){
     });
 
 
+    /**
+     * Dónde se usa: En la vista (devoluciones.php)
+     * Para que se usa:
+     * Ejecuta la función que busca en la base de datos las facturas asociadas al cliente
+     */
+    $('#btnBuscarFacturas').on('click',function (e){
+        e.preventDefault();
+        buscarFacturasCliente();
+    });
+
+
+    /**
+     * Dónde se usa: En la vista (devoluciones.php)
+     * Para que se usa:
+     * Función ajax que permite buscar en la base de datos las facturas asociadas al cliente,
+     * muestra los datos encontrados en una tabla
+     */
+    function buscarFacturasCliente(){
+
+        var numero_cliente= $('#txtBuscarPorCliente').val();
+
+        $.ajax({
+             type: 'get',
+             async: true,
+             url: '/DevolucionesController/obtenerFacturasPorCliente',
+             data:{codigo:numero_cliente},
+             success: function(respuesta){
+
+                var tableData ='<thead><tr><td>Factura</td><td>Fecha</td><td>Cliente</td><td>Monto</td></tr></thead><tbody>';
+                obj = JSON.parse(respuesta);
+                    for(var i in obj){
+                      tableData += '<tr><td><a href="#">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
+                    }
+                tableData += '</tbody>';
+                $('#tbFacturasCliente').html(tableData);
+             },
+             error : function(xhr, status) {
+                alert('Ha ocurrido un ERROR al tratar de obtener la información.');
+            }
+        });
+    }
+
+
 
     $('#btnSupervisor').on('click', function() {
         $('#frmModalStatus').modal('show');
     });
-
 
 
     /**************  Usando el plugin jQquery Validator  ***************/

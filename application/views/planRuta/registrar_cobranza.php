@@ -83,7 +83,7 @@
 
                 <div class="col-sm-offset-2 col-sm-10">
 
-                    <select class="form-control" name="banco" >
+                    <select class="form-control" name="banco" id="banco">
                       <option selected disabled value="">Seleccione un banco</option>
                       <option value="BANCOMER" <?php echo  set_select('banco', 'BANCOMER');?> >BANCOMER</option>
                       <option value="BANAMEX" <?php echo  set_select('banco', 'BANAMEX');?> >BANAMEX</option>
@@ -109,7 +109,8 @@
             <div class="form-group" >
                 <label for="fechaCobro" class="col-sm-2 control-label">Fecha para cobro:</label>
                 <div class="col-sm-10">
-                    <input type="date" id="fechaCobro" name="fechaCobro" min="<?php echo date("Y-m-d");?>" value="<?php echo  set_value('fechaCobro'); ?>" class="form-control" tabindex="7"/>
+                    <!-- <input type="date" id="fechaCobro" name="fechaCobro" min="<?php echo date("Y-m-d");?>" value="<?php echo  set_value('fechaCobro'); ?>" class="form-control" tabindex="7"/> -->
+                    <input type="date" id="fechaCobro" name="fechaCobro" min="<?php echo date("Y/m/d");?>" value="<?php echo  set_value('fechaCobro'); ?>" class="form-control" tabindex="7"/>
                     <?php echo form_error('fechaCobro'); ?>
                 </div>
             </div>
@@ -118,7 +119,7 @@
             <div class="form-group" >
                 <label for="comentario" class="col-sm-2 control-label">Comentario:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="comentario" name="comentario" value="<?php echo  set_value('comentario'); ?>" class="form-control" tabindex="8" placeholder="Se recomienda incluir factura(s) que avala(n) el pago" autocomplete="off"/>
+                    <input type="text" id="comentario" name="comentario" value="<?php echo  set_value('comentario'); ?>" class="form-control" tabindex="8" placeholder="Se recomienda incluir la(s) factura(s) que avala(n) el pago" autocomplete="off"/>
                     <?php echo form_error('comentario'); ?>
                 </div>
             </div>

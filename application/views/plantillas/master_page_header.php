@@ -47,7 +47,6 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <!-- <li><?php echo anchor('#','Indicadores') ?></li> -->
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
           <li><?php echo anchor('prospectos','Prospectos') ?></li>
           <li><?php echo anchor('devoluciones','Devoluciones') ?></li>
@@ -69,9 +68,14 @@
 
         </ul>
 
-        <span class="navbar-text navbar-right"> Bienvenido usuario: <?php echo $this->session->usuario; ?>
-          | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a>
+        <span class="navbar-text navbar-right">
+            Bienvenido usuario: <?php echo $this->session->usuario; ?>
+            &nbsp;
           | <a href="<?php echo base_url();?>Pwd" class="navbar-link"><i class="fa fa-lock"></i> Cambiar</a>
+          &nbsp;
+          | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a>
+            &nbsp;
+            <?php echo $this->session->servidor; ?> <!-- esto sirve para indicar si se está trabajando con el ambiente de pruebas -->
         </span>
       </div><!--/.nav-collapse -->
     </div>
@@ -92,7 +96,12 @@
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
             </ul>
-            <span class="navbar-text navbar-right"> <a href="<?php echo base_url();?>Principal/salirPlanRuta" class="navbar-link"><?php echo $this->session->cliente.' '.$this->session->nombre_cliente; ?></a> | <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a></span>
+            <span class="navbar-text navbar-right">
+              <a href="<?php echo base_url();?>Principal/salirPlanRuta" class="navbar-link"><?php echo $this->session->cliente.' '.$this->session->nombre_cliente; ?></a> | 
+              <a href="<?php echo base_url();?>logout" class="navbar-link"><i class="fa fa-sign-out"></i> Salir</a>
+              &nbsp;
+              <?php echo $this->session->servidor; ?> <!-- esto sirve para indicar si se está trabajando con el ambiente de pruebas -->
+            </span>
           </div><!--/.nav-collapse -->
         </div>
       </nav>

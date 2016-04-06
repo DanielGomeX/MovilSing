@@ -1,6 +1,6 @@
 <article class="row">
 
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-1">
 
         <h2 class="texto-centrado">Nuevo Prospecto </h2>
 
@@ -55,16 +55,16 @@
 
             <!-- Datos Generales -->
             <div class="form-group">
-                <label for="folio" class="col-sm-2 control-label">Folio:</label>
-                <div class="col-sm-10">
+                <label for="folio" class="col-sm-4 control-label">Folio:</label>
+                <div class="col-sm-8">
                     <input type="text" id="folio" name="folio" value="<?php echo  set_value('folio'); ?>" class="form-control" tabindex="1" autocomplete="off" autofocus/>
                     <?php echo form_error('folio'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="tipoCliente" class="col-sm-2 control-label">Tipo de Solicitud:</label>
-                <div class="col-sm-10">
+                <label for="tipoCliente" class="col-sm-4 control-label">Tipo de Solicitud:</label>
+                <div class="col-sm-8">
                     <select class="form-control" name="tipoCliente" tabindex="2">
                         <option selected disabled value="">Seleccione una opción</option>
                         <option value="DETALLISTA" <?php echo set_select('tipoCliente', 'DETALLISTA');?> >DETALLISTA</option>
@@ -75,8 +75,8 @@
             </div>
 
             <div class="form-group">
-                <label for="localidad" class="col-sm-2 control-label">Localidad:</label>
-                <div class="col-sm-10">
+                <label for="localidad" class="col-sm-4 control-label">Localidad:</label>
+                <div class="col-sm-8">
                     <select class="form-control" name="localidad" tabindex="3">
                         <option selected disabled value="">Seleccione una opción</option>
                         <option value="LOCAL" <?php echo set_select('localidad', 'LOCAL');?> >LOCAL</option>
@@ -87,24 +87,24 @@
             </div>
 
             <div class="form-group">
-                <label for="nombre" class="col-sm-2 control-label">Nombre:</label>
-                <div class="col-sm-10">
+                <label for="nombre" class="col-sm-4 control-label">Nombre:</label>
+                <div class="col-sm-8">
                     <input type="text" id="nombre" name="nombre" value="<?php echo  set_value('nombre'); ?>" class="form-control" tabindex="4" placeholder="persona física o razón social" autocomplete="off"/>
                     <?php echo form_error('nombre'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="rfc" class="col-sm-2 control-label">RFC:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="rfc" name="rfc" value="<?php echo  set_value('rfc'); ?>" class="form-control" tabindex="5" placeholder="12 caracteres persona física, 13 persona moral" autocomplete="off"/>
+                <label for="rfc" class="col-sm-4 control-label">RFC:</label>
+                <div class="col-sm-8">
+                    <input type="text" id="rfc" name="rfc" value="<?php echo  set_value('rfc'); ?>" class="form-control" tabindex="5" placeholder="13 caracteres persona física, 12 persona moral" autocomplete="off"/>
                     <?php echo form_error('rfc'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="direccion" class="col-sm-2 control-label">Direccion:</label>
-                <div class="col-sm-10">
+                <label for="direccion" class="col-sm-4 control-label">Direccion:</label>
+                <div class="col-sm-8">
                     <input type="text" id="direccion" name="direccion" value="<?php echo  set_value('direccion'); ?>" class="form-control" tabindex="6" placeholder="Calle y número" autocomplete="off"/>
                     <?php echo form_error('direccion'); ?>
                 </div>
@@ -112,54 +112,54 @@
 
             <div class="form-group" >
 
-                <label for="cp" class="col-sm-2 control-label">C. P. :</label>
-                <div class="col-sm-10">
+                <label for="cp" class="col-sm-4 control-label">C. P. :</label>
+                <div class="col-sm-8">
                     <input type="text" id="cp" name="cp" value="<?php echo  set_value('cp'); ?>" class="form-control" tabindex="7" readonly/>
                     <?php echo form_error('cp'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                
-                <button type="button" class="btn btn-primary btn-sm col-sm-offset-2" id="btnCP" tabindex="8">
+
+                <button type="button" class="btn btn-warning btn-sm col-sm-offset-4" id="btnCP" tabindex="8">
                     <!-- este objeto ejecuta un javascript, ver script llamado prospectos.js  -->
                     <i class="fa fa-search"></i>
                     Código Postal
                 </button>
             </div>
-            
+
             <div class="form-group">
-                <label for="colonia" class="col-sm-2 control-label">Colonia:</label>
-                <div class="col-sm-10">
+                <label for="colonia" class="col-sm-4 control-label">Colonia:</label>
+                <div class="col-sm-8">
                     <input type="text" id="colonia" name="colonia" value="<?php echo  set_value('colonia'); ?>" class="form-control" tabindex="9"  readonly/>
                     <?php echo form_error('colonia'); ?>
                 </div>
             </div>
 
             <div class="form-group" >
-                <label for="ciudad" class="col-sm-2 control-label">Ciudad:</label>
-                <div class="col-sm-10">
+                <label for="ciudad" class="col-sm-4 control-label">Ciudad:</label>
+                <div class="col-sm-8">
                     <input type="text" id="ciudad" name="ciudad" value="<?php echo  set_value('ciudad'); ?>" class="form-control" tabindex="10" readonly/>
                 </div>
             </div>
 
             <div class="form-group" >
-                <label for="municipio" class="col-sm-2 control-label">Municipio:</label>
-                <div class="col-sm-10">
+                <label for="municipio" class="col-sm-4 control-label">Municipio:</label>
+                <div class="col-sm-8">
                     <input type="text" id="municipio" name="municipio" value="<?php echo  set_value('municipio'); ?>" class="form-control" tabindex="11" readonly/>
                 </div>
             </div>
 
             <div class="form-group" >
-                <label for="estado" class="col-sm-2 control-label">Estado:</label>
-                <div class="col-sm-10">
+                <label for="estado" class="col-sm-4 control-label">Estado:</label>
+                <div class="col-sm-8">
                     <input type="text" id="estado" name="estado" value="<?php echo  set_value('estado'); ?>" class="form-control" tabindex="12" readonly/>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="giro" class="col-sm-2 control-label">Giro:</label>
-                <div class="col-sm-10">
+                <label for="giro" class="col-sm-4 control-label">Giro:</label>
+                <div class="col-sm-8">
                     <select class="form-control" name="giro" tabindex="13">
                         <option selected disabled value="" >Seleccione una opción</option>
                         <option value="FERRETERIA" <?php echo  set_select('giro', 'FERRETERIA');?> >FERRETERIA</option>
@@ -176,40 +176,40 @@
             </div>
 
             <div class="form-group">
-                <label for="representante" class="col-sm-2 control-label">Representante del negocio:</label>
-                <div class="col-sm-10">
+                <label for="representante" class="col-sm-4 control-label">Representante del negocio:</label>
+                <div class="col-sm-8">
                     <input type="text" id="representante" name="representante" value="<?php echo  set_value('representante'); ?>" class="form-control" tabindex="14" placeholder="nombre del representante del negocio" autocomplete="off"/>
                     <?php echo form_error('representante'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="gerente" class="col-sm-2 control-label">Gerente del negocio:</label>
-                <div class="col-sm-10">
+                <label for="gerente" class="col-sm-4 control-label">Gerente del negocio:</label>
+                <div class="col-sm-8">
                     <input type="text" id="gerente" name="gerente" value="<?php echo  set_value('gerente'); ?>" class="form-control" tabindex="15" placeholder="máximo 30 caracteres" autocomplete="off"/>
                     <?php echo form_error('gerente'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="telefono" class="col-sm-2 control-label">Teléfono:</label>
-                <div class="col-sm-10">
+                <label for="telefono" class="col-sm-4 control-label">Teléfono:</label>
+                <div class="col-sm-8">
                     <input type="text" id="telefono" name="telefono" value="<?php echo  set_value('telefono'); ?>" class="form-control" tabindex="16" placeholder="incluir clave lada, 10 dígitos, no parentesis, no guiones, no espacios "/>
                     <?php echo form_error('telefono'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">Email:</label>
-                <div class="col-sm-10">
+                <label for="email" class="col-sm-4 control-label">Email:</label>
+                <div class="col-sm-8">
                     <input type="text" id="email" name="email" value="<?php echo  set_value('email'); ?>" class="form-control" tabindex="17" placeholder="máximo 30 caracteres" autocomplete="off"/>
                     <?php echo form_error('email'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="comentarios" class="col-sm-2 control-label">Comentarios:</label>
-                <div class="col-sm-10">
+                <label for="comentarios" class="col-sm-4 control-label">Comentarios:</label>
+                <div class="col-sm-8">
                     <input type="text" id="comentarios" name="comentarios" value="<?php echo  set_value('comentarios'); ?>" class="form-control" tabindex="18" autocomplete="off"/>
                     <?php echo form_error('comentarios'); ?>
                 </div>
@@ -223,80 +223,80 @@
             </div>
 
             <div class="form-group">
-                <label for="empresa1" class="col-sm-2 control-label">Empresa 1:</label>
-                <div class="col-sm-10">
+                <label for="empresa1" class="col-sm-4 control-label">Empresa 1:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa1" name="empresa1" value="<?php echo  set_value('empresa1'); ?>" class="form-control" tabindex="19" />
                     <?php echo form_error('empresa1'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa1telefono" class="col-sm-2 control-label">Teléfono Empresa 1:</label>
-                <div class="col-sm-10">
+                <label for="empresa1telefono" class="col-sm-4 control-label">Teléfono Empresa 1:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa1telefono" name="empresa1telefono" value="<?php echo  set_value('empresa1telefono'); ?>" class="form-control" tabindex="20" placeholder="incluir clave lada, 10 dígitos, no parentesis, no guiones, no espacios "/>
                     <?php echo form_error('empresa1telefono'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa2" class="col-sm-2 control-label">Empresa 2:</label>
-                <div class="col-sm-10">
+                <label for="empresa2" class="col-sm-4 control-label">Empresa 2:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa2" name="empresa2" value="<?php echo  set_value('empresa2'); ?>" class="form-control" tabindex="21" />
                     <?php echo form_error('empresa2'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa2telefono" class="col-sm-2 control-label">Teléfono Empresa 2:</label>
-                <div class="col-sm-10">
+                <label for="empresa2telefono" class="col-sm-4 control-label">Teléfono Empresa 2:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa2telefono" name="empresa2telefono" value="<?php echo  set_value('empresa2telefono'); ?>" class="form-control" tabindex="22" placeholder="incluir clave lada, 10 dígitos, no parentesis, no guiones, no espacios "/>
                     <?php echo form_error('empresa2telefono'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa3" class="col-sm-2 control-label">Empresa 3:</label>
-                <div class="col-sm-10">
+                <label for="empresa3" class="col-sm-4 control-label">Empresa 3:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa3" name="empresa3" value="<?php echo  set_value('empresa3'); ?>" class="form-control" tabindex="23" />
                     <?php echo form_error('empresa3'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa3telefono" class="col-sm-2 control-label">Teléfono Empresa 3:</label>
-                <div class="col-sm-10">
+                <label for="empresa3telefono" class="col-sm-4 control-label">Teléfono Empresa 3:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa3telefono" name="empresa3telefono" value="<?php echo  set_value('empresa3telefono'); ?>" class="form-control" tabindex="24" placeholder="incluir clave lada, 10 dígitos, no parentesis, no guiones, no espacios "/>
                     <?php echo form_error('empresa3telefono'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa4" class="col-sm-2 control-label">Empresa 4:</label>
-                <div class="col-sm-10">
+                <label for="empresa4" class="col-sm-4 control-label">Empresa 4:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa4" name="empresa4" value="<?php echo  set_value('empresa4'); ?>" class="form-control" tabindex="25" />
                     <?php echo form_error('empresa4'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa4telefono" class="col-sm-2 control-label">Teléfono Empresa 4:</label>
-                <div class="col-sm-10">
+                <label for="empresa4telefono" class="col-sm-4 control-label">Teléfono Empresa 4:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa4telefono" name="empresa4telefono" value="<?php echo  set_value('empresa4telefono'); ?>" class="form-control" tabindex="26" placeholder="incluir clave lada, 10 dígitos, no parentesis, no guiones, no espacios "/>
                     <?php echo form_error('empresa4telefono'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa5" class="col-sm-2 control-label">Empresa 5:</label>
-                <div class="col-sm-10">
+                <label for="empresa5" class="col-sm-4 control-label">Empresa 5:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa5" name="empresa5" value="<?php echo  set_value('empresa5'); ?>" class="form-control" tabindex="27" />
                     <?php echo form_error('empresa5'); ?>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="empresa5telefono" class="col-sm-2 control-label">Teléfono Empresa 5:</label>
-                <div class="col-sm-10">
+                <label for="empresa5telefono" class="col-sm-4 control-label">Teléfono Empresa 5:</label>
+                <div class="col-sm-8">
                     <input type="text" id="empresa5telefono" name="empresa5telefono" value="<?php echo  set_value('empresa5telefono'); ?>" class="form-control" tabindex="28" placeholder="incluir clave lada, 10 dígitos, no parentesis, no guiones, no espacios " />
                     <?php echo form_error('empresa5telefono'); ?>
                 </div>

@@ -6,7 +6,7 @@ class ProspectosController extends CI_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('ProspectosModel');
-
+        $this->load->model('GlobalModel');
         #cargamos la libreria para validación de formularios de forma global
         #ya que varios métodos mandan llamar al mismo formulario
         $this->load->library('form_validation');
@@ -74,6 +74,7 @@ class ProspectosController extends CI_Controller {
         $datos['empresa5telefono']=$datos_prospecto[0]['Empresa5telefono'];
 
         $_SESSION['prospecto']=$idProspecto;
+        $_SESSION['folioProspecto']=$datos['folio'];
         $datos['vista'] = 'prospectos/editar_prospecto';
         $this->load->view('plantillas/master_page', $datos);
     }
@@ -125,12 +126,10 @@ class ProspectosController extends CI_Controller {
         $this->form_validation->set_rules('comentarios', 'Comentario', 'required');
         $this->form_validation->set_rules('empresa1', 'Empresa 1', 'required');
         $this->form_validation->set_rules('empresa1telefono', 'Teléfono empresa 1', 'required|numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa2', 'Empresa 2', 'required');
-        #$this->form_validation->set_rules('empresa2telefono', 'Teléfono empresa 2', 'required|numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa3', 'Empresa 3', 'required');
-        #$this->form_validation->set_rules('empresa3telefono', 'Teléfono empresa 3', 'required|numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa4telefono', 'Teléfono empresa 4', 'numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa5telefono', 'Teléfono empresa 5', 'numeric|exact_length[10]');
+        $this->form_validation->set_rules('empresa2', 'Empresa 2', 'required');
+        $this->form_validation->set_rules('empresa2telefono', 'Teléfono empresa 2', 'required|numeric|exact_length[10]');
+        $this->form_validation->set_rules('empresa3', 'Empresa 3', 'required');
+        $this->form_validation->set_rules('empresa3telefono', 'Teléfono empresa 3', 'required|numeric|exact_length[10]');
 
         #Validamos el formulario, si es igual a false, entonces algún campo no cumple con las reglas establecidas
         if ($this->form_validation->run() == FALSE) {
@@ -281,12 +280,11 @@ class ProspectosController extends CI_Controller {
         $this->form_validation->set_rules('comentarios', 'Comentario', 'required');
         $this->form_validation->set_rules('empresa1', 'Empresa 1', 'required');
         $this->form_validation->set_rules('empresa1telefono', 'Teléfono empresa 1', 'required|numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa2', 'Empresa 2', 'required');
-        #$this->form_validation->set_rules('empresa2telefono', 'Teléfono empresa 2', 'required|numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa3', 'Empresa 3', 'required');
-        #$this->form_validation->set_rules('empresa3telefono', 'Teléfono empresa 3', 'required|numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa4telefono', 'Teléfono empresa 4', 'numeric|exact_length[10]');
-        #$this->form_validation->set_rules('empresa5telefono', 'Teléfono empresa 5', 'numeric|exact_length[10]');
+        $this->form_validation->set_rules('empresa2', 'Empresa 2', 'required');
+        $this->form_validation->set_rules('empresa2telefono', 'Teléfono empresa 2', 'required|numeric|exact_length[10]');
+        $this->form_validation->set_rules('empresa3', 'Empresa 3', 'required');
+        $this->form_validation->set_rules('empresa3telefono', 'Teléfono empresa 3', 'required|numeric|exact_length[10]');
+
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('plantillas/master_page', $datos);
         } else {
@@ -357,7 +355,7 @@ class ProspectosController extends CI_Controller {
     }
 
     /**
-     * Permite eliminar el prospecto capturado previamente siempre y cuando el status sea igual a "C" (captura) 
+     * Permite eliminar el prospecto capturado previamente siempre y cuando el status sea igual a "C" (captura)
      * @return [null]
      */
     public function eliminarProspecto($idProspecto) {
@@ -367,19 +365,37 @@ class ProspectosController extends CI_Controller {
 
 
     /**
-     * 
+     *
      * @return [null]
      */
     public function cambiarStatusProspecto() {
 
         $idProspecto=$this->session->prospecto;
-        $status="C"; //Status Revisión Supervisor (RS)
+        $status="RS"; //Status Revisión Supervisor (RS)
         $usuario=$this->session->usuario;
         $comentario= $this->input->post('comentario');
         $result=$this->ProspectosModel->actualizarStatusProspecto($idProspecto,$status,$usuario,$comentario);
 
         if ($result==1) {
+
+            //obtenemos el email asignado al supervisor del usuario
+            $emailSupervisor=$this->GlobalModel->obtenerEmailSupervisor($usuario);
+            $correoSupervisor=$emailSupervisor[0]['Email'];
+
+            //$destinatarios = array('omar.flores@hecort.com'); //esto es para pruebas
+            $destinatarios = array('omar.flores@hecort.com', $correoSupervisor);
+
+            // enviar email
+            $this->load->library('email'); // Note: no $config param needed
+            $this->email->from('tecnologias@hecort.com');
+            $this->email->to($destinatarios);
+            $this->email->subject('Notificación de Nuevo Prospecto para Revisión, FOLIO: '.$this->session->folioProspecto);
+            $this->email->message($comentario);
+            $this->email->send();
+
+            //Direccionamos a la página principal de prospectos.
             redirect('prospectos');
+
         }
         else{
             redirect('principal');

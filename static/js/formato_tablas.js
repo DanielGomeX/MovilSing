@@ -40,7 +40,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",
@@ -87,7 +87,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",
@@ -118,7 +118,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",
@@ -150,7 +150,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",
@@ -217,7 +217,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",
@@ -250,7 +250,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",
@@ -283,7 +283,7 @@ $(function(){
             "infoEmpty":"Mostrando registros del 0 al 0 de un total de 0 registros",
             "infoFiltered":"(filtrado de un total de _MAX_ registros)",
             "loadingRecords": "Cargando...",
-            "search":" Buscar producto:",
+            "search":" Buscar:",
             "paginate": {
                 "first":"Primero",
                 "last":"Ultimo",

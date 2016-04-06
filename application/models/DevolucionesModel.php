@@ -70,6 +70,19 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
+
+    public function ObtenerFacturasCliente($cliente) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerFacturasCliente(?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($cliente);
+
+        return $this->get_rows();
+    }
+
+
     /**
      * Guarda en la base de datos un nuevo registros referente a una nueva devolución
      * @param  [arreglo]    arreglo con los datos necesario para el nuevo registro de devolución
