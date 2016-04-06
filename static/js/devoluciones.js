@@ -69,8 +69,7 @@ $(function(){
                 var tableData ='<thead><tr><td>Factura</td><td>Fecha</td><td>Cliente</td><td>Monto</td></tr></thead><tbody>';
                 obj = JSON.parse(respuesta);
                     for(var i in obj){
-                      //tableData += '<tr><td><a href="<?php echo base_url(); ?>DevolucionesController/seleccionarFactura/'+obj[i].InvcNbr+'">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
-                      tableData += '<tr><td><a href="DevolucionesController/seleccionarFactura/'+obj[i].InvcNbr+'">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
+                      tableData += '<tr><td><a href="#">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
                     }
                 tableData += '</tbody>';
                 $('#tbFacturasCliente').html(tableData);
@@ -83,20 +82,12 @@ $(function(){
 
 
 
-    //Nuevo, Documentar
     $('#btnSupervisor').on('click', function() {
         $('#frmModalStatus').modal('show');
     });
 
 
-    //Nuevo, Documentar
-    $('#btnAgregarProductos').on('click', function() {
-        $('#frmModalStatus').modal('show');
-    });
-
-
-
-    //######################  Usando el plugin jQquery Validator  ###########################/
+    /**************  Usando el plugin jQquery Validator  ***************/
 
 
     /**************  Métodos personalizados para validación   *************************/
@@ -124,7 +115,7 @@ $(function(){
     /**
      * Dónde se usa: En la vista (agregar_producto_devolucion.php)
      * Para que se usa:
-     * Para validar que no se pueda registrar una cantidad mayor a la cantidad surtida, asi como también
+     * Para validar que no se pueda registrar una cantidad mayor a la cantidad surtida, asi como también 
      * que la cantidad sea un campo obligatorio y que no puedan registrar caracteres alfanumericos.
      */
     $('#frmAgregarProductoDevolver').validate({
@@ -197,6 +188,7 @@ $(function(){
         }
 
     });
+
 
 
     /**
