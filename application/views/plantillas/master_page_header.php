@@ -50,6 +50,7 @@
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
           <li><?php echo anchor('prospectos','Prospectos') ?></li>
           <li><?php echo anchor('devoluciones','Devoluciones') ?></li>
+          <li><?php echo anchor('#','Reclamaciones') ?></li>
           <!-- Submenú Reportes -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
