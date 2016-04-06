@@ -129,6 +129,31 @@ class DevolucionesController extends CI_Controller {
     }
 
 
+    public function seleccionarFactura($factura) {
+
+        //$factura=$this->input->post('txtBuscar');
+        $usuario=$this->session->usuario;
+
+        $datos_factura = $this->DevolucionesModel->obtenerDatosFactura($factura, $usuario);
+
+        //contamos cuantos registros contiene el array de la consulta previa
+        $count = count($datos_factura);
+
+        //si existe al menos un registro, significa que se encontrontraon los datos de la factura como enviada mediante el SING
+        if ($count>0)
+        {
+            $this->mostrarDatosFactura($factura, $datos_factura);
+        }
+        else
+        {
+            $datos['mensaje']="Número de facura: no encontrado, no pertenece a tu zona de ventas o aun no tiene fecha de acuse de recibo registrada. Favor de verificar.";
+            $datos['vista'] = 'errors/aviso';
+            $datos['link_regresar'] = 'devoluciones';
+            $this->load->view('plantillas/master_page', $datos);
+        }
+    }
+
+
     /**
      * Permite mandar a la vista los asentamientos (colonias) encontrados que pertenecen al código postal en cuestion
      * @return [null]
@@ -306,9 +331,28 @@ class DevolucionesController extends CI_Controller {
         $datos['titulo'] = 'Agregar producto';
         $datos['vista'] = 'devoluciones/agregar_producto_devolucion';
 
-        $datos['productos_factura'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+        //$datos['productos_factura'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
 
-        $this->load->view('plantillas/master_page', $datos);
+        $respuesta =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+
+        //contamos cuantos registros contiene el array de la consulta previa
+        $count = count($respuesta);
+
+        //si existe al menos un registro, significa que se encontrontraon los datos de la factura como enviada mediante el SING
+        if ($count>0)
+        {
+            $datos['registros']=$count;
+            $datos['datos']=$respuesta;
+            $datos['mensaje']='Producto(s) que contiene la factura a devolver';
+            $this->load->view('plantillas/master_page', $datos);
+        }
+        else
+        {
+            $datos['registros']=$count;
+            $datos['datos']='0';
+            $datos['mensaje']="No hay más productos para agregar";
+            $this->load->view('plantillas/master_page', $datos);
+        }
     }
 
     /**
@@ -319,11 +363,13 @@ class DevolucionesController extends CI_Controller {
         $factura=$this->session->factura;
 
         $datos['vista'] = 'devoluciones/agregar_producto_devolucion';
+        $datos['mensaje'] ='';
         $datos['producto'] =$this->DevolucionesModel->obtenerDatosProductoParaDevolucion($factura,$producto);
         $datos['articulo']=$datos['producto'][0]['InvtId'];//obtenemos el valor del campo artículo del registro 0 del arreglo datos
         $datos['cantidadSurtida']=$datos['producto'][0]['CantSurt'];//obtenemos el valor del campo cantidad surtida del registro 0 del arreglo datos
 
-        $datos['productos_factura'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+        //$datos['productos_factura'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+        $datos['datos'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
         $datos['producto_especie'] =$this->DevolucionesModel->obtenerDatosProductoEspecieParaDevolucion($factura,$producto);
         $datos['listaNotasCredito']=$this->DevolucionesModel->obtenerCausasNotasCredito();
 
@@ -363,6 +409,33 @@ class DevolucionesController extends CI_Controller {
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+
+    //Nuevo, Documentar
+    public function registrarProductosDevolucion(){
+
+        $idAnomalia=$this->session->devolucion;
+        $factura = $this->session->factura;
+        $motivo = $this->input->post('motivo');
+
+        $datosProductoDevolucion=[
+                     $idAnomalia,
+                     $factura,
+                     $motivo
+                    ];
+
+        #ejecutamos query para registrar los datos de entrada a la base de datos
+        $respuesta=$this->DevolucionesModel->registrarProductosParaDevolucion($datosProductoDevolucion);
+
+        if ($respuesta==1) {
+            $this->mostrarDatosDevolucion($this->session->devolucion);
+        }
+        else{
+            $datos['mensaje']="Ocurrio un error al tratar de registrar el producto para devolución.";
+            $datos['vista'] = 'errors/error';
+            $this->load->view('plantillas/master_page', $datos);
+        }
+    }
+
 
     /**
      * Cambia de status la solicitud para que pase a revisión por el supervisor y enviía notificación correspondiente por correo

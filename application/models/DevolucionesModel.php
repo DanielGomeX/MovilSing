@@ -176,6 +176,19 @@ class DevolucionesModel extends AbstractModel {
         return $this->execute_insert();
     }
 
+
+    //Nuevo, Documentar
+    public function registrarProductosParaDevolucion($datosProductoDevolucion){
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_AnomaliasPostVenta_AgregarProductosDevolucion(?,?,?)}";
+
+        # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
+        $this->params=$datosProductoDevolucion;
+
+        return $this->execute_insert();
+    }
+
+
     /**
      * Cambia de status la solicitud y registrar historial
      * @param  [string] $devolucion
