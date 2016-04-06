@@ -167,6 +167,7 @@ class ProspectosController extends CI_Controller {
             $empresa5 = utf8_encode(strtoupper($this->input->post('empresa5')));
             $empresa5telefono = $this->input->post('empresa5telefono');
 
+            /*
             $parametros_datos_prospecto=array(
                         $usuario,
                         $folio,
@@ -196,10 +197,34 @@ class ProspectosController extends CI_Controller {
                         $empresa5,
                         $empresa5telefono
                         );
+            */
+           
+            $parametros_datos_prospecto=array(
+                        $usuario,
+                        $folio,
+                        $tipoCliente,
+                        $nombre,
+                        $rfc,
+                        $direccion,
+                        $cp,
+                        $colonia,
+                        $ciudad,
+                        $estado,
+                        $telefono,
+                        $email,
+                        $giro,
+                        $localidad,
+                        $representante,
+                        $gerente,
+                        $comentario,
+                        $empresa1,
+                        $empresa1telefono
+                        );
+
+            //var_dump($parametros_datos_prospecto);
 
             #ejecutamos query
             $this->ProspectosModel->registrarProspecto($parametros_datos_prospecto);
-
             redirect('prospectos');
         }
     }

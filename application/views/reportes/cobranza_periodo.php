@@ -7,7 +7,7 @@
         el link regresar nos mande nuevamente a esta pantalla -->
         <?php $_SESSION['regresar']=$this->uri->uri_string(); ?>
 
-        <div class="tabla-responsive">
+        <div class="table-responsive">
             <?php if (isset($cobranza)):
             ?>
             <table id="tbCobranzaPeriodo" class="table table-hover table-condensed">

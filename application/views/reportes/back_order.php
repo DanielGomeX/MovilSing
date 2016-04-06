@@ -7,7 +7,7 @@
         el link regresar nos mande nuevamente a esta pantalla -->
         <?php $_SESSION['regresar']=$this->uri->uri_string(); ?>
 
-        <div class="tabla-responsive">
+        <div class="table-responsive">
             <?php if (isset($backOrder)):
             ?>
             <table id="tbBackOrder" class="table table-hover table-condensed">
@@ -90,11 +90,11 @@
                         </td>
                         <!--                        
                         <td>
-                            <?php echo utf8_encode($registro['PrecioVenta']); ?>
+                            <?php echo '$'.number_format($registro['PrecioVenta']); ?>
                         </td>
 
                         <td>
-                            <?php echo utf8_encode($registro['Importe']); ?>
+                            <?php echo '$'.number_format($registro['Importe']); ?>
                         </td>
                     -->
                     </tr>
