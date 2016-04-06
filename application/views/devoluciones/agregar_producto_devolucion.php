@@ -3,7 +3,6 @@
     <div class="col-md-8 col-md-offset-2">
 
 
-
         <!-- permite mantener los campos de captura ocultos mientras no se haya seleccionado ningún producto -->
         <?php if (isset($producto)):
         ?>
@@ -167,6 +166,12 @@
                 <i class="fa fa-arrow-circle-left"></i>
                     Regresar
             </a>
+
+            <a class="btn btn-default" href="<?php echo base_url(); ?>devolucionEditar/<?php echo $_SESSION['devolucion']; ?>" role="button">
+                <i class="fa fa-plus"></i>
+                    Agregar todos los productos
+            </a>
+
 
         <h2 class="texto-centrado">Producto(s) contenidos en la Factura a Devolver </h2>
 
