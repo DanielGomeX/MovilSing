@@ -71,13 +71,12 @@ class DevolucionesModel extends AbstractModel {
     }
 
 
-
-    public function ObtenerFacturasCliente($cliente) {
+    public function ObtenerFacturasCliente($cliente, $usuario) {
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerFacturasCliente(?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerFacturasCliente(?,?)}";
 
         # asignamos los valores de los parametros
-        $this->params = array($cliente);
+        $this->params = array($cliente, $usuario);
 
         return $this->get_rows();
     }
@@ -163,7 +162,7 @@ class DevolucionesModel extends AbstractModel {
 
     /**
      * Permite registrar el producto a devolver
-     * @param  [arreglo] $datosProductoDevolucion [parametros enviados: IdAnomalia, InvcNbr, InvtID, Cantidad, IdCausa, Observaciones]
+     * @param  [arreglo] $datosProductoDevolucion [parametros recibidos: IdAnomalia, InvcNbr, InvtID, Cantidad, IdCausa, Observaciones]
      * @return [boolean]
      */
     public function registrarProductoParaDevolucion($datosProductoDevolucion){
@@ -175,6 +174,23 @@ class DevolucionesModel extends AbstractModel {
 
         return $this->execute_insert();
     }
+
+
+    /**
+     * Permite agregar todos aquellos productos de la factura que aun no han sido agregados para devolución
+     * @param  [arreglo] $datosProductoDevolucion [parametros recibidos: IdAnomalia, InvcNbr,  motivo]
+     * @return [boolean]
+     */
+    public function registrarProductosParaDevolucion($datosProductoDevolucion){
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_AnomaliasPostVenta_AgregarProductosDevolucion(?,?,?)}";
+
+        # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
+        $this->params=$datosProductoDevolucion;
+
+        return $this->execute_insert();
+    }
+
 
     /**
      * Cambia de status la solicitud y registrar historial
@@ -317,8 +333,6 @@ class DevolucionesModel extends AbstractModel {
         //return $this->get_row();
         return $this->execute_update();
     }
-
-
 
     public function obtenerCausasNotasCredito() {
         # mandamos llamar al stored procedure

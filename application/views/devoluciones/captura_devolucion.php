@@ -1,4 +1,4 @@
-<!-- Formulario Modal -->
+<!-- Formulario Modal utilizado para capturar la razon por la cual se requiere realizar la devolución -->
 <div class="modal fade" id="frmModalStatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -8,22 +8,22 @@
                 </div>
                 <div class="modal-body">
 
-                    <!-- FORMULARIO -->
                     <form id="frmCambiarStatus" class="form-horizontal" method="post" action="<?php base_url() ?>/DevolucionesController/cambiarStatus">
 
-                        <input type="hidden" name="nuevoStatus" value="REV.SUPERVISOR">
                         <label for="observaciones">Escriba el motivo por el cual se debería de autorizar la devolución / reclamación </label>
                         <textarea class="form-control" name="observaciones"></textarea>
+                        <input type="hidden" name="nuevoStatus" value="REV.SUPERVISOR">
 
-                     <!-- este objeto ejecuta un javascript, ver script llamado prospectos.js -->
-                     <button type="submit" id="btnEnviar" class="btn btn-info">
-                        <i class="fa fa-save"></i>
-                        Enviar
-                    </button>
+                        <br>
 
-                </form>
+                         <button type="submit" class="btn btn-warning">
+                            <i class="fa fa-save"></i>
+                            Enviar
+                        </button>
 
-            </div>
+                    </form>
+
+                </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
             </div>
@@ -34,10 +34,9 @@
 
 
 <article class="row">
-
     <div class="col-md-8 col-md-offset-2">
 
-        <h2 class="texto-centrado">Datos de la Devolución</h2>
+        <h2 class="texto-centrado">Datos generales de la devolución</h2>
 
         <!-- MENU DE NAVEGACION -->
         <div class="form-group">
@@ -51,7 +50,7 @@
                 <!-- Si el arreglo "productos_devolucion" contiene registros, y la variable status es igual a "CAPTURA" mostramos el boton de Enviar a Supervisor-->
                 <?php if (count($productos_devolucion)>0 && ($status=="CAPTURA")  ):
                  ?>
-                    <li role="presentation"><a id="btnSupervisor" ><i class="fa fa-user"></i> Enviar a Supervisor </a></li>
+                    <li role="presentation"><a id="btnSupervisor" href="#"><i class="fa fa-user" ></i> Enviar a Supervisor </a></li>
                 <?php
                 endif;
                  ?>
@@ -84,14 +83,6 @@
                 </div>
             </div>
 
-<!--             <div class="form-group">
-                <label for="shipperid" class="col-sm-2 control-label">Embarque:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="shipperid" name="shipperid" value="<?php echo $shipperid ?>" class="form-control" tabindex="1" autocomplete="off" />
-                </div>
-            </div> -->
-
-
             <div class="form-group">
                 <label for="custid" class="col-sm-2 control-label">Cliente:</label>
                 <div class="col-sm-10">
@@ -105,22 +96,6 @@
                     <input type="text" id="cliente" name="cliente" value="<?php echo $cliente ?>" class="form-control" tabindex="6" autocomplete="off"/>
                 </div>
             </div>
-
-<!--             <div class="form-group" >
-                <label for="folio" class="col-sm-2 control-label">Folio:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="folio" name="folio" value="<?php echo $folio ?>" class="form-control" tabindex="10" />
-                </div>
-            </div> -->
-
-<!--             <div class="form-group">
-                <label for="status" class="col-sm-2 control-label">Status:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="status" name="status" value="<?php echo $status ?>" class="form-control" tabindex="14" autocomplete="off"/>
-                </div>
-            </div>
- -->
-            <input type="hidden" id="status" name="status" value="<?php echo $status ?>" class="form-control" tabindex="14" autocomplete="off"/>
 
             <div class="form-group">
                 <label for="subTotal" class="col-sm-2 control-label">Subtotal:</label>
@@ -136,103 +111,21 @@
                 </div>
             </div>
 
+            <!-- sirve para saber que cual es elstatus actual de la factura para devolución -->
+            <input type="hidden" id="status" name="status" value="<?php echo $status ?>" >
 
-            <div class="form-group">
-                <div class="col-sm-10">
-                    <input type="hidden" id="enAlma" name="enAlma" value="<?php echo $enAlma ?>" class="form-control" tabindex="4" autocomplete="off"/>
-                </div>
-            </div>
+        </form>
 
-
-<!--             <div class="form-group">
-                <label for="fecha" class="col-sm-2 control-label">Fecha devolución:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="fecha" name="fecha" value="<?php echo $fecha ?>" class="form-control" tabindex="4" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="contacto" class="col-sm-2 control-label">Contacto:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="contacto" name="contacto" value="<?php echo $contacto ?>" class="form-control" tabindex="15" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="telefono" class="col-sm-2 control-label">Telefono:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="telefono" name="telefono" value="<?php echo $telefono ?>" class="form-control" tabindex="15" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">Email:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="email" name="email" value="<?php echo $email ?>" class="form-control" tabindex="15" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="zona" class="col-sm-2 control-label">Zona:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="zona" name="zona" value="<?php echo $zona ?>" class="form-control" tabindex="15" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="vendedor" class="col-sm-2 control-label">Representante:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="vendedor" name="vendedor" value="<?php echo $vendedor ?>" class="form-control" tabindex="15" placeholder="máximo 30 caracteres" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group" >
-                <label for="firmaCteAutorizaEnvio" class="col-sm-2 control-label">Firma Cte. Autoriza Envio:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="firmaCteAutorizaEnvio" name="firmaCteAutorizaEnvio" value="<?php echo $firmaCteAutorizaEnvio ?>" class="form-control" tabindex="7" />
-                </div>
-            </div>
-
- -->
-
-<!--
-            <div class="form-group" >
-                <label for="emailFirmaCteEnvio" class="col-sm-2 control-label">Email Firma Cte. Envio:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="emailFirmaCteEnvio" name="emailFirmaCteEnvio" value="<?php echo $emailFirmaCteEnvio ?>" class="form-control" tabindex="7" />
-                </div>
-            </div> -->
+    </div><!-- //columna -->
+</article><!-- //renglon -->
 
 
-<!--             <div class="form-group" >
-                <label for="transportista" class="col-sm-2 control-label">Entregado por:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="transportista" name="transportista" value="<?php echo $transportista ?>" class="form-control" tabindex="7" />
-                </div>
-            </div>
 
-            <div class="form-group" >
-                <label for="solicitoGuias" class="col-sm-2 control-label">Solicito Guias:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="solicitoGuias" name="solicitoGuias" value="<?php echo $solicitoGuias ?>" class="form-control" tabindex="7" />
-                </div>
-            </div>
+<article class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-            <div class="form-group" >
-                <label for="fechaSolGuias" class="col-sm-2 control-label">Fecha Solicitud Guias:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="fechaSolGuias" name="fechaSolGuias" value="<?php echo $fechaSolGuias ?>" class="form-control" tabindex="7" />
-                </div>
-            </div>
--->
-
-        <h3 class="texto-centrado">Productos agregados para Devolcuión</h3>
-
-        <!-- TABLA DE PRODUCTOS AGREGADOS PARA DEVOLUCION -->
         <div class="table-responsive">
-            <!-- Si la variable productos_devolucion no esta vacia, mostramos la tabla con los datos -->
-            <?php if (isset($productos_devolucion) && count($productos_devolucion)>0):
-            ?>
+
             <table id="tbProductosDevolucion" class="table table-striped table-condensed">
                 <thead>
                     <tr>
@@ -258,13 +151,7 @@
                             Subtotal
                         </th>
                         <th>
-                            Total
-                        </th>
-                        <th>
-                            Observaciones
-                        </th>
-                        <th>
-
+                            Motivo
                         </th>
                     </tr>
                 </thead>
@@ -298,31 +185,23 @@
                             <?php echo '$'.number_format($registro['Subtotal'],2); ?>
                         </td>
                         <td>
-                            <?php echo '$'.number_format($registro['Total'],2); ?>
-                        </td>
-                        <td>
                             <?php echo $registro['Observaciones']; ?>
                         </td>
-                        <td>
-                        </td>
                     </tr>
+
                     <?php
                     endforeach;
                     ?>
+
                 </tbody>
+
             </table>
-            <?php
-            endif;
-            ?>
-        </div>
 
-            <!-- //datos generales -->
-
-        </form>
+        </div><!-- //contenedor de la tabla -->
 
     </div><!-- //columna -->
-
 </article><!-- //renglon -->
+
 
 <!-- Cargamos el sript que se usa para las devoluciones -->
 <script src="<?php echo base_url();?>static/js/devoluciones.js"></script>

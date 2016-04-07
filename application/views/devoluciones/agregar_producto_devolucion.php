@@ -1,9 +1,58 @@
+<!-- Formulario Modal utilizado para capturar el motivo general por el cual se devolveran todos los productos -->
+<div class="modal fade" id="frmModalProductos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Agregar </h4>
+                </div>
+                <div class="modal-body">
+
+                    <form id="frmAgregarProductos" class="form-horizontal" method="post" action="<?php echo base_url(); ?>DevolucionesController/registrarProductosDevolucion">
+
+                        <label for="observaciones">Escriba el motivo por el cual se realiza la devolución de estos productos </label>
+                        <textarea class="form-control" name="motivo"></textarea>
+
+                        <br>
+
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fa fa-save"></i>
+                            Agregar
+                        </button>
+
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+        </div>
+    </div>
+</div>
+<!-- //Modal -->
+
+
 <article class="row">
 
     <div class="col-md-8 col-md-offset-2">
 
+        <a class="btn btn-default" role="button" href="<?php echo base_url(); ?>devolucionEditar/<?php echo $_SESSION['devolucion']; ?>" >
+            <i class="fa fa-arrow-circle-left"></i>
+                Regresar
+        </a>
 
-        <!-- permite mantener los campos de captura ocultos mientras no se haya seleccionado ningún producto -->
+        <!-- si la table de los productos disponibles contiene registros, entonces mostramos el botón para agregar todos-->
+        <?php if (count($productos_factura)>0):
+        ?>
+            <a class="btn btn-default" role="button" id="btnAgregarTodosProductos" >
+                <i class="fa fa-plus"></i>
+                    Agregar todos los productos
+            </a>
+            <?php
+        endif;
+        ?>
+
+        <!-- permite mantener los campos de captura ocultos mientras no se haya seleccionado ningún producto de la tabla de productos disponibles-->
         <?php if (isset($producto)):
         ?>
         <!-- TABLA DE PRODUCTO SELECCIONADO-->
@@ -130,17 +179,6 @@
                 <?php endif ?>
             </div>
 
-<!--             <div class="form-group">
-                    <select class="form-control" name="causa" >
-                      <option selected disabled value="">Seleccione una causa</option>
-
-                        <?php foreach ($listaNotasCredito as $registro): ?>
-
-                            <option value="<?php echo  $registro['IdCausaNota'] ?>"><?php echo  $registro['Causa'] ?></option>
-
-                        <?php endforeach; ?>
-                    </select>
-            </div> -->
 
             <div class="form-group">
                 <label for="motivo">Motivo de la devolución del producto:</label>
@@ -154,26 +192,22 @@
                     Agregar
                 </button>
             </div>
-        </form>
 
+        </form>
 
         <!-- permite mantener los campos de captura ocultos mientras no se haya seleccionado ningún producto -->
         <?php
         endif;
         ?>
-
-            <a class="btn btn-default" href="<?php echo base_url(); ?>devolucionEditar/<?php echo $_SESSION['devolucion']; ?>" role="button">
-                <i class="fa fa-arrow-circle-left"></i>
-                    Regresar
-            </a>
-
-            <a class="btn btn-default" href="<?php echo base_url(); ?>devolucionEditar/<?php echo $_SESSION['devolucion']; ?>" role="button">
-                <i class="fa fa-plus"></i>
-                    Agregar todos los productos
-            </a>
+    </div><!-- //columna -->
+</article><!-- //renglon -->
 
 
-        <h2 class="texto-centrado">Producto(s) contenidos en la Factura a Devolver </h2>
+<article class="row">
+
+    <div class="col-md-8 col-md-offset-2">
+
+        <h2 class="texto-centrado">Productos disponibles para devolución</h2>
 
         <!-- TABLA QUE MUESTRA LOS PRODUCTOS QUE CONTENIA LA FACTURA -->
         <div class="table-responsive">
@@ -199,9 +233,6 @@
                         <th>
                             Cantidad
                         </th>
-                        <th>
-
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -224,8 +255,6 @@
                         <td>
                             <?php echo $registro['CantSurtida']; ?>
                         </td>
-                        <td>
-                        </td>
                     </tr>
                     <?php
                     endforeach;
@@ -235,15 +264,7 @@
             <?php
             endif;
             ?>
-
-
-        </div>
-
-
-
-
     </div><!-- //columna -->
-
 </article><!-- //renglon -->
 
 
