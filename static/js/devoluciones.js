@@ -14,7 +14,7 @@ $(function(){
     /**
      * Dónde se usa: En la vista (devoluciones.php)
      * Para que se usa:
-     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá realizar la búsqueda de la factura en función del 
+     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá realizar la búsqueda de la factura en función del
      * número de cliente
      */
     $('#btnBuscarPorCliente').on('click', function() {
@@ -69,7 +69,6 @@ $(function(){
                 var tableData ='<thead><tr><td>Factura</td><td>Fecha</td><td>Cliente</td><td>Monto</td></tr></thead><tbody>';
                 obj = JSON.parse(respuesta);
                     for(var i in obj){
-                      //tableData += '<tr><td><a href="<?php echo base_url(); ?>DevolucionesController/seleccionarFactura/'+obj[i].InvcNbr+'">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
                       tableData += '<tr><td><a href="DevolucionesController/seleccionarFactura/'+obj[i].InvcNbr+'">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
                     }
                 tableData += '</tbody>';
@@ -82,12 +81,29 @@ $(function(){
     }
 
 
+    /**
+     * Dónde se usa: En la vista (captura_devolucion.php)
+     * Para que se usa:
+     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá registrar el motivo por el cual
+     * se debería de autorizar la devolución / reclamación
+     */
     $('#btnSupervisor').on('click', function() {
         $('#frmModalStatus').modal('show');
     });
 
 
-    /**************  Usando el plugin jQquery Validator  ***************/
+    /**
+     * Dónde se usa: En la vista (agregar_producto_devolucion.php)
+     * Para que se usa:
+     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá registrar el motivo por el cual
+     * se devoleran los productos
+     */
+    $('#btnAgregarTodosProductos').on('click', function() {
+        $('#frmModalProductos').modal('show');
+    });
+
+
+    //########################### Usando el plugin jQquery Validator  ###########################//
 
 
     /**************  Métodos personalizados para validación   *************************/
@@ -162,6 +178,26 @@ $(function(){
 
 
     /**
+     * Dónde se usa: En la vista (agregar_producto_devolucion.php)
+     * Para que se usa:
+     * Para validar que el usuario forzosamente registre un movivo de devolución.
+     */
+    $('#frmAgregarProductos').validate({
+        rules: {
+            motivo: {
+                required: true
+            }
+        },
+        messages: {
+            motivo: {
+              required: "Debe de especificar el motivo general por el cual serán devueltos los productos"
+            }
+        }
+
+    });
+
+
+    /**
      * Dónde se usa: En la vista (registrar_paquete.php)
      * Para que se usa:
      * Para validar que el usuario forzosamente registre una guia y un peso del paquete para devolución.
@@ -188,7 +224,6 @@ $(function(){
         }
 
     });
-
 
 
     /**

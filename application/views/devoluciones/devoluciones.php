@@ -1,5 +1,5 @@
 
-<!-- Formulario Modal para mostrar la búsqueda de factura -->
+<!-- Formulario Modal para buscar por número de factura  -->
 <div class="modal fade" id="modalBuscar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -54,12 +54,13 @@
                         <label for="txtBuscar">Número de cliente: </label>
                         <input type="text" class="form-control" id="txtBuscarPorCliente" autocomplete="off" tabindex="1"/>
                     </div>
-
                     <!-- este objeto ejecuta un javascript, ver script llamado devoluciones.js -->
                     <button id="btnBuscarFacturas" class="btn btn-warning" tabindex="2">
                         <i class="fa fa-search"></i>
                         Buscar
                     </button>
+                    <br>
+                    <p><strong>AVISO:</strong>En caso de encontrarse facturas, solo se mostrarán las del último año a partir de hoy.</p>
 
                 </form>
 
@@ -85,15 +86,14 @@
 <!-- //Modal -->
 
 
-
 <article class="row">
-
     <div class="col-md-8 col-md-offset-2">
 
 
         <h2 class="texto-centrado">Devoluciones </h2>
 
         <div class="form-group">
+
             <!-- este objeto ejecuta un javascript, ver script llamado devoluciones.js -->
             <a class="btn btn-warning" role="button" id="btnBuscarPorFactura">
                 <i class="fa fa-file-o"></i>
@@ -105,6 +105,7 @@
                 <i class="fa fa-user"></i>
                 Buscar factura por cliente
             </a>
+
         </div>
 
         <!-- TABLA DE DEVOLUCIONES -->
@@ -177,7 +178,6 @@
         </div>
 
     </div><!-- //columna -->
-
 </article><!-- //renglon -->
 
 <!-- Cargamos el sript que se usa para las devoluciones -->

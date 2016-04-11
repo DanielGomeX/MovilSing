@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title><?php $titulo; ?></title>
+  <title><?php echo $titulo; ?></title>
 
   <!-- **********ESTILOS GLOBALES**********-->
 
@@ -50,6 +50,7 @@
           <li><?php echo anchor('planruta','Plan Ruta') ?></li>
           <li><?php echo anchor('prospectos','Prospectos') ?></li>
           <li><?php echo anchor('devoluciones','Devoluciones') ?></li>
+          <li><?php echo anchor('#','Reclamaciones') ?></li>
           <!-- Submenú Reportes -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
