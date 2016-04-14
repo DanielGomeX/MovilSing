@@ -33,7 +33,6 @@
 
 
 <article class="row">
-
     <div class="col-md-8 col-md-offset-2">
 
         <a class="btn btn-default" role="button" href="<?php echo base_url(); ?>devolucionEditar/<?php echo $_SESSION['devolucion']; ?>" >
@@ -204,7 +203,6 @@
 
 
 <article class="row">
-
     <div class="col-md-8 col-md-offset-2">
 
         <h2 class="texto-centrado">Productos disponibles para devolución</h2>

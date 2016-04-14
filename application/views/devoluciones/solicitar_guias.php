@@ -7,14 +7,6 @@
         <!-- FROMULARIO DE CAPTURA PARA LA SOLICITUD DE GUIAS -->
         <form class="form-horizontal" method="post" action="<?php echo base_url() ?>DevolucionesController/registrarGuiaDevolucion">
 
-<!--             <div class="form-group">
-                <label for="remitente" class="col-sm-2 control-label">Remitente:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="remitente" name="remitente" value="<?php echo  set_value('remitente'); ?>" class="form-control" tabindex="1" autocomplete="off" />
-                    <?php echo form_error('remitente'); ?>
-                </div>
-            </div> -->
-
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <p class="form-control-static"><strong>Transportista:</strong></p>

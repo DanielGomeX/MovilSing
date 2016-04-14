@@ -43,7 +43,7 @@
             <ul class="nav nav-pills nav-justified ">
                 <?php if ($status=='CAPTURA' || $status=='REV.VENDEDOR'): ?>
                     <li role="presentation"><a href="<?php echo base_url() ?>DevolucionesController/agregarProductoParaDevolucion"><i class="fa fa-plus"></i> Agregar Producto(s)</a></li>
-                <?php elseif ($status=='POR ENVIAR'): ?>
+                <?php elseif ($status=='POR ENVIAR' || $status=='AUTORIZADO'): ?>
                     <li role="presentation"><a href="<?php echo base_url() ?>DevolucionesController/obtenerDatosEnvioAanomalia"><i class="fa fa-truck"></i> Enviar a Ags</a></li>
                 <?php endif; ?>
 

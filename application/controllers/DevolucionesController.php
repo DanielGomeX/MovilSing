@@ -44,6 +44,7 @@ class DevolucionesController extends CI_Controller {
                                                        )
                                                 );
         */
+
         $res = $client->SolicitarGuiasDevolucion($datos);
         if ($res)
         {
@@ -89,9 +90,9 @@ class DevolucionesController extends CI_Controller {
     public function buscarFactura() {
         $factura=$this->input->post('txtBuscar');
         $usuario=$this->session->usuario;
-        
+
         $datos_factura = $this->DevolucionesModel->obtenerDatosFactura($factura, $usuario);
-        
+
         //contamos cuantos registros contiene el array de la consulta previa
         $count = count($datos_factura);
         //si existe al menos un registro, significa que se encontrontraon los datos de la factura como enviada mediante el SING
@@ -107,7 +108,6 @@ class DevolucionesController extends CI_Controller {
             $this->load->view('plantillas/master_page', $datos);
         }
     }
-
 
     /**
      * Muestra en pantalla los datos generales correspondientes a la facturas del cliente seleccionada para devolución
@@ -303,10 +303,10 @@ class DevolucionesController extends CI_Controller {
                      $causa,
                      $observaciones
                     ];
-        
+
         //ejecutamos query para registrar los datos de entrada a la base de datos
         $respuesta=$this->DevolucionesModel->registrarProductoParaDevolucion($datosProductoDevolucion);
-        
+
         if ($respuesta==1) {
             $this->agregarProductoParaDevolucion();
         }
@@ -381,7 +381,7 @@ class DevolucionesController extends CI_Controller {
             $this->load->library('email'); // Note: no $config param needed
             $this->email->from('tecnologias@hecort.com');
             $this->email->to($destinatarios);
-            $this->email->bcc('omar.flores@hecort.com');
+            //$this->email->bcc('omar.flores@hecort.com');
             $this->email->subject('Reclamacion/Devolución por autorizar, FOLIO: '.$this->session->devolucion);
             $this->email->message($this->load->view('plantillas/Devoluciones_aviso_supervisor', $data, true));
             $this->email->send();
@@ -455,7 +455,7 @@ class DevolucionesController extends CI_Controller {
     /**
      * Redirecciona al usuario a la vista para capturar una nueva solicitud de guias
      */
-    public function solicitarGuias(){
+    public function solicitarGuias() {
             $datos['titulo'] = 'Devoluciones';
             $datos['vista'] = 'devoluciones/solicitar_guias';
             $this->load->view('plantillas/master_page', $datos);
@@ -495,6 +495,7 @@ class DevolucionesController extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('plantillas/master_page', $datos);
         } else {
+            $usuario=$this->session->usuario;
             $devolucion=$this->session->devolucion;
             $remitente =  $this->input->post('remitente');
             $oficina =  $this->input->post('oficina');
@@ -524,7 +525,8 @@ class DevolucionesController extends CI_Controller {
                                 $peso,
                                 $atenacionA,
                                 $tel1,
-                                '0' //tel2
+                                '0', //tel2
+                                $usuario
                             ];
             
             //ejecutamos query
@@ -544,6 +546,7 @@ class DevolucionesController extends CI_Controller {
                                'pAtencionA' => $atenacionA,
                                );
 
+            /*
             //Se invoca al WebService para poder generar las guias y enviarlas por correo al usuario
             $respuestaWS=$this->localWS($datosGuia);
             if ($respuestaWS==1) {
@@ -555,6 +558,9 @@ class DevolucionesController extends CI_Controller {
                 $datos['vista'] = 'errors/error';
                 $this->load->view('plantillas/master_page', $datos);
             }
+            */
+
+            redirect('devoluciones');
         }
     }
 
@@ -565,7 +571,7 @@ class DevolucionesController extends CI_Controller {
         $devolucion=$this->session->devolucion;
         $guia = $this->input->post('guia');
         $peso = $this->input->post('peso');
-        
+
         //obtenemos el transportista almacenado en la variable de sessión temporal con el que se solicitaron las guias para la devolucion
         $transportista=$this->session->guiasTransportista;
         $parametrosPaquete=[
@@ -574,7 +580,7 @@ class DevolucionesController extends CI_Controller {
                             $transportista,
                             $peso,
                         ];
-        
+
         //ejecutamos query
         $respuesta=$this->DevolucionesModel->registrarPaquete($parametrosPaquete);
         if ($respuesta==1) {

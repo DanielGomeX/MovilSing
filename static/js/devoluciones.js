@@ -25,6 +25,18 @@ $(function(){
     /**
      * Dónde se usa: En la vista (devoluciones.php)
      * Para que se usa:
+     * Para mostrar el formulario modal al hacer click sobre el botón que permitirá realizar la búsqueda de las facturas del cliente
+     * que contienen un producto en específico
+     *
+     */
+    $('#btnBuscarPorProducto').on('click', function() {
+        $('#modalBuscarPorProducto').modal('show');
+    });
+
+
+    /**
+     * Dónde se usa: En la vista (devoluciones.php)
+     * Para que se usa:
      * Para validar que se registre un número de factura como obligatorio antes de enviar el formulario al servidor
      */
     $('#frmBuscaFactura').on('submit', function(e) {

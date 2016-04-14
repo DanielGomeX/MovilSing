@@ -266,7 +266,7 @@ class DevolucionesModel extends AbstractModel {
      */
     public function registrarGuiaDevolucion($parametrosGuia){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVentaCrearGuiasPdf(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVentaCrearGuiasPdf(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
         $this->params=$parametrosGuia;
