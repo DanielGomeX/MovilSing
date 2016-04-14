@@ -64,7 +64,7 @@ class DevolucionesController extends CI_Controller {
     public function devolucionesPorUsuario() {
         $datos['titulo'] = 'Devoluciones';
         $datos['devoluciones'] = $this->DevolucionesModel->obtenerDevolucionesPendientes($this->session->usuario);
-        $datos['vista'] = 'devoluciones/devoluciones';
+        $datos['vista'] = 'anomalias/devoluciones';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -162,7 +162,7 @@ class DevolucionesController extends CI_Controller {
         $datos['pesoPaquetes']=$datos_factura[0]['PesoPaquetes'];
         $datos['monto']=$datos_factura[0]['Monto'];
         $datos['monto2']=$datos_factura[0]['Monto2'];
-        $datos['vista'] = 'devoluciones/datos_factura';
+        $datos['vista'] = 'anomalias/datos_factura';
         $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -183,7 +183,7 @@ class DevolucionesController extends CI_Controller {
         //Si la zona de ventas es igual al usuario logeado, entonces mostramos los datos de la factura
         if(trim($datos['zona'])==trim($this->session->usuario))
         {
-            $datos['vista'] = 'devoluciones/datos_factura_SL';
+            $datos['vista'] = 'anomalias/datos_factura_SL';
             $this->load->view('plantillas/master_page', $datos);
         }
         else {
@@ -228,7 +228,7 @@ class DevolucionesController extends CI_Controller {
      */
     public function mostrarDatosDevolucion($idAnomalia) {
         $datos['titulo'] = 'Devoluciones';
-        $datos['vista'] = 'devoluciones/captura_devolucion';
+        $datos['vista'] = 'anomalias/captura_devolucion';
 
         $resp=$this->DevolucionesModel->obtenerDatosDevolucion($idAnomalia);
         $datos['anomalia'] = $idAnomalia;
@@ -256,7 +256,7 @@ class DevolucionesController extends CI_Controller {
      */
     public function agregarProductoParaDevolucion() {
         $datos['titulo'] = 'Devoluciones';
-        $datos['vista'] = 'devoluciones/agregar_producto_devolucion';
+        $datos['vista'] = 'anomalias/agregar_producto_devolucion';
 
         //asigmanos la respuesta que nos regresa la consulta a la variable productos_factura
         $datos['productos_factura']=$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
@@ -269,7 +269,7 @@ class DevolucionesController extends CI_Controller {
      */
     public function mostrarDatosProductoDevolver($producto) {
         $factura=$this->session->factura;
-        $datos['vista'] = 'devoluciones/agregar_producto_devolucion';
+        $datos['vista'] = 'anomalias/agregar_producto_devolucion';
         $datos['mensaje'] ='';
         $datos['producto'] =$this->DevolucionesModel->obtenerDatosProductoParaDevolucion($factura,$producto);
         $datos['articulo']=$datos['producto'][0]['InvtId'];//obtenemos el valor del campo artículo del registro 0 del arreglo datos
@@ -400,7 +400,7 @@ class DevolucionesController extends CI_Controller {
      */
     public function mostrarProductosDevolucion($status) {
         $datos['titulo'] = 'Devoluciones';
-        $datos['vista'] = 'devoluciones/detalle_productos_devolucion';
+        $datos['vista'] = 'anomalias/detalle_productos_devolucion';
         $datos['status'] =  $status;
         $datos['productos_devolucion'] =$this->DevolucionesModel->obtenerDetalleProductosDevolucion($this->session->devolucion);
         $this->load->view('plantillas/master_page', $datos);
@@ -411,7 +411,7 @@ class DevolucionesController extends CI_Controller {
      */
     public function mostrarProductosFactura() {
         $datos['titulo'] = 'Devoluciones';
-        $datos['vista'] = 'devoluciones/productos_factura_devolucion';
+        $datos['vista'] = 'anomalias/productos_factura_devolucion';
         $datos['productos_factura'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
         $this->load->view('plantillas/master_page', $datos);
     }
@@ -457,7 +457,7 @@ class DevolucionesController extends CI_Controller {
      */
     public function solicitarGuias() {
             $datos['titulo'] = 'Devoluciones';
-            $datos['vista'] = 'devoluciones/solicitar_guias';
+            $datos['vista'] = 'anomalias/solicitar_guias';
             $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -465,7 +465,7 @@ class DevolucionesController extends CI_Controller {
      * Muestra los paquetes registrados con guia para devolución
      */
     public function mostrarPaquetesEnvio() {
-        $datos['vista'] = 'devoluciones/registrar_paquete';
+        $datos['vista'] = 'anomalias/registrar_paquete';
         $paquetes= $this->DevolucionesModel->obtenerPaquetesParaEnvio($this->session->devolucion);
         $total_paquetes=count($paquetes);
         $datos['paquetes'] = $paquetes;
@@ -477,7 +477,7 @@ class DevolucionesController extends CI_Controller {
      * Valida que los datos para la solicitud de guias sean correctos, en caso de que no, se muestra aviso correspondiente
      */
     public function registrarGuiaDevolucion() {
-        $datos['vista'] = 'Devoluciones/solicitar_guias';
+        $datos['vista'] = 'anomalias/solicitar_guias';
         //Establecemos las reglas de validación
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('transportista', 'Transportista', 'required');
@@ -621,7 +621,7 @@ class DevolucionesController extends CI_Controller {
      * @return [type] [description]
      */
     public function confirmarEnvioDevolucion() {
-        $datos['vista'] = 'Devoluciones/registrar_envio';
+        $datos['vista'] = 'anomalias/registrar_envio';
         $this->load->view('plantillas/master_page', $datos);
     }
 
