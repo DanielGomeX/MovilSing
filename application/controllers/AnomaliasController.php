@@ -2,11 +2,12 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class DevolucionesController extends CI_Controller {
+class AnomaliasController extends CI_Controller {
 
     function __construct() {
         parent::__construct();
-        $this->load->model('DevolucionesModel');
+        $this->load->model('AnomaliasModel');
+
         #cargamos la libreria para validación de formularios de forma global
         #ya que varios métodos mandan llamar al mismo formulario
         $this->load->library('form_validation');
@@ -18,35 +19,27 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
-    /**************** PRUEBAS WEBSERVICE **********************/
-    public function localWS($datos) {
+    /**
+     * Función que invoca al WebService local de Hecort, se hace uso del método
+     * de solicitud de guias para el envío de la anomalia
+     */
+    private function wsHecort($parametros) {
+
         //$url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
         $url="http://localhost:6963/WebService1.asmx?wsdl";
-        $client = new SoapClient($url);
+
+        //Para verificar respuesta del WS
+        //$client = new SoapClient($url);
         //$fcs = $client->__getFunctions();
         //var_dump($fcs);
-        $res = new StdClass();
-        /*
-        $res = $client->SolicitarGuiasDevolucion(array('pIdAnomalia' => '3609',
-                                                       'pTransportista' => 'EF',
-                                                       'pOficina' => '1',
-                                                       'pRemitente' => $this->usuaio;,
-                                                       'pDireccion1' => 'Gregorio Ruiz Velazco',
-                                                       'pDireccion2' => '201',
-                                                       'pDireccion3' => 'Gregorio Ruiz Velazco',
-                                                       'pCiudad' => 'Aguascalientes',
-                                                       'pEstado' => 'Aguascalientes',
-                                                       'pCp' => '20290',
-                                                       'pPaquetes' => '1',
-                                                       'pPeso' => '1',
-                                                       'pAtencionA' => 'Rocio Puentes',
-                                                       'pTel1' => '4491056610',
-                                                       )
-                                                );
-        */
 
-        $res = $client->SolicitarGuiasDevolucion($datos);
-        if ($res)
+        //instanciamos el webservice
+        $ws = new SoapClient($url);
+
+        //consumimos el método para la solicitud de las guias
+        $resp = $ws->SolicitarGuiasDevolucion($parametros);
+
+        if ($resp)
         {
             return true;
         }
@@ -54,27 +47,29 @@ class DevolucionesController extends CI_Controller {
         {
             return false;
         }
+
     }
-    /**************** PRUEBAS WEBSERVICE **********************/
+
 
     /**
      * Muestra el Listado de aquellas devoluciones registradas por el usuario que estan con alguno de los siguientes status
      * POR ENVIAR, CAPTURA, REV.VENDEDOR, REV.SUPERVISOR, REV.DIVISIONAL, REV.DIR.COMERCIAL
      */
-    public function devolucionesPorUsuario() {
-        $datos['titulo'] = 'Devoluciones';
-        $datos['devoluciones'] = $this->DevolucionesModel->obtenerDevolucionesPendientes($this->session->usuario);
-        $datos['vista'] = 'anomalias/devoluciones';
+    public function obtenerAnomaliasPorUsuario() {
+        $datos['titulo'] = 'Anomalias';
+        $datos['anomalias'] = $this->AnomaliasModel->obtenerAnomaliasPendientes($this->session->usuario);
+        $datos['vista'] = 'anomalias/tablero_anomalias';
         $this->load->view('plantillas/master_page', $datos);
     }
+
 
     /**
      * Ejecuta la eliminación del registro seleccionado
      */
-    public function EliminarDevolucionCaptura($idDevolucion) {
-        $respuesta = $this->DevolucionesModel->EliminarDevolucionCaptura($idDevolucion);
+    public function eliminarAnomaliaCaptura($idDevolucion) {
+        $respuesta = $this->AnomaliasModel->EliminarAnomaliaCaptura($idDevolucion);
         if ($respuesta==1) {
-            $this->devolucionesPorUsuario();
+            $this->obtenerAnomaliasPorUsuario();
         }
         else{
             $datos['mensaje']="Ocurrio un error al tratar de eliminar devolución en captura.";
@@ -82,6 +77,7 @@ class DevolucionesController extends CI_Controller {
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+
 
     /**
      * Busca la factura en la base de datos, en caso de que exista, llama al método que muestra los datos correspondientes,
@@ -91,10 +87,11 @@ class DevolucionesController extends CI_Controller {
         $factura=$this->input->post('txtBuscar');
         $usuario=$this->session->usuario;
 
-        $datos_factura = $this->DevolucionesModel->obtenerDatosFactura($factura, $usuario);
+        $datos_factura = $this->AnomaliasModel->obtenerDatosFactura($factura, $usuario);
 
         //contamos cuantos registros contiene el array de la consulta previa
         $count = count($datos_factura);
+
         //si existe al menos un registro, significa que se encontrontraon los datos de la factura como enviada mediante el SING
         if ($count>0)
         {
@@ -104,17 +101,18 @@ class DevolucionesController extends CI_Controller {
         {
             $datos['mensaje']="Número de facura: no encontrado, no pertenece a tu zona de ventas o aun no tiene fecha de acuse de recibo registrada. Favor de verificar.";
             $datos['vista'] = 'errors/aviso';
-            $datos['link_regresar'] = 'devoluciones';
+            $datos['link_regresar'] = 'anomalias';
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+
 
     /**
      * Muestra en pantalla los datos generales correspondientes a la facturas del cliente seleccionada para devolución
      */
     public function seleccionarFactura($factura) {
         $usuario=$this->session->usuario;
-        $datos_factura = $this->DevolucionesModel->obtenerDatosFactura($factura, $usuario);
+        $datos_factura = $this->AnomaliasModel->obtenerDatosFactura($factura, $usuario);
 
         //contamos cuantos registros contiene el array de la consulta previa
         $count = count($datos_factura);
@@ -127,29 +125,86 @@ class DevolucionesController extends CI_Controller {
         {
             $datos['mensaje']="Número de facura: no encontrado, no pertenece a tu zona de ventas o aun no tiene fecha de acuse de recibo registrada. Favor de verificar.";
             $datos['vista'] = 'errors/aviso';
-            $datos['link_regresar'] = 'devoluciones';
+            $datos['link_regresar'] = 'anomalias';
             $this->load->view('plantillas/master_page', $datos);
         }
     }
 
+
     /**
-     * Obtiene las facturas del cliente del último año, para ser mostradas en pantalla y se elija en la que se desea  
+     * Obtiene las facturas del cliente del último año, para ser mostradas en pantalla y se elija en la que se desea
      * realizar la devolución
      * @return [null]
      */
     public function obtenerFacturasPorCliente() {
         $cliente = $this->input->get('codigo');
         $usuario = $this->session->usuario;
-        $result = $this->DevolucionesModel->ObtenerFacturasCliente($cliente, $usuario);
+        $result = $this->AnomaliasModel->ObtenerFacturasCliente($cliente, $usuario);
         echo json_encode($this->utf8_converter($result));
     }
+
+
+    /**
+     * Obtienes aquellas facturas del cliente en las cuales haya comprado el producto especificado, éste método es
+     * llamado un por un script ajax (ver archivo anomalias.js)
+     */
+    public function obtenerFacturasPorProductoCliente() {
+        $cliente = $this->input->get('pCliente');
+        $producto = $this->input->get('pProducto');
+        $usuario = $this->session->usuario;
+
+        $resp = $this->AnomaliasModel->ObtenerFacturasPorProductoCliente($cliente, $producto, $usuario);
+
+        //Encabezado de la tabla html
+        $html ="<thead><tr><td>Factura</td><td>Fecha</td><td>Cantidad</td></tr></thead><tbody>";
+
+        //(cuepo de la tabla html) recorremos cada uno de los registros de la respuesta para concatenarlos a la varibale html
+        foreach($resp as $registro){
+             $html .= " <tr><td> <a href=DevolucionesController/seleccionarFactura/".$registro['InvcNbr'].">".$registro['InvcNbr']."</a></td> ";
+             $html .= " <td> ".$registro['InvcDate']." </td> ";
+             $html .= " <td> ".$registro['CantSol']." </td></tr> ";
+            }
+
+        //pie de la tabla html
+        $html .= " </tbody> ";
+
+        //regresamoa la tabla hmtl completa
+        echo $html;
+
+    }
+
+
+    /**
+     * Esta función permite cargar de manera dinámica los valores a un elemento select, y dependiendo el valor
+     * del parametro de entrada (tipo), se ejecutará el método correspondiente. La respuesta será concatenada
+     * en una variable html la cual será regresada a la solicitud ajax que la mandó llamar
+     */
+    public function obtenerCausasAnomalia() {
+
+        $causas = $this->AnomaliasModel->obtenerCausasAnomalia();
+
+        //variable que será utilizada para concatenar dinámicamente cada uno de los registros de consulta en forma de html
+        $html = "<option value=''> Seleccione una casusa </option>";
+
+        //recorremos cada uno de los registros de la respuesta para concatenarlos a la varibale html
+        foreach($causas as $causa){
+            $html .= "<option value='".$causa['IdCausaNota']."'>".$causa['Causa']."</option>";
+        }
+
+        //regresamos como respuesta la variable en forma de html
+        echo ($html);
+    }
+
+
 
     /**
      * muestra los datos generales de la factura a la que se desea realizar la devolución, siempre y cuendo la factura
      * pertenezca al usuario logeado
      */
     private function mostrarDatosFactura($factura,$datos_factura) {
-        $datos['titulo'] = 'Devoluciones';
+        $datos['titulo'] = 'Anomalias';
+        $datos['vista'] = 'anomalias/datos_factura';
+
         $datos['factura']=$factura;
         $datos['invcDate']=$datos_factura[0]['InvcDate'];
         $datos['referenciaEnviarJunto']=$datos_factura[0]['ReferenciaEnviarJunto'];
@@ -162,15 +217,16 @@ class DevolucionesController extends CI_Controller {
         $datos['pesoPaquetes']=$datos_factura[0]['PesoPaquetes'];
         $datos['monto']=$datos_factura[0]['Monto'];
         $datos['monto2']=$datos_factura[0]['Monto2'];
-        $datos['vista'] = 'anomalias/datos_factura';
+
         $this->load->view('plantillas/master_page', $datos);
     }
 
+
     /**
-     * pendiente
+     * obsoleto
      */
     private function mostrarDatosFacturaSL($factura,$datos_factura) {
-        $datos['titulo'] = 'Devoluciones';
+        $datos['titulo'] = 'Anomalias';
         $datos['factura']=$factura;
         $datos['shipperid']=$datos_factura[0]['ShipperID'];
         $datos['custid']=$datos_factura[0]['CustID'];
@@ -180,6 +236,8 @@ class DevolucionesController extends CI_Controller {
         $datos['vendedor']=$datos_factura[0]['Vendedor'];
         $datos['monto']=$datos_factura[0]['TotMerch'];
         $datos['monto2']=$datos_factura[0]['TotTax'];
+
+
         //Si la zona de ventas es igual al usuario logeado, entonces mostramos los datos de la factura
         if(trim($datos['zona'])==trim($this->session->usuario))
         {
@@ -189,49 +247,55 @@ class DevolucionesController extends CI_Controller {
         else {
             $datos['mensaje']="Esta factura no pertenece a tu zona de ventas.";
             $datos['vista'] = 'errors/aviso';
-            $datos['link_regresar'] = 'devoluciones';
+            $datos['link_regresar'] = 'anomalias';
             $this->load->view('plantillas/master_page', $datos);
         }
     }
 
+
     /**
-     * Guarda registro de devolución de la factura seleccionada en la base de datos y crea las variables se session
-     * Devolucion y Factura, las cuales será usadas posteriormente
+     * Guarda registro de anomalia de la factura seleccionada en la base de datos y crea las variables se session
+     * id_anomalia, tipo_anomalia y factura, las cuales será usadas posteriormente
      */
-    public function registrarDevolucion() {
+    public function registrarAnomalia() {
         //Datos de entrada
         $factura = $this->input->post('factura');
-        $emailFirmaCte = $this->input->post('emailConfirmacion');
+        $tipoAnomalia = "D"; //$this->input->post('tipoAnomalia');
+        $causaAnomalia =  $this->input->post('causaAnomalia');
         $EnAlma = true;
         $Usuario = $this->session->usuario;
 
-        $parametrosDatosDevolucion=[$factura,
-                                    $emailFirmaCte,
-                                    $EnAlma,
-                                    $Usuario
-                                ];
+        $parametros=[
+                        $factura,
+                        $tipoAnomalia,
+                        $causaAnomalia,
+                        $EnAlma,
+                        $Usuario
+                    ];
 
         //ejecutamos query
-        $respuesta=$this->DevolucionesModel->registrarDevolucion($parametrosDatosDevolucion);
-        $folio=$respuesta[0]['NoAnomalia'];
+        $respuesta=$this->AnomaliasModel->registrarAnomalia($parametros);
 
-        //creamos las variables de sesión referentes a la devolución una vez registrada en la BD
-        $_SESSION['devolucion']=$folio;
+        //creamos las variables de sessión  necesarias para el registro de la anomalía
+        $_SESSION['id_anomalia']=$respuesta[0]['NoAnomalia'];
+        $_SESSION['tipo_anomalia']=$tipoAnomalia;
         $_SESSION['factura']=$factura;
-        $noDevolucion=$folio;
-        $factura=$factura;
-        $this->mostrarDatosDevolucion($folio);
+
+        $this->mostrarDatosAnomalia($this->session->id_anomalia);
     }
+
 
     /**
      *  Muestra los datos generales (encabezado) del registro de la devolución a la factura correpondiente
      */
-    public function mostrarDatosDevolucion($idAnomalia) {
-        $datos['titulo'] = 'Devoluciones';
-        $datos['vista'] = 'anomalias/captura_devolucion';
+    public function mostrarDatosAnomalia($idAnomalia) {
+        $datos['titulo'] = 'Anomalias';
+        $datos['vista'] = 'anomalias/captura_anomalia';
 
-        $resp=$this->DevolucionesModel->obtenerDatosDevolucion($idAnomalia);
+        $resp=$this->AnomaliasModel->obtenerDatosAnomalia($idAnomalia);
+
         $datos['anomalia'] = $idAnomalia;
+        $datos['tipoAnomalia'] = $resp[0]['IdTipo'];
         $datos['invcNbr']=$resp[0]['InvcNbr'];
         $datos['invcDate']=$resp[0]['InvcDate'];
         $datos['custid']=$resp[0]['CustID'];
@@ -240,72 +304,79 @@ class DevolucionesController extends CI_Controller {
         $datos['totIva']=$resp[0]['TotIva'];
         $datos['subTotal']=$resp[0]['SubTotal'];
         $datos['enAlma']=$resp[0]['EnAlma'];
-        $datos['firmaCteAutorizaEnvio']=$resp[0]['FirmaCteAutorizaEnvio'];
-        $datos['emailFirmaCteEnvio']=$resp[0]['EmailFirmaCteEnvio'];
-        $datos['fechaSolGuias']=$resp[0]['FechaSolGuias'];
+        $datos['causa']=$resp[0]['Causa'];
 
         //asignamos las variables de sesión referentes a la devolución previamente registrada en la BD
-        $_SESSION['devolucion']=$datos['anomalia'];
+        $_SESSION['id_anomalia']=$datos['anomalia'];
+        $_SESSION['tipo_anomalia']=$datos['tipoAnomalia'];
         $_SESSION['factura']=$datos['invcNbr'];
-        $datos['productos_devolucion'] =$this->DevolucionesModel->obtenerDetalleProductosDevolucion($this->session->devolucion);
+
+        $datos['productos_devolucion'] =$this->AnomaliasModel->obtenerDetalleProductosAnomalia($this->session->id_anomalia);
         $this->load->view('plantillas/master_page', $datos);
     }
+
 
     /**
      * Muestra los productos pertenecientes a la factura a devolver
      */
     public function agregarProductoParaDevolucion() {
-        $datos['titulo'] = 'Devoluciones';
-        $datos['vista'] = 'anomalias/agregar_producto_devolucion';
+        $datos['titulo'] = 'Anomalias';
+        $datos['vista'] = 'anomalias/agregar_producto_anomalia';
+
+        $factura=$this->session->factura;
+        $idAnomalia=$this->session->id_anomalia;
 
         //asigmanos la respuesta que nos regresa la consulta a la variable productos_factura
-        $datos['productos_factura']=$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+        $datos['productos_factura']=$this->AnomaliasModel->obtenerDatosProductosFactura($factura,$idAnomalia);
 
         $this->load->view('plantillas/master_page', $datos);
     }
+
 
     /**
      * Muestra los productos asociados de la factura a devolver, quitando aquellos que fueron agregados previamente para devolución
      */
     public function mostrarDatosProductoDevolver($producto) {
-        $factura=$this->session->factura;
-        $datos['vista'] = 'anomalias/agregar_producto_devolucion';
+
+        $datos['vista'] = 'anomalias/agregar_producto_anomalia';
         $datos['mensaje'] ='';
-        $datos['producto'] =$this->DevolucionesModel->obtenerDatosProductoParaDevolucion($factura,$producto);
+
+        $factura=$this->session->factura;
+        $idAnomalia=$this->session->id_anomalia;
+
+        $datos['producto'] =$this->AnomaliasModel->obtenerDatosProductoParaDevolucion($factura,$producto);
         $datos['articulo']=$datos['producto'][0]['InvtId'];//obtenemos el valor del campo artículo del registro 0 del arreglo datos
         $datos['cantidadSurtida']=$datos['producto'][0]['CantSurt'];//obtenemos el valor del campo cantidad surtida del registro 0 del arreglo datos
 
         //asigmanos la respuesta que nos regresa la consulta a la variable productos_factura
-        $datos['productos_factura']=$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+        $datos['productos_factura']=$this->AnomaliasModel->obtenerDatosProductosFactura($factura,$idAnomalia);
 
-        $datos['producto_especie'] =$this->DevolucionesModel->obtenerDatosProductoEspecieParaDevolucion($factura,$producto);
-        $datos['listaNotasCredito']=$this->DevolucionesModel->obtenerCausasNotasCredito();
+        $datos['producto_especie'] =$this->AnomaliasModel->obtenerDatosProductoEspecieParaDevolucion($factura,$producto);
 
         $this->load->view('plantillas/master_page', $datos);
     }
 
+
     /**
      * Guarda los datos generales del producto que será devuelto
      */
-    public function registrarProductoDevolucion(){
-        $idAnomalia=$this->session->devolucion;
+    public function registrarProductoAnomalia(){
+        $idAnomalia=$this->session->id_anomalia;
         $factura = $this->session->factura;
         $producto = $this->input->post('articulo');
         $cantidad = $this->input->post('cantidad');
-        $causa = $this->input->post('causa');
         $observaciones = $this->input->post('motivo');
 
-        $datosProductoDevolucion=[
+        $datosProducto=[
                      $idAnomalia,
                      $factura,
                      $producto,
                      $cantidad,
-                     $causa,
                      $observaciones
                     ];
 
         //ejecutamos query para registrar los datos de entrada a la base de datos
-        $respuesta=$this->DevolucionesModel->registrarProductoParaDevolucion($datosProductoDevolucion);
+        $respuesta=$this->AnomaliasModel->registrarProductoAnomalia($datosProducto);
 
         if ($respuesta==1) {
             $this->agregarProductoParaDevolucion();
@@ -317,25 +388,26 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
+
     /**
      * Regiatra en la base de datos todos los productos disponibles para devolución
      */
-    public function registrarProductosDevolucion(){
+    public function registrarProductosAnomalia(){
 
-        $idAnomalia=$this->session->devolucion;
+        $idAnomalia=$this->session->id_anomalia;
         $factura = $this->session->factura;
         $motivo = $this->input->post('motivo');
 
-        $datosProductoDevolucion=[
+        $datosProductos=[
                      $idAnomalia,
                      $factura,
                      $motivo
                     ];
 
         //ejecutamos query
-        $respuesta=$this->DevolucionesModel->registrarProductosParaDevolucion($datosProductoDevolucion);
+        $respuesta=$this->AnomaliasModel->registrarProductosAnomalia($datosProductos);
         if ($respuesta==1) {
-            $this->mostrarDatosDevolucion($idAnomalia);
+            $this->mostrarDatosAnomalia($idAnomalia);
         }
         else{
             $datos['mensaje']="Ocurrio un error al tratar de registrar el producto para devolución.";
@@ -344,11 +416,12 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
+
     /**
      * Cambia de status la solicitud para que pase a revisión por el supervisor y enviía notificación correspondiente por correo
      */
     public function cambiarStatus() {
-        $devolucion=$this->session->devolucion;
+        $anomalia=$this->session->id_anomalia;
         $usuario=$this->session->usuario;
 
         //Datos de entrada del formulario
@@ -356,7 +429,7 @@ class DevolucionesController extends CI_Controller {
         $observaciones= $this->input->post('observaciones');
 
         //ejecutamos query para cambiar de status y pase a revisión del supervisor
-        $result=$this->DevolucionesModel->cambiarStatus($devolucion, $status, $observaciones, $usuario);
+        $result=$this->AnomaliasModel->cambiarStatus($anomalia, $status, $observaciones, $usuario);
         $result=1;
         if ($result==1) {
             //obtenemos el email asignado al supervisor del usuario
@@ -368,7 +441,7 @@ class DevolucionesController extends CI_Controller {
             $correoUsuario=$emailUsuario[1]['Email'];
 
             //obtenemos los datos registrados de la devolución para anexarlos como información al correo que se enviará
-            $resp=$this->DevolucionesModel->obtenerDatosDevolucion($devolucion);
+            $resp=$this->AnomaliasModel->obtenerDatosAnomalia($anomalia);
             $data['subTotal']=$resp[0]['SubTotal'];
             $data['custid']=$resp[0]['CustID'];;
             $data['cliente']=$resp[0]['Cliente'];;
@@ -382,56 +455,60 @@ class DevolucionesController extends CI_Controller {
             $this->email->from('tecnologias@hecort.com');
             $this->email->to($destinatarios);
             //$this->email->bcc('omar.flores@hecort.com');
-            $this->email->subject('Reclamacion/Devolución por autorizar, FOLIO: '.$this->session->devolucion);
+            $this->email->subject('Reclamacion/Devolución por autorizar, FOLIO: '.$this->session->id_anomalia);
             $this->email->message($this->load->view('plantillas/Devoluciones_aviso_supervisor', $data, true));
             $this->email->send();
-            redirect('devoluciones');
+            redirect('anomalias');
         }
         else{
             $datos['mensaje']="Ocurrio un error al enviar al supervisor para autorización.";
             $datos['vista'] = 'errors/aviso';
-            $datos['link_regresar'] = 'devoluciones';
+            $datos['link_regresar'] = 'anomalias';
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+
 
     /**
      * Muestra los productos que se tienen registrados para devolucion
      */
     public function mostrarProductosDevolucion($status) {
-        $datos['titulo'] = 'Devoluciones';
+        $datos['titulo'] = 'Anomalias';
         $datos['vista'] = 'anomalias/detalle_productos_devolucion';
         $datos['status'] =  $status;
-        $datos['productos_devolucion'] =$this->DevolucionesModel->obtenerDetalleProductosDevolucion($this->session->devolucion);
+        $datos['productos_devolucion'] =$this->AnomaliasModel->obtenerDetalleProductosAnomalia($this->session->id_anomalia);
         $this->load->view('plantillas/master_page', $datos);
     }
+
 
     /**
      * Muestra los productos que se surtieron en la factura a devolver
      */
     public function mostrarProductosFactura() {
-        $datos['titulo'] = 'Devoluciones';
+        $datos['titulo'] = 'Anomalias';
         $datos['vista'] = 'anomalias/productos_factura_devolucion';
-        $datos['productos_factura'] =$this->DevolucionesModel->obtenerDatosProductosFactura($this->session->factura);
+        $datos['productos_factura'] =$this->AnomaliasModel->obtenerDatosProductosFactura($this->session->factura);
         $this->load->view('plantillas/master_page', $datos);
     }
+
 
     /**
      * Elimina el producto registrado previamente para devolución, posteriormente vuelve a cargar los productos registrados
      * para devolucion ya sin  el producto eliminado
      */
     public function eliminarProductoParaDevolucion($idDetalleDevolucion) {
-        $resp=$this->DevolucionesModel->eliminarProductoParaDevolucion($idDetalleDevolucion, $this->session->devolucion);
-        $this->mostrarDatosDevolucion($this->session->devolucion);
+        $resp=$this->AnomaliasModel->eliminarProductoParaDevolucion($idDetalleDevolucion, $this->session->id_anomalia);
+        $this->mostrarDatosAnomalia($this->session->id_anomalia);
     }
+
 
     /**
      * Se verifica en la base de datos si ya se cuenta previamente con un registro de  solicitud de guia, en caso de que si
      * se redirecciona a la vista para registro de envio, en caso contrario, se redirecciona a la vista para solicitar guias.
      */
-    public function obtenerDatosEnvioAanomalia() {
-        $devolucion=$this->session->devolucion;
-        $respuesta = $this->DevolucionesModel->obtenerDatosEnvioAanomalia($devolucion);
+    public function obtenerDatosEnvioAnomalia() {
+        $anomalia=$this->session->id_anomalia;
+        $respuesta = $this->AnomaliasModel->obtenerDatosEnvioAnomalia($anomalia);
         //contamos cuantos registros contiene el array de la consulta previa
         $count = count($respuesta);
         //si existe al menos un registro, significa que se encontrontraon los datos de la factura como enviada mediante el SING
@@ -452,32 +529,36 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
+
     /**
      * Redirecciona al usuario a la vista para capturar una nueva solicitud de guias
      */
     public function solicitarGuias() {
-            $datos['titulo'] = 'Devoluciones';
-            $datos['vista'] = 'anomalias/solicitar_guias';
+            $datos['titulo'] = 'Anomalias';
+            $datos['vista'] = 'anomalias/solicitar_guias_prueba';
             $this->load->view('plantillas/master_page', $datos);
     }
+
 
     /**
      * Muestra los paquetes registrados con guia para devolución
      */
     public function mostrarPaquetesEnvio() {
         $datos['vista'] = 'anomalias/registrar_paquete';
-        $paquetes= $this->DevolucionesModel->obtenerPaquetesParaEnvio($this->session->devolucion);
+        $paquetes= $this->AnomaliasModel->obtenerPaquetesParaEnvio($this->session->id_anomalia);
         $total_paquetes=count($paquetes);
         $datos['paquetes'] = $paquetes;
         $datos['total_paquetes'] = $total_paquetes;
         $this->load->view('plantillas/master_page', $datos);
     }
 
+
     /**
      * Valida que los datos para la solicitud de guias sean correctos, en caso de que no, se muestra aviso correspondiente
      */
-    public function registrarGuiaDevolucion() {
+    public function registrarGuia() {
         $datos['vista'] = 'anomalias/solicitar_guias';
+
         //Establecemos las reglas de validación
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
         $this->form_validation->set_rules('transportista', 'Transportista', 'required');
@@ -490,14 +571,14 @@ class DevolucionesController extends CI_Controller {
         $this->form_validation->set_rules('cp', 'CP', 'required|numeric|exact_length[5]');
         $this->form_validation->set_rules('paquetes', 'paquetes', 'required|is_natural_no_zero|max_length[2]');
         $this->form_validation->set_rules('atencion', 'Atención a', 'required');
-        
+
         //Validamos el formulario, si es igual a false, entonces algún campo no cumple con las reglas establecidas
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('plantillas/master_page', $datos);
         } else {
             $usuario=$this->session->usuario;
-            $devolucion=$this->session->devolucion;
-            $remitente =  $this->input->post('remitente');
+            $anomalia=$this->session->id_anomalia;
+            $transportista =  $this->input->post('transportista');
             $oficina =  $this->input->post('oficina');
             $calle = $this->input->post('calle');
             $numero = $this->input->post('numero');
@@ -505,35 +586,28 @@ class DevolucionesController extends CI_Controller {
             $ciudad = $this->input->post('ciudad');
             $estado = $this->input->post('estado');
             $cp =  $this->input->post('cp');
-            $transportista =  $this->input->post('transportista');
             $paquetes = $this->input->post('paquetes');
-            $peso =  $this->input->post('peso');
-            $tel1 =  $this->input->post('tel1');
             $atenacionA =  $this->input->post('atencion');
+
             $parametrosGuia=[
-                                $devolucion,
+                                $anomalia,
+                                $transportista,
                                 $oficina,
-                                $remitente,
                                 $calle,
                                 $numero,
                                 $colonia,
                                 $ciudad,
                                 $estado,
                                 $cp,
-                                $transportista,
                                 $paquetes,
-                                $peso,
-                                $atenacionA,
-                                $tel1,
-                                '0', //tel2
-                                $usuario
+                                $atenacionA
                             ];
-            
+
             //ejecutamos query
-            $respuesta=$this->DevolucionesModel->registrarGuiaDevolucion($parametrosGuia);
-            
+            $respuesta=$this->AnomaliasModel->registrarGuia($parametrosGuia);
+
             //creamos un array con la información que será enviada al webservice para la solicitud de las guias
-            $datosGuia = array('pNoAnomalia' => $devolucion,
+            $datosGuia = array('pNoAnomalia' => $anomalia,
                                'pCveTransportista' => $transportista,
                                'pOficina' => $oficina,
                                'pCalle' => $calle,
@@ -546,43 +620,43 @@ class DevolucionesController extends CI_Controller {
                                'pAtencionA' => $atenacionA,
                                );
 
-            /*
+
             //Se invoca al WebService para poder generar las guias y enviarlas por correo al usuario
-            $respuestaWS=$this->localWS($datosGuia);
+            $respuestaWS=$this->wsHecort($datosGuia);
             if ($respuestaWS==1) {
                 //Si se guardó corretamenete el registro, entonces redireccionamos al usuario a la sección de Devoluciones
-                redirect('devoluciones');
+                redirect('anomalias');
             }
             else{
                 $datos['mensaje']="Ocurrio un error al tratar de guardar los datos para generar la guia, intentar nuevamente en unos minutos más, en caso de volver a ocurrir reportarlo a Sistemas.";
                 $datos['vista'] = 'errors/error';
                 $this->load->view('plantillas/master_page', $datos);
             }
-            */
 
-            redirect('devoluciones');
         }
     }
+
 
     /**
      * Permite registrar el número de guia y peso al paquete que se devolverá
      */
     public function registrarPaquete() {
-        $devolucion=$this->session->devolucion;
+        $anomalia=$this->session->id_anomalia;
         $guia = $this->input->post('guia');
         $peso = $this->input->post('peso');
 
         //obtenemos el transportista almacenado en la variable de sessión temporal con el que se solicitaron las guias para la devolucion
         $transportista=$this->session->guiasTransportista;
-        $parametrosPaquete=[
-                            $devolucion,
-                            $guia,
-                            $transportista,
-                            $peso,
-                        ];
+
+        $parametros=[
+                        $anomalia,
+                        $guia,
+                        $transportista,
+                        $peso,
+                    ];
 
         //ejecutamos query
-        $respuesta=$this->DevolucionesModel->registrarPaquete($parametrosPaquete);
+        $respuesta=$this->AnomaliasModel->registrarPaquete($parametros);
         if ($respuesta==1) {
            $this->mostrarPaquetesEnvio();
         }
@@ -593,19 +667,20 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
+
     /**
      * Permite eliminar un paquete previamente registrado para devolucion
      */
     public function eliminarPaquete($idGuia) {
-        $devolucion=$this->session->devolucion;
+        $anomalia=$this->session->id_anomalia;
 
         $parametrosPaquete=[
                             $idGuia,
-                            $devolucion
+                            $anomalia
                         ];
 
         //ejecutamos query
-        $respuesta=$this->DevolucionesModel->eliminarPaquete($parametrosPaquete);
+        $respuesta=$this->AnomaliasModel->eliminarPaquete($parametrosPaquete);
         if ($respuesta==1) {
            $this->mostrarPaquetesEnvio();
         }
@@ -616,6 +691,7 @@ class DevolucionesController extends CI_Controller {
         }
     }
 
+
     /**
      * Permite direccionar a la vista correspondiente donde se confirma el envio de la devolución
      * @return [type] [description]
@@ -625,23 +701,24 @@ class DevolucionesController extends CI_Controller {
         $this->load->view('plantillas/master_page', $datos);
     }
 
+
     /**
      * Permite cambiar el status de la devolución a ENVIADA y manda correos de notificación correspondientes
      */
     public function registrarEnvioDevolucion() {
-        $devolucion=$this->session->devolucion;
+        $anomalia=$this->session->id_anomalia;
         $autorizacion = $this->input->post('autorizacion');
         $motivo = $this->input->post('motivo');
         $usuario=$this->session->usuario;
 
         $parametrosEnvio=[
-                            $devolucion,
+                            $anomalia,
                             $autorizacion,
                             $motivo,
                             $usuario
                         ];
         //ejecutamos query
-        $respuesta=$this->DevolucionesModel->registrarEnvio($parametrosEnvio);
+        $respuesta=$this->AnomaliasModel->registrarEnvio($parametrosEnvio);
 
         if ($respuesta==1) {
             // obtenemos el email asignado al supervisor del usuario
@@ -658,7 +735,7 @@ class DevolucionesController extends CI_Controller {
                  $correoAdministrativos.=$registro['NotificarA'].',';
             }
             //obtenemos los paquetes registrados en la devolución para anexarlos como información al correo que se enviará
-            $paquetes= $this->DevolucionesModel->obtenerPaquetesParaEnvio($this->session->devolucion);
+            $paquetes= $this->AnomaliasModel->obtenerPaquetesParaEnvio($this->session->id_anomalia);
             $data['paquetes']=$paquetes;
             $data['autorizacion']=$autorizacion;
             $data['motivo']=$motivo;
@@ -668,10 +745,10 @@ class DevolucionesController extends CI_Controller {
             $this->email->to($correoAdministrativos);
             //$this->email->cc($correoUsuario); //habilitar en producción
             $this->email->bcc('omar.flores@hecort.com');
-            $this->email->subject('Notificacion de confirmación de envio de devolucion, FOLIO: '.$this->session->devolucion);
+            $this->email->subject('Notificacion de confirmación de envio de devolucion, FOLIO: '.$this->session->id_anomalia);
             $this->email->message($this->load->view('plantillas/Notificacion_confirmacion_devolucion', $data, true));
             $this->email->send();
-            redirect('devoluciones');
+            redirect('anomalias');
         }
         else{
             //echo "Ocurrio un error al registrar la devolución.";
@@ -680,6 +757,7 @@ class DevolucionesController extends CI_Controller {
             $this->load->view('plantillas/master_page', $datos);
         }
     }
+
 
     /**
      * permite convertir recursivamente todos los valores de un array al formato UTF8
@@ -694,6 +772,43 @@ class DevolucionesController extends CI_Controller {
                 }
             });
         return $array;
+    }
+
+
+    ////////////
+    public function registrarGuia2() {
+        //$datos['vista'] = 'anomalias/solicitar_guias';
+
+        //$url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
+        $url="http://localhost:6963/WebService1.asmx?wsdl";
+
+        $parametros=array('pNoAnomalia' => '5758',
+                                                       'pCveTransportista' => 'EF',
+                                                       'pOficina' => '1',
+                                                       'pCalle' => 'Gregorio Ruiz Velazco',
+                                                       'pNumero' => '201',
+                                                       'pColonia' => 'Industrial',
+                                                       'pCiudad' => 'Aguascalientes',
+                                                       'pEstado' => 'Aguascalientes',
+                                                       'pCp' => '20290',
+                                                       'pPaquetes' => '1',
+                                                       'pAtencionA' => 'Rocio Puentes'
+                                                       );
+
+        //$client = new SoapClient($url);
+        //$fcs = $client->__getFunctions();
+        //var_dump($fcs);
+
+
+        $client = new SoapClient($url, $parametros);
+        $result = $client->SolicitarGuiasDevolucion($parametros);
+        //echo $result;
+
+
+        //$client = new SoapClient($url);
+        //$res = new StdClass();
+        //$res = $client->SolicitarGuiasDevolucion($parametros);
+        //echo $res;
     }
 
 }

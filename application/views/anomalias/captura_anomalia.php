@@ -8,9 +8,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="frmCambiarStatus" class="form-horizontal" method="post" action="<?php base_url() ?>/DevolucionesController/cambiarStatus">
+                    <form id="frmCambiarStatus" class="form-horizontal" method="post" action="<?php base_url() ?>/AnomaliasController/cambiarStatus">
 
-                        <label for="observaciones">Escriba el motivo por el cual se debería de autorizar la devolución / reclamación </label>
+                        <label for="observaciones">Escriba el motivo por el cual se debería de autorizar </label>
                         <textarea class="form-control" name="observaciones"></textarea>
                         <input type="hidden" name="nuevoStatus" value="REV.SUPERVISOR">
 
@@ -36,15 +36,17 @@
 <article class="row">
     <div class="col-md-8 col-md-offset-2">
 
-        <h2 class="texto-centrado">Datos generales de la devolución</h2>
+        <h2 class="texto-centrado">Datos generales de la Anomalia</h2>
 
         <!-- MENU DE NAVEGACION -->
         <div class="form-group">
             <ul class="nav nav-pills nav-justified ">
                 <?php if ($status=='CAPTURA' || $status=='REV.VENDEDOR'): ?>
-                    <li role="presentation"><a href="<?php echo base_url() ?>DevolucionesController/agregarProductoParaDevolucion"><i class="fa fa-plus"></i> Agregar Producto(s)</a></li>
+                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/agregarProductoParaDevolucion"><i class="fa fa-plus"></i> Agregar Producto(s)</a></li>
                 <?php elseif ($status=='POR ENVIAR' || $status=='AUTORIZADO'): ?>
-                    <li role="presentation"><a href="<?php echo base_url() ?>DevolucionesController/obtenerDatosEnvioAanomalia"><i class="fa fa-truck"></i> Enviar a Ags</a></li>
+                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/obtenerDatosEnvioAanomalia"><i class="fa fa-truck"></i> Enviar a Ags</a></li>
+
+                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/mostrarPaquetesEnvio"><i class="fa fa-truck"></i> Enviar a Ags Prueba</a></li>
                 <?php endif; ?>
 
                 <!-- Si el arreglo "productos_devolucion" contiene registros, y la variable status es igual a "CAPTURA" mostramos el boton de Enviar a Supervisor-->
@@ -55,15 +57,15 @@
                 endif;
                  ?>
 
-                    <li role="presentation"><a href="<?php echo base_url() ?>devoluciones"><i class="fa fa-arrow-circle-left"></i> Mis Devoluciones</a></li>
+                    <li role="presentation"><a href="<?php echo base_url() ?>anomalias"><i class="fa fa-arrow-circle-left"></i>Mis Anomalias</a></li>
             </ul>
         </div>
 
         <!-- FROMULARIO PARA MOSTRAR LOS DATOS GENERALES DE LA FACTURA -->
-        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>">
+        <form class="form-horizontal" method="post" >
 
             <div class="form-group">
-                <label for="anomalia" class="col-sm-2 control-label">Devolución:</label>
+                <label for="anomalia" class="col-sm-2 control-label">Anomalia No.:</label>
                 <div class="col-sm-10">
                     <input type="text" id="anomalia" name="anomalia" value="<?php echo $anomalia ?>" class="form-control" tabindex="1" autocomplete="off" />
                 </div>
@@ -98,18 +100,28 @@
             </div>
 
             <div class="form-group">
-                <label for="subTotal" class="col-sm-2 control-label">Subtotal:</label>
+                <label for="subTotal" class="col-sm-2 control-label">Importe antes de impuestos:</label>
                 <div class="col-sm-10">
                     <input type="text" id="subTotal" name="subTotal" value="<?php echo '$'.number_format($subTotal,2) ?>" class="form-control" tabindex="15" autocomplete="off"/>
                 </div>
             </div>
 
+            <!--
             <div class="form-group">
                 <label for="totIva" class="col-sm-2 control-label">Iva:</label>
                 <div class="col-sm-10">
                     <input type="text" id="totIva" name="totIva" value="<?php echo '$'.number_format($totIva,2) ?>" class="form-control" tabindex="15" autocomplete="off"/>
                 </div>
             </div>
+            -->
+
+            <div class="form-group">
+                <label for="causa" class="col-sm-2 control-label">Causa:</label>
+                <div class="col-sm-10">
+                    <input type="text" id="causa" name="causa" value="<?php echo ($causa) ?>" class="form-control" tabindex="15" autocomplete="off"/>
+                </div>
+            </div>
+
 
             <!-- sirve para saber que cual es elstatus actual de la factura para devolución -->
             <input type="hidden" id="status" name="status" value="<?php echo $status ?>" >
@@ -163,7 +175,7 @@
                         <td>
                             <!-- si el status de la devolución es CAPTURA o REV.VENDEDOR si se podran eliminar productos agregados previamente -->
                             <?php if ($status=='CAPTURA' || $status=='REV.VENDEDOR'): ?>
-                                <a href="<?php echo base_url() ?>DevolucionesController/eliminarProductoParaDevolucion/<?php echo $registro['IdAnomaliaDetalle'] ?>">Eliminar</a>
+                                <a href="<?php echo base_url() ?>AnomaliasController/eliminarProductoParaDevolucion/<?php echo $registro['IdAnomaliaDetalle'] ?>">Eliminar</a>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -203,5 +215,5 @@
 </article><!-- //renglon -->
 
 
-<!-- Cargamos el sript que se usa para las devoluciones -->
-<script src="<?php echo base_url();?>static/js/devoluciones.js"></script>
+<!-- Cargamos el sript que se usa para las anomalias -->
+<script src="<?php echo base_url();?>static/js/anomalias.js"></script>

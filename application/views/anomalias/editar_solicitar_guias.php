@@ -11,7 +11,7 @@
         <div class="form-group">
             <ul class="nav nav-pills nav-justified ">
                 <?php if ($status=='CAPTURA' || $status=='REV.VENDEDOR'): ?>
-                    <li role="presentation"><a href="<?php echo base_url() ?>DevolucionesController/mostrarProductosDevolucion/<?php echo $status ?>"><i class="fa fa-calendar-check-o"></i> Productos </a></li>
+                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/mostrarProductosDevolucion/<?php echo $status ?>"><i class="fa fa-calendar-check-o"></i> Productos </a></li>
                 <?php elseif ($status=='POR ENVIAR'): ?>
                     <li role="presentation"><a href="<?php echo base_url() ?>"><i class="fa fa-calendar-check-o"></i> Enviar a Ags</a></li>
                 <?php endif; ?>
@@ -133,5 +133,5 @@
 
 </article><!-- //renglon -->
 
-<!-- Cargamos el sript que se usa para las devoluciones -->
-<script src="<?php echo base_url();?>static/js/devoluciones.js"></script>
+<!-- Cargamos el sript que se usa para las anomalias -->
+<script src="<?php echo base_url();?>static/js/anomalias.js"></script>

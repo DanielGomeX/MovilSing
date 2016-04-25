@@ -5,7 +5,7 @@
         <h2 class="texto-centrado">Solicitar Guias</h2>
 
         <!-- FROMULARIO DE CAPTURA PARA LA SOLICITUD DE GUIAS -->
-        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>DevolucionesController/registrarGuiaDevolucion">
+        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>AnomaliasController/registrarGuia">
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -106,13 +106,13 @@
             </div>
             -->
 
-<!--             <div class="form-group">
+           <div class="form-group">
                 <label for="tel1" class="col-sm-2 control-label">Mi telefono:</label>
                 <div class="col-sm-10">
                     <input type="text" id="tel1" name="tel1" value="<?php echo  set_value('tel1'); ?>" class="form-control" tabindex="11" autocomplete="off"/>
                     <?php echo form_error('tel1'); ?>
                 </div>
-            </div> -->
+            </div> 
 
             <!--
             <div class="form-group">
@@ -152,7 +152,7 @@
                     Solicitar guias
                 </button>
 
-                <a class="btn btn-default" href="<?php echo base_url() ?>devoluciones" role="button">
+                <a class="btn btn-default" href="<?php echo base_url() ?>anomalias" role="button">
                     <i class="fa fa-arrow-circle-left"></i>
                         Cancelar
                 </a>
@@ -168,5 +168,5 @@
 
 </article><!-- //renglon -->
 
-<!-- Cargamos el sript que se usa para las devoluciones -->
-<script src="<?php echo base_url();?>static/js/devoluciones.js"></script>
+<!-- Cargamos el sript que se usa para las anomalias -->
+<script src="<?php echo base_url();?>static/js/anomalias.js"></script>
