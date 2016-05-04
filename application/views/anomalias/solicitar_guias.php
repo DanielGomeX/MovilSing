@@ -32,6 +32,8 @@
             </div>
 
 
+            <h3>Datos Remitente</h3>
+
             <div class="form-group">
                 <label for="oficina" class="col-sm-2 control-label">Oficina No:</label>
                 <div class="col-sm-10">
@@ -68,7 +70,7 @@
             <div class="form-group" >
                 <label for="ciudad" class="col-sm-2 control-label">Ciudad:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="ciudad" name="ciudad" value="<?php echo  set_value('ciudad'); ?>" class="form-control" tabindex="7" />
+                    <input type="text" id="ciudad" name="ciudad" value="<?php echo  set_value('ciudad'); ?>" class="form-control" tabindex="7" autocomplete="off"/>
                     <?php echo form_error('ciudad'); ?>
                 </div>
             </div>
@@ -96,33 +98,6 @@
                     <?php echo form_error('paquetes'); ?>
                 </div>
             </div>
-
-            <!--
-            <div class="form-group">
-                <label for="peso" class="col-sm-2 control-label">Peso total paquetes (Kg):</label>
-                <div class="col-sm-10">
-                    <input type="text" id="peso" name="peso" value="" class="form-control" tabindex="11" autocomplete="off"/>
-                </div>
-            </div>
-            -->
-
-           <div class="form-group">
-                <label for="tel1" class="col-sm-2 control-label">Mi telefono:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="tel1" name="tel1" value="<?php echo  set_value('tel1'); ?>" class="form-control" tabindex="11" autocomplete="off"/>
-                    <?php echo form_error('tel1'); ?>
-                </div>
-            </div> 
-
-            <!--
-            <div class="form-group">
-                <label for="tel2" class="col-sm-2 control-label">Mi Tel. Celular:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="tel2" name="tel2" value="" class="form-control" tabindex="13" autocomplete="off"/>
-                </div>
-            </div>
-            -->
-
 
             <div class="form-group">
                 <label for="atencion" class="col-sm-2 control-label">Atención A:</label>

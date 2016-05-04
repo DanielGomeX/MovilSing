@@ -79,7 +79,7 @@ $(function(){
                 var tableData ='<thead><tr><td>Factura</td><td>Fecha</td><td>Cliente</td><td>Monto</td></tr></thead><tbody>';
                 obj = JSON.parse(respuesta);
                     for(var i in obj){
-                      tableData += '<tr><td><a href="DevolucionesController/seleccionarFactura/'+obj[i].InvcNbr+'">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
+                      tableData += '<tr><td><a href="AnomaliasController/seleccionarFactura/'+obj[i].InvcNbr+'">'+obj[i].InvcNbr+'</a></td><td>'+obj[i].InvcDate+'</td><td>'+obj[i].Cliente+'</td><td> $'+obj[i].Monto+'</td></tr>';
                     }
                 tableData += '</tbody>';
                 $('#tbFacturasCliente').html(tableData);
@@ -114,7 +114,7 @@ $(function(){
         $.ajax({
              type: 'get',
              async: true,
-             url: '/DevolucionesController/obtenerFacturasPorProductoCliente',
+             url: '/AnomaliasController/obtenerFacturasPorProductoCliente',
              data:{pCliente:cliente, pProducto:producto},
              success: function(respuesta){
                 $('#tbPorProductoCliente').html(respuesta);
@@ -220,65 +220,6 @@ $(function(){
 ////////////////////////////////////////// (datos_factura.php)  /////////////////////////////////////////////
 
 
-    /**
-     * Para que se usa:
-     * Para que cuando se haga click sobre la opción devolución se ejecute la función ajax que obtendrá los elementos que seran
-     * cargados al objeto select.
-     
-    $('#devolucionVenta').on('click',causasDevoluciones) ;
-
-
-    /**
-     * Para que se usa:
-     * Para que cuando se haga click sobre la opción devolución se ejecute la función ajax que obtendrá los elementos que seran
-     * cargados al objeto select.
-     
-    $('#reclamacionCalidad').on('click', causasReclamaciones);
-
-
-    /**
-     * Esta función permite cargar de manera dinámica los valores a un elemento select, mandando como parámetro el valor
-     * D que corresponde a las devoluciones para que se ejecute el método correspondiente. La respuesta será procesada
-     * como un elemnto html.
-     
-    function causasDevoluciones(){
-            $.ajax({
-             type: 'get',
-             async: true,
-             url: '/AnomaliasController/obtenerCausasPorArea',
-             data:{tipo:"D"},
-             success: function(respuesta){
-                $("#causaAnomalia").html(respuesta);
-             },
-             error : function(xhr, status) {
-                alert('Ha ocurrido un ERROR al tratar de obtener la información.');
-            }
-        });
-    }
-
-
-    /**
-     * Esta función permite cargar de manera dinámica los valores a un elemento select, mandando como parámetro el valor
-     * R que corresponde a las reclamaciones para que se ejecute el método correspondiente. La respuesta será procesada
-     * como un elemnto html.
-     
-    function causasReclamaciones(){
-            $.ajax({
-             type: 'get',
-             async: true,
-             url: '/AnomaliasController/obtenerCausasPorArea',
-             data:{tipo:"R"},
-             success: function(respuesta){
-                $("#causaAnomalia").html(respuesta);
-             },
-             error : function(xhr, status) {
-                alert('Ha ocurrido un ERROR al tratar de obtener la información.');
-            }
-        });
-    }
-    */
-
-
     //antes de que se termine de cargar la página, carcamos las causas en el objeto select
     $("#causaAnomalia").before(causasAnomalia);
 
@@ -300,8 +241,6 @@ $(function(){
             }
         });
     }
-
-
 
 
     /**

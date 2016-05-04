@@ -25,19 +25,21 @@ class AnomaliasModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Elimina los registros relacionados a una devolucion con status de captura
      * @param [int] $idDevolucion [Número de devolución  cons status de Captura a eliminar]
      */
-    public function EliminarAnomaliaCaptura($idDevolucion){
+    public function EliminarAnomalia($idDevolucion){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_EliminarAnomaliaCaptura(?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_EliminarAnomalia(?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosProspecto" ya es un array
         $this->params=array($idDevolucion);
 
         return $this->execute_delete();
     }
+
 
     /**
      * Busca en la base de datos, la factura a la que ue se desa realizar una devolucion
@@ -116,6 +118,7 @@ class AnomaliasModel extends AbstractModel {
         return $this->get_row();
     }
 
+
     /**
      * Busca en la base de datos, los datos generales (de encabezado) de la devolución
      * @param  [string] $idAnomalia
@@ -131,6 +134,7 @@ class AnomaliasModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Obtiene los productos asociados a la factura
      * @param  [string] $factura [Número de factura de la cual se desean obtener los productos asociados]
@@ -145,6 +149,7 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->get_rows();
     }
+
 
     /**
      * Permite obtener los datos generales del producto que ahora será devuelto de la factura en cuestión
@@ -163,6 +168,7 @@ class AnomaliasModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Permite obtener el producto que se dió en especie (en caso de aplicar) del producto que ahora será devuelto
      * @param  [string] $factura  [factura en la cual se desea buscar el producto]
@@ -178,6 +184,7 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->get_rows();
     }
+
 
     /**
      * Permite registrar el producto a devolver
@@ -232,6 +239,7 @@ class AnomaliasModel extends AbstractModel {
         return $this->execute_update();
     }
 
+
     /**
      * Obtiene el detalle de productos registrados para devolucion
      * @param  [string] $idAnomalia
@@ -246,6 +254,7 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->get_rows();
     }
+
 
     /**
      * Elimina de una devolución la partida especificada
@@ -264,6 +273,7 @@ class AnomaliasModel extends AbstractModel {
         $this->execute_delete();
     }
 
+
     /**
      * obtiene los datos referentes al envio de guias
      * @param  [NUMERIC(9] $idDevolucion
@@ -277,6 +287,7 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->get_rows();
     }
+
 
     /**
      * Guarda en la base de datos un nuevo registros referente al registro de solicitud de guia así como el PDF correspondiente de la guia
@@ -294,6 +305,7 @@ class AnomaliasModel extends AbstractModel {
         return $this->execute_insert();
     }
 
+
     /**
      * Obtiene los paquetes registrados con guia para envio
      * @param  [numeric(9)] $idDevolucion
@@ -307,6 +319,7 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->get_rows();
     }
+
 
     /**
      * Registra en la base de datos el paquete para devolucion
@@ -323,6 +336,7 @@ class AnomaliasModel extends AbstractModel {
         return $this->execute_insert();
     }
 
+
     /**
      * Elimina de la base de datos el paquete registrado previamente para devolucion
      * @param  [arreglo] $parametrosPaquete
@@ -337,6 +351,7 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->execute_delete();
     }
+
 
     /**
      * Finaliza el registro del envio de una devolución
@@ -354,8 +369,6 @@ class AnomaliasModel extends AbstractModel {
     }
 
 
-
-
     /**
      *  Obtiene el listado de las posibles causas por las cuales un vendedor puede registrar una anomalia
      */
@@ -365,28 +378,6 @@ class AnomaliasModel extends AbstractModel {
 
         return $this->get_rows();
     }
-
-    /*
-    /**
-     *  Obtiene el listado de causas de nota de credito atribuibles a una devolución de venta
-     *
-    public function obtenerCausasDevolucion() {
-        # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_ObtenerCausasDevolucion}";
-
-        return $this->get_rows();
-    }
-
-    /**
-     * Obtiene el listado de causas de nota de credito atribuibles a una reclamacion por calidad
-     *
-    public function obtenerCausasReclamacion() {
-        # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_ObtenerCausasReclamacion}";
-
-        return $this->get_rows();
-    }
-    */
 
 
 }

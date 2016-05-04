@@ -13,7 +13,7 @@
                 <form id="frmBuscaFactura" class="form-inline" method="post" action="<?php echo base_url() ?>AnomaliasController/buscarFactura">
                     <div class="form-group" >
                         <label for="txtBuscar">Número de factura: </label>
-                        <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" value="AG186036" autocomplete="off" tabindex="1"/>
+                        <input type="text" class="form-control" id="txtBuscar" name="txtBuscar" autocomplete="off" tabindex="1"/>
                     </div>
 
                     <button id="btnBuscar" class="btn btn-warning" tabindex="2">
@@ -246,12 +246,6 @@
                             <a class="btn btn-default" href="<?php echo base_url(); ?>anomaliaEliminar/<?php echo $registro['IdAnomalia']; ?>" role="button">
                                 <i class="fa fa-remove"></i>
                                     Eliminar
-                            </a>
-
-                            <?php elseif ($registro['Status'] === "AUTORIZADO"): ?>
-                            <a class="btn btn-default" href="<?php echo base_url() ?>AnomaliasController/solicitarGuias" role="button">
-                                <i class="fa fa-file-pdf-o"></i>
-                                    Sol. Guias
                             </a>
 
                             <?php endif;

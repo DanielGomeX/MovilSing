@@ -102,5 +102,5 @@ $route['buscarExistencia']='ReportesController/buscarExistencia';
 #Anomalias
 $route['anomalias']='AnomaliasController/obtenerAnomaliasPorUsuario';
 $route['anomaliaEditar/(:any)']='AnomaliasController/mostrarDatosAnomalia/$1';
-$route['anomaliaEliminar/(:any)']='AnomaliasController/eliminarAnomaliaCaptura/$1';
+$route['anomaliaEliminar/(:any)']='AnomaliasController/eliminarAnomalia/$1';
 $route['datosFactura/(:any)']='AnomaliasController/mostrarDatosFactura/$1';

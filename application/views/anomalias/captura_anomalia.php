@@ -44,9 +44,7 @@
                 <?php if ($status=='CAPTURA' || $status=='REV.VENDEDOR'): ?>
                     <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/agregarProductoParaDevolucion"><i class="fa fa-plus"></i> Agregar Producto(s)</a></li>
                 <?php elseif ($status=='POR ENVIAR' || $status=='AUTORIZADO'): ?>
-                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/obtenerDatosEnvioAanomalia"><i class="fa fa-truck"></i> Enviar a Ags</a></li>
-
-                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/mostrarPaquetesEnvio"><i class="fa fa-truck"></i> Enviar a Ags Prueba</a></li>
+                    <li role="presentation"><a href="<?php echo base_url() ?>AnomaliasController/mostrarPaquetesEnvio"><i class="fa fa-truck"></i> Enviar a Ags</a></li>
                 <?php endif; ?>
 
                 <!-- Si el arreglo "productos_devolucion" contiene registros, y la variable status es igual a "CAPTURA" mostramos el boton de Enviar a Supervisor-->

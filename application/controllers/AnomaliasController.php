@@ -25,13 +25,17 @@ class AnomaliasController extends CI_Controller {
      */
     private function wsHecort($parametros) {
 
-        //$url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
-        $url="http://localhost:6963/WebService1.asmx?wsdl";
+        //Web service de producción
+        $url="http://192.168.1.22:80/PickingWS/WebService1.asmx?wsdl";
+
+        //Web service de pruebas
+        //$url="http://localhost:6963/WebService1.asmx?wsdl";
 
         //Para verificar respuesta del WS
         //$client = new SoapClient($url);
         //$fcs = $client->__getFunctions();
         //var_dump($fcs);
+
 
         //instanciamos el webservice
         $ws = new SoapClient($url);
@@ -47,7 +51,6 @@ class AnomaliasController extends CI_Controller {
         {
             return false;
         }
-
     }
 
 
@@ -66,7 +69,7 @@ class AnomaliasController extends CI_Controller {
     /**
      * Ejecuta la eliminación del registro seleccionado
      */
-    public function eliminarAnomaliaCaptura($idDevolucion) {
+    public function eliminarAnomalia($idDevolucion) {
         $respuesta = $this->AnomaliasModel->EliminarAnomaliaCaptura($idDevolucion);
         if ($respuesta==1) {
             $this->obtenerAnomaliasPorUsuario();
@@ -160,7 +163,7 @@ class AnomaliasController extends CI_Controller {
 
         //(cuepo de la tabla html) recorremos cada uno de los registros de la respuesta para concatenarlos a la varibale html
         foreach($resp as $registro){
-             $html .= " <tr><td> <a href=DevolucionesController/seleccionarFactura/".$registro['InvcNbr'].">".$registro['InvcNbr']."</a></td> ";
+             $html .= " <tr><td> <a href=AnomaliasController/seleccionarFactura/".$registro['InvcNbr'].">".$registro['InvcNbr']."</a></td> ";
              $html .= " <td> ".$registro['InvcDate']." </td> ";
              $html .= " <td> ".$registro['CantSol']." </td></tr> ";
             }
@@ -535,7 +538,7 @@ class AnomaliasController extends CI_Controller {
      */
     public function solicitarGuias() {
             $datos['titulo'] = 'Anomalias';
-            $datos['vista'] = 'anomalias/solicitar_guias_prueba';
+            $datos['vista'] = 'anomalias/solicitar_guias';
             $this->load->view('plantillas/master_page', $datos);
     }
 
@@ -774,42 +777,6 @@ class AnomaliasController extends CI_Controller {
         return $array;
     }
 
-
-    ////////////
-    public function registrarGuia2() {
-        //$datos['vista'] = 'anomalias/solicitar_guias';
-
-        //$url="http://192.168.1.22/PickingWS/WebService1.asmx?wsdl";
-        $url="http://localhost:6963/WebService1.asmx?wsdl";
-
-        $parametros=array('pNoAnomalia' => '5758',
-                                                       'pCveTransportista' => 'EF',
-                                                       'pOficina' => '1',
-                                                       'pCalle' => 'Gregorio Ruiz Velazco',
-                                                       'pNumero' => '201',
-                                                       'pColonia' => 'Industrial',
-                                                       'pCiudad' => 'Aguascalientes',
-                                                       'pEstado' => 'Aguascalientes',
-                                                       'pCp' => '20290',
-                                                       'pPaquetes' => '1',
-                                                       'pAtencionA' => 'Rocio Puentes'
-                                                       );
-
-        //$client = new SoapClient($url);
-        //$fcs = $client->__getFunctions();
-        //var_dump($fcs);
-
-
-        $client = new SoapClient($url, $parametros);
-        $result = $client->SolicitarGuiasDevolucion($parametros);
-        //echo $result;
-
-
-        //$client = new SoapClient($url);
-        //$res = new StdClass();
-        //$res = $client->SolicitarGuiasDevolucion($parametros);
-        //echo $res;
-    }
 
 }
 /* End of file ProspectosController.php */
