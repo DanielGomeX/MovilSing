@@ -102,7 +102,7 @@
                 <!-- <form id="frmBuscarPorProducto" class="form-group" method="post" action="<?php echo base_url() ?>AnomaliasController/obtenerFacturasPorProductoCliente"> -->
                     <div class="form-group" >
                         <label for="txtCliente">Número de cliente: </label>
-                        <input type="text" class="form-control" id="txtCliente" value="60028717" tabindex="1" autocomplete="off" />
+                        <input type="text" class="form-control" id="txtCliente" tabindex="1" autocomplete="off" />
                     </div>
 
                     <div class="form-group" >

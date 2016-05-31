@@ -158,7 +158,7 @@ $(function(){
     });
 
 
-////////////////////////////////////////// (agregar_producto_devolucion.php)  /////////////////////////////////////////////
+////////////////////////////////////////// (agregar_producto_anomalia.php)  /////////////////////////////////////////////
 
     /**
      * Para que se usa:
@@ -328,13 +328,15 @@ $(function(){
 
     // Este método permite validar que la cantidad solo contenga números enteros positivos, se excluye el cero.
     $.validator.addMethod('entero', function (value, element, param) {
-        return (value != 0) && (value == parseInt(value, 10));
+        //return (value != 0) && (value == parseInt(value, 10));
+        return (value != 0) && (value == parseFloat(value));
         }, 'Registre un valor entero diferente a cero!'
     );
 
     // Este método permite validar que la cantidad a devolver no sea mayor a la cantidad surtida
     $.validator.addMethod("mayor_surtido", function(value, element, params) {
-        return parseInt(value) <= parseInt(params);
+        //return parseInt(value) <= parseInt(params);
+        return parseFloat(value) <= parseFloat(params);
         }, $.validator.format("No se permite registrar un valor mayor a la cantidad surtida {0}"));
 
     //Este método permite validar solo dígitos positivos con 2 decimales máximo

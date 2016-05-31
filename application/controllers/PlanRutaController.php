@@ -153,9 +153,14 @@ class PlanRutaController extends CI_Controller {
         #ejecutamos procedimeintos para aplicar descuentos y promociones correspondientes
         $totales=$this->PartidasModel->aplicarDescuentosPromociones($this->session->pedido);
 
+        $datos['subtotal']=$totales[0]['Importe'];
+
+        /*
         foreach ($totales as $tot) {
             $datos['subtotal']=$tot['Importe'];
         }
+        */
+
 
         #mostramos partidas
         $partidas=$this->PartidasModel->obtenerPartidasPedido($this->session->pedido);

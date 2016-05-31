@@ -36,7 +36,6 @@ class AnomaliasController extends CI_Controller {
         //$fcs = $client->__getFunctions();
         //var_dump($fcs);
 
-
         //instanciamos el webservice
         $ws = new SoapClient($url);
 
@@ -70,7 +69,8 @@ class AnomaliasController extends CI_Controller {
      * Ejecuta la eliminación del registro seleccionado
      */
     public function eliminarAnomalia($idDevolucion) {
-        $respuesta = $this->AnomaliasModel->EliminarAnomaliaCaptura($idDevolucion);
+        //$respuesta = $this->AnomaliasModel->EliminarAnomaliaCaptura($idDevolucion);
+        $respuesta = $this->AnomaliasModel->EliminarAnomalia($idDevolucion);
         if ($respuesta==1) {
             $this->obtenerAnomaliasPorUsuario();
         }
