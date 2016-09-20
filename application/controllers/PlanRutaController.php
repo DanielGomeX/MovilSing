@@ -444,7 +444,7 @@ class PlanRutaController extends CI_Controller {
 
         #Esta validación sirve para identificar si el cliente escribió directamente en la url
         #algún numero de cliente que quizá no le pertencezca a su zona
-        if($this->session->usuario==trim($datos['zona']))
+        if($this->session->usuario==trim(strtoupper($datos['zona'])))
         {
             #Creamos la variable de session "cliente" con el número de cliente seleccionado
             $_SESSION['cliente']=$cliente;
