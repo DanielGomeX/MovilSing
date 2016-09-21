@@ -5,15 +5,7 @@
         <h2 class="texto-centrado">Solicitar Guias</h2>
 
         <!-- FROMULARIO DE CAPTURA PARA LA SOLICITUD DE GUIAS -->
-        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>DevolucionesController/registrarGuiaDevolucion">
-
-<!--             <div class="form-group">
-                <label for="remitente" class="col-sm-2 control-label">Remitente:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="remitente" name="remitente" value="<?php echo  set_value('remitente'); ?>" class="form-control" tabindex="1" autocomplete="off" />
-                    <?php echo form_error('remitente'); ?>
-                </div>
-            </div> -->
+        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>AnomaliasController/registrarGuia">
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
@@ -39,6 +31,8 @@
                 </div>
             </div>
 
+
+            <h3>Datos Remitente</h3>
 
             <div class="form-group">
                 <label for="oficina" class="col-sm-2 control-label">Oficina No:</label>
@@ -76,7 +70,7 @@
             <div class="form-group" >
                 <label for="ciudad" class="col-sm-2 control-label">Ciudad:</label>
                 <div class="col-sm-10">
-                    <input type="text" id="ciudad" name="ciudad" value="<?php echo  set_value('ciudad'); ?>" class="form-control" tabindex="7" />
+                    <input type="text" id="ciudad" name="ciudad" value="<?php echo  set_value('ciudad'); ?>" class="form-control" tabindex="7" autocomplete="off"/>
                     <?php echo form_error('ciudad'); ?>
                 </div>
             </div>
@@ -105,33 +99,6 @@
                 </div>
             </div>
 
-            <!--
-            <div class="form-group">
-                <label for="peso" class="col-sm-2 control-label">Peso total paquetes (Kg):</label>
-                <div class="col-sm-10">
-                    <input type="text" id="peso" name="peso" value="" class="form-control" tabindex="11" autocomplete="off"/>
-                </div>
-            </div>
-            -->
-
-<!--             <div class="form-group">
-                <label for="tel1" class="col-sm-2 control-label">Mi telefono:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="tel1" name="tel1" value="<?php echo  set_value('tel1'); ?>" class="form-control" tabindex="11" autocomplete="off"/>
-                    <?php echo form_error('tel1'); ?>
-                </div>
-            </div> -->
-
-            <!--
-            <div class="form-group">
-                <label for="tel2" class="col-sm-2 control-label">Mi Tel. Celular:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="tel2" name="tel2" value="" class="form-control" tabindex="13" autocomplete="off"/>
-                </div>
-            </div>
-            -->
-
-
             <div class="form-group">
                 <label for="atencion" class="col-sm-2 control-label">Atención A:</label>
                 <div class="col-sm-10">
@@ -139,7 +106,6 @@
                     <?php echo form_error('atencion'); ?>
                 </div>
             </div>
-
 
             <div class="form-group">
 
@@ -160,7 +126,7 @@
                     Solicitar guias
                 </button>
 
-                <a class="btn btn-default" href="<?php echo base_url() ?>devoluciones" role="button">
+                <a class="btn btn-default" href="<?php echo base_url() ?>anomalias" role="button">
                     <i class="fa fa-arrow-circle-left"></i>
                         Cancelar
                 </a>
@@ -176,5 +142,5 @@
 
 </article><!-- //renglon -->
 
-<!-- Cargamos el sript que se usa para las devoluciones -->
-<script src="<?php echo base_url();?>static/js/devoluciones.js"></script>
+<!-- Cargamos el sript que se usa para las anomalias -->
+<script src="<?php echo base_url();?>static/js/anomalias.js"></script>

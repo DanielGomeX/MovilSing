@@ -18,11 +18,10 @@
         </ul>
 
         <br>
+
         <?php
-
         #arreglo con los status permitidos para que el pedido pueda ser retomado nuevamente
-        $status_retomar = array("C", "AP", "RP", "V", "X");
-
+        $status_retomar = array("C", "AP", "RP", "V");
         ?>
 
         <div class="tabla-responsive">

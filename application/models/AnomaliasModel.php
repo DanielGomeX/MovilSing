@@ -4,7 +4,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 #línea requerida para poder heredar de la clase padre
 require_once APPPATH.'models/AbstractModel.php';
 
-class DevolucionesModel extends AbstractModel {
+class AnomaliasModel extends AbstractModel {
 
     function __construct() {
         parent::__construct();
@@ -15,7 +15,7 @@ class DevolucionesModel extends AbstractModel {
      * @param  [string] $zona [usuario del cual se obtendran los registros asociados de devoluciones]
      * @return [arreglo]
      */
-    public function obtenerDevolucionesPendientes($zona){
+    public function obtenerAnomaliasPendientes($zona){
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_AnomaliasPostVentaPendientes(?)}";
 
@@ -25,19 +25,21 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Elimina los registros relacionados a una devolucion con status de captura
      * @param [int] $idDevolucion [Número de devolución  cons status de Captura a eliminar]
      */
-    public function EliminarDevolucionCaptura($idDevolucion){
+    public function EliminarAnomalia($idDevolucion){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_EliminarDevolucionCaptura(?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_EliminarAnomalia(?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosProspecto" ya es un array
         $this->params=array($idDevolucion);
 
         return $this->execute_delete();
     }
+
 
     /**
      * Busca en la base de datos, la factura a la que ue se desa realizar una devolucion
@@ -55,8 +57,9 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
-     * Busca en la base de datos de la factura (BD Herramientas) que se desea capturar
+     * Busca en la base de datos la factura que se desea capturar
      * @param  [string] $factura
      * @return [arreglo con un solo registro con la información encontrada]]
      */
@@ -71,6 +74,9 @@ class DevolucionesModel extends AbstractModel {
     }
 
 
+    /**
+     * Obtiene las facturas registradas del cliente en cuestión en los últimos 365 días
+     */
     public function ObtenerFacturasCliente($cliente, $usuario) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerFacturasCliente(?,?)}";
@@ -83,13 +89,28 @@ class DevolucionesModel extends AbstractModel {
 
 
     /**
+     * Obtiene aquellas facturas registradas del cliente en las cuales se le
+     * haya vendido el producto en cuestion dentro de los últimos 365 días
+     */
+    public function ObtenerFacturasPorProductoCliente($cliente, $producto, $usuario) {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerFacturasPorProductoCliente(?,?,?)}";
+
+        # asignamos los valores de los parametros
+        $this->params = array($cliente, $producto, $usuario);
+
+        return $this->get_rows();
+    }
+
+
+    /**
      * Guarda en la base de datos un nuevo registros referente a una nueva devolución
      * @param  [arreglo]    arreglo con los datos necesario para el nuevo registro de devolución
      * @return [arreglo con un solo registro con el número consecutivo de la devolución]
      */
-    public function registrarDevolucion($datosDevolucion){
+    public function registrarAnomalia($datosDevolucion){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_RegistrarDevolucionVendedor(?,?,?,?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_RegistrarAnomaliaVendedor(?,?,?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
         $this->params=$datosDevolucion;
@@ -97,14 +118,15 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_row();
     }
 
+
     /**
      * Busca en la base de datos, los datos generales (de encabezado) de la devolución
      * @param  [string] $idAnomalia
      * @return arreglo de registros
      */
-    public function obtenerDatosDevolucion($idAnomalia) {
+    public function obtenerDatosAnomalia($idAnomalia) {
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerDatosDevolucion(?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerDatosAnomalia(?)}";
 
         # asignamos los valores de los parametros
         $this->params = array($idAnomalia);
@@ -112,20 +134,22 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Obtiene los productos asociados a la factura
      * @param  [string] $factura [Número de factura de la cual se desean obtener los productos asociados]
      * @return [arreglo de varios registros]
      */
-    public function obtenerDatosProductosFactura($factura) {
+    public function obtenerDatosProductosFactura($factura, $idAnomalia) {
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPosVenta_DetalleProductosFactura(?)}";
+        $this->query = "{call MovilSing_AnomaliasPosVenta_DetalleProductosFactura(?,?)}";
 
         # asignamos los valores de los parametros
-        $this->params = array($factura);
+        $this->params = array($factura, $idAnomalia);
 
         return $this->get_rows();
     }
+
 
     /**
      * Permite obtener los datos generales del producto que ahora será devuelto de la factura en cuestión
@@ -144,6 +168,7 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Permite obtener el producto que se dió en especie (en caso de aplicar) del producto que ahora será devuelto
      * @param  [string] $factura  [factura en la cual se desea buscar el producto]
@@ -160,14 +185,15 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Permite registrar el producto a devolver
      * @param  [arreglo] $datosProductoDevolucion [parametros recibidos: IdAnomalia, InvcNbr, InvtID, Cantidad, IdCausa, Observaciones]
      * @return [boolean]
      */
-    public function registrarProductoParaDevolucion($datosProductoDevolucion){
+    public function registrarProductoAnomalia($datosProductoDevolucion){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_AgregaProductoDevolucion(?,?,?,?,?,?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_AgregarProductoAnomalia(?,?,?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
         $this->params=$datosProductoDevolucion;
@@ -181,12 +207,12 @@ class DevolucionesModel extends AbstractModel {
      * @param  [arreglo] $datosProductoDevolucion [parametros recibidos: IdAnomalia, InvcNbr,  motivo]
      * @return [boolean]
      */
-    public function registrarProductosParaDevolucion($datosProductoDevolucion){
+    public function registrarProductosAnomalia($datosProductos){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_AgregarProductosDevolucion(?,?,?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_AgregarProductosAnomalia(?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
-        $this->params=$datosProductoDevolucion;
+        $this->params=$datosProductos;
 
         return $this->execute_insert();
     }
@@ -213,20 +239,22 @@ class DevolucionesModel extends AbstractModel {
         return $this->execute_update();
     }
 
+
     /**
      * Obtiene el detalle de productos registrados para devolucion
      * @param  [string] $idAnomalia
      * @return [arreglo con los registros de productos]
      */
-    public function obtenerDetalleProductosDevolucion($idAnomalia) {
+    public function obtenerDetalleProductosAnomalia($idAnomalia) {
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVenta_DetalleDevolucion(?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_ObtenerDetalleProductosAnomalia(?)}";
 
         # asignamos los valores de los parametros
         $this->params = array($idAnomalia);
 
         return $this->get_rows();
     }
+
 
     /**
      * Elimina de una devolución la partida especificada
@@ -245,11 +273,12 @@ class DevolucionesModel extends AbstractModel {
         $this->execute_delete();
     }
 
+
     /**
      * obtiene los datos referentes al envio de guias
      * @param  [NUMERIC(9] $idDevolucion
      */
-    public function obtenerDatosEnvioAanomalia($idDevolucion) {
+    public function obtenerDatosEnvioAnomalia($idDevolucion) {
         # mandamos llamar al stored procedure
         $this->query = "{call MovilSing_ObtenerDatosEnvioAnomalia(?)}";
 
@@ -259,14 +288,15 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Guarda en la base de datos un nuevo registros referente al registro de solicitud de guia así como el PDF correspondiente de la guia
      * @param  [arreglo]    arreglo con los datos necesario para el nuevo registro de devolución
      * @return [arreglo con un solo registro con el número consecutivo de la devolución]
      */
-    public function registrarGuiaDevolucion($parametrosGuia){
+    public function registrarGuia($parametrosGuia){
         # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_AnomaliasPostVentaCrearGuiasPdf(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_SolicitarGuiaPdf(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
         $this->params=$parametrosGuia;
@@ -274,6 +304,7 @@ class DevolucionesModel extends AbstractModel {
         //return $this->get_row();
         return $this->execute_insert();
     }
+
 
     /**
      * Obtiene los paquetes registrados con guia para envio
@@ -289,6 +320,7 @@ class DevolucionesModel extends AbstractModel {
         return $this->get_rows();
     }
 
+
     /**
      * Registra en la base de datos el paquete para devolucion
      * @param  [arreglo] $parametrosPaquete
@@ -296,13 +328,14 @@ class DevolucionesModel extends AbstractModel {
     public function registrarPaquete($parametrosPaquete){
         # mandamos llamar al stored procedure
         //$this->query = "{call MovilSing_AnomaliaspostVenta_GuiasDevolucion_OP(?,?,?,?,?,?,?)}";
-        $this->query = "{call MovilSing_AnomaliasPostVenta_RegistrarPaqueteDevolucion(?,?,?,?)}";
+        $this->query = "{call MovilSing_AnomaliasPostVenta_RegistrarPaqueteAnomalia(?,?,?,?)}";
 
         # asignamos los valores de los parametros, en este caso la variable "$datosDevolucion" ya es un array
         $this->params=$parametrosPaquete;
 
         return $this->execute_insert();
     }
+
 
     /**
      * Elimina de la base de datos el paquete registrado previamente para devolucion
@@ -319,6 +352,7 @@ class DevolucionesModel extends AbstractModel {
         return $this->execute_delete();
     }
 
+
     /**
      * Finaliza el registro del envio de una devolución
      * @param  [arreglo] $parametrosEnvio [description]
@@ -334,17 +368,16 @@ class DevolucionesModel extends AbstractModel {
         return $this->execute_update();
     }
 
-    public function obtenerCausasNotasCredito() {
-        # mandamos llamar al stored procedure
-        $this->query = "{call MovilSing_ListaCausasNotasCredito}";
 
-        # asignamos los valores de los parametros
-        //$this->params = array($factura);
+    /**
+     *  Obtiene el listado de las posibles causas por las cuales un vendedor puede registrar una anomalia
+     */
+    public function obtenerCausasAnomalia() {
+        # mandamos llamar al stored procedure
+        $this->query = "{call MovilSing_ObtenerCausasAnomalia}";
 
         return $this->get_rows();
     }
-
-
 
 
 }

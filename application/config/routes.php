@@ -98,14 +98,9 @@ $route['indicadores_ventas']='ReportesController/indicadoresVentasUsuario';
 $route['existencias']='ReportesController/Existencias';
 $route['buscarExistencia']='ReportesController/buscarExistencia';
 
-#Devoluciones
-$route['devoluciones']='DevolucionesController/devolucionesPorUsuario';
-$route['devolucionCaptura']='DevolucionesController/factura';
-$route['devolucionEditar/(:any)']='DevolucionesController/mostrarDatosDevolucion/$1';
-$route['devolucionEliminar/(:any)']='DevolucionesController/eliminarDevolucionCaptura/$1';
-$route['datosFactura/(:any)']='DevolucionesController/mostrarDatosFactura/$1';
 
-
-#otros
-#$route['ajax']='PlanRutaController/coordeneas';
-#$route['ajax/(:any)']='ProspectosController/asentamientos/$1';
+#Anomalias
+$route['anomalias']='AnomaliasController/obtenerAnomaliasPorUsuario';
+$route['anomaliaEditar/(:any)']='AnomaliasController/mostrarDatosAnomalia/$1';
+$route['anomaliaEliminar/(:any)']='AnomaliasController/eliminarAnomalia/$1';
+$route['datosFactura/(:any)']='AnomaliasController/mostrarDatosFactura/$1';

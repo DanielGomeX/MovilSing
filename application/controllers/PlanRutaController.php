@@ -153,9 +153,14 @@ class PlanRutaController extends CI_Controller {
         #ejecutamos procedimeintos para aplicar descuentos y promociones correspondientes
         $totales=$this->PartidasModel->aplicarDescuentosPromociones($this->session->pedido);
 
+        $datos['subtotal']=$totales[0]['Importe'];
+
+        /*
         foreach ($totales as $tot) {
             $datos['subtotal']=$tot['Importe'];
         }
+        */
+
 
         #mostramos partidas
         $partidas=$this->PartidasModel->obtenerPartidasPedido($this->session->pedido);
@@ -439,7 +444,7 @@ class PlanRutaController extends CI_Controller {
 
         #Esta validación sirve para identificar si el cliente escribió directamente en la url
         #algún numero de cliente que quizá no le pertencezca a su zona
-        if($this->session->usuario==trim($datos['zona']))
+        if($this->session->usuario==trim(strtoupper($datos['zona'])))
         {
             #Creamos la variable de session "cliente" con el número de cliente seleccionado
             $_SESSION['cliente']=$cliente;
