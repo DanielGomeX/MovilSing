@@ -512,9 +512,17 @@ $config['proxy_ips'] = '';
 |
 */
 
+# datos de conexión ambiente de pruebas
 $config['db_host'] = 'srv-datos2\pruebas';
-#$config['db_host'] = 'srv-datos\produccion';
+$config['db_user'] = 'sa';
+$config['db_pass'] = 'Infinity01';
+$config['db_name'] = 'ApHecort';
+
+# datos de conexión ambiente de Produccion
+
+/*
+$config['db_host'] = '172.16.1.40\produccion';
 $config['db_user'] = 'desarrollo';
 $config['db_pass'] = 'desarrollo';
 $config['db_name'] = 'ApHecort';
-
+*/
