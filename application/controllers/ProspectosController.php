@@ -122,8 +122,8 @@ class ProspectosController extends CI_Controller {
         $this->form_validation->set_rules('representante', 'Representante', 'required|max_length[50]');
         $this->form_validation->set_rules('gerente', 'Gerente', 'required|max_length[50]');
         $this->form_validation->set_rules('telefono', 'Teléfono', 'required|numeric|exact_length[10]');
-        $this->form_validation->set_rules('email', 'Email', 'valid_email|max_length[30]');
-        $this->form_validation->set_rules('comentarios', 'Comentario', 'required');
+        //$this->form_validation->set_rules('email', 'Email', 'valid_email|max_length[30]');
+        //$this->form_validation->set_rules('comentarios', 'Comentario', 'required');
         $this->form_validation->set_rules('empresa1', 'Empresa 1', 'required');
         $this->form_validation->set_rules('empresa1telefono', 'Teléfono empresa 1', 'required|numeric|exact_length[10]');
         $this->form_validation->set_rules('empresa2', 'Empresa 2', 'required');
@@ -167,7 +167,7 @@ class ProspectosController extends CI_Controller {
             $empresa5 = utf8_encode(strtoupper($this->input->post('empresa5')));
             $empresa5telefono = $this->input->post('empresa5telefono');
 
-            /*
+
             $parametros_datos_prospecto=array(
                         $usuario,
                         $folio,
@@ -197,31 +197,6 @@ class ProspectosController extends CI_Controller {
                         $empresa5,
                         $empresa5telefono
                         );
-            */
-           
-            $parametros_datos_prospecto=array(
-                        $usuario,
-                        $folio,
-                        $tipoCliente,
-                        $nombre,
-                        $rfc,
-                        $direccion,
-                        $cp,
-                        $colonia,
-                        $ciudad,
-                        $estado,
-                        $telefono,
-                        $email,
-                        $giro,
-                        $localidad,
-                        $representante,
-                        $gerente,
-                        $comentario,
-                        $empresa1,
-                        $empresa1telefono
-                        );
-
-            //var_dump($parametros_datos_prospecto);
 
             #ejecutamos query
             $this->ProspectosModel->registrarProspecto($parametros_datos_prospecto);
@@ -276,8 +251,8 @@ class ProspectosController extends CI_Controller {
         $this->form_validation->set_rules('representante', 'Representante', 'required|max_length[50]');
         $this->form_validation->set_rules('gerente', 'Gerente', 'required|max_length[50]');
         $this->form_validation->set_rules('telefono', 'Teléfono', 'required|numeric|exact_length[10]');
-        $this->form_validation->set_rules('email', 'Email', 'valid_email|max_length[30]');
-        $this->form_validation->set_rules('comentarios', 'Comentario', 'required');
+        //$this->form_validation->set_rules('email', 'Email', 'valid_email|max_length[30]');
+        //$this->form_validation->set_rules('comentarios', 'Comentario', 'required');
         $this->form_validation->set_rules('empresa1', 'Empresa 1', 'required');
         $this->form_validation->set_rules('empresa1telefono', 'Teléfono empresa 1', 'required|numeric|exact_length[10]');
         $this->form_validation->set_rules('empresa2', 'Empresa 2', 'required');

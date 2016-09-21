@@ -312,4 +312,26 @@ $(function(){
     });
 
 
+    //Dónde se usa:
+    //En la vista (back_order.php) en la tabla con el identificador tbBackOrder
+    //Para que se usa:
+    //Para dar formato y dotar de nuevas funciones a la información mostrada, ya que se agregan funciones como la paginación,
+    //y busqueda de elementos dentro de los valores de la tabla
+    $('#tbDevoluciones').DataTable({
+        "paging":   true,
+        "ordering": true,
+        "lengthMenu": [10],
+        "bLengthChange" : false, //esta linea oculta el LengthMenu
+        "bInfo":false,
+        "language": {
+            "search":" Buscar"
+        }
+    });
+
+
+
+
+
+
+
 });

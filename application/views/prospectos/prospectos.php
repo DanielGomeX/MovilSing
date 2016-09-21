@@ -30,7 +30,7 @@
                         </th>
                         <th>
                             Status
-                        </th>                        
+                        </th>
                         <th>
                             Giro
                         </th>

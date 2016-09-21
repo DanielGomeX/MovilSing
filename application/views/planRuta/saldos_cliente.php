@@ -13,6 +13,10 @@
             <li role="presentation"><a href="<?php echo base_url() ?>planruta"><i class="fa fa-map-o"></i> Plan Ruta</a></li>
         </ul>
 
+        <h2>Saldos Vencidos a más de 45 días (fecha factura) </h2>
+
+        <br>
+
         <!-- TABLA PARA MOSTRAR LOS REGISTROS DE LAS FACTURAS CON SALDOS -->
         <div class="tabla-responsive">
             <?php if (isset($saldos)):

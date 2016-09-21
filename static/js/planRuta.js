@@ -32,7 +32,7 @@ $(function(){
 
         var comentario=$("#comentario").val();
         var accion=$("#accion").val();
-        var retencionDirecta=$("#accion").val();
+        var retencionDirecta=$("#retencionDirecta").val();
 
         // al finalizar un pedido se validará el mínimo de venta siempre y cuando el pedido no esté marcado como Retención Directa (valor devuelto sea cero )
         if ((accion=="finalizar") && (retencionDirecta=="0"))
@@ -55,7 +55,6 @@ $(function(){
                     $("#comentario").focus();
                     event.preventDefault();
             }
-
         }
         else{
 
@@ -67,9 +66,6 @@ $(function(){
                     event.preventDefault();
             }
         }
-
-
-
     });
 
 

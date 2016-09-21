@@ -8,9 +8,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="frmAgregarProductos" class="form-horizontal" method="post" action="<?php echo base_url(); ?>DevolucionesController/registrarProductosDevolucion">
+                    <form id="frmAgregarProductos" class="form-horizontal" method="post" action="<?php echo base_url(); ?>AnomaliasController/registrarProductosAnomalia">
 
-                        <label for="observaciones">Escriba el motivo por el cual se realiza la devolución de estos productos </label>
+                        <label for="observaciones">Escriba el motivo por el cual se realiza la devolución o reclamo de estos productos </label>
                         <textarea class="form-control" name="motivo"></textarea>
 
                         <br>
@@ -32,11 +32,11 @@
 <!-- //Modal -->
 
 
+<!-- Esta sección se muestra el detalle del producto disponibles seleccionado -->
 <article class="row">
-
     <div class="col-md-8 col-md-offset-2">
 
-        <a class="btn btn-default" role="button" href="<?php echo base_url(); ?>devolucionEditar/<?php echo $_SESSION['devolucion']; ?>" >
+        <a class="btn btn-default" role="button" href="<?php echo base_url(); ?>anomaliaEditar/<?php echo $_SESSION['id_anomalia']; ?>" >
             <i class="fa fa-arrow-circle-left"></i>
                 Regresar
         </a>
@@ -44,6 +44,7 @@
         <!-- si la table de los productos disponibles contiene registros, entonces mostramos el botón para agregar todos-->
         <?php if (count($productos_factura)>0):
         ?>
+            <!-- este objeto permite mostrar el formulario modal ejecutando un javascript, ver script llamado anomalias.js -->
             <a class="btn btn-default" role="button" id="btnAgregarTodosProductos" >
                 <i class="fa fa-plus"></i>
                     Agregar todos los productos
@@ -163,7 +164,7 @@
         </div>
 
         <!-- FORMULARIO PARA AGREGAR CANTIDAD A DEVOLVER -->
-        <form id="frmAgregarProductoDevolver" action='<?php echo base_url(); ?>DevolucionesController/registrarProductoDevolucion' method="post">
+        <form id="frmAgregarProductoDevolver" action='<?php echo base_url(); ?>AnomaliasController/registrarProductoAnomalia' method="post">
 
             <div class="form-group">
                 <?php if (isset($articulo)): ?>
@@ -186,6 +187,7 @@
                 <?php echo form_error('motivo'); ?>
             </div>
 
+
             <div>
                 <button type="submit" id="btnAgregar" class="btn btn-warning" tabindex="3">
                     <i class="fa fa-search"></i>
@@ -203,11 +205,11 @@
 </article><!-- //renglon -->
 
 
+<!-- Esta sección muestra los productos disponibles-->
 <article class="row">
-
     <div class="col-md-8 col-md-offset-2">
 
-        <h2 class="texto-centrado">Productos disponibles para devolución</h2>
+        <h2 class="texto-centrado">Productos disponibles</h2>
 
         <!-- TABLA QUE MUESTRA LOS PRODUCTOS QUE CONTENIA LA FACTURA -->
         <div class="table-responsive">
@@ -241,7 +243,7 @@
                         ?>
                     <tr>
                         <td>
-                            <a href="<?php echo base_url() ?>DevolucionesController/mostrarDatosProductoDevolver/<?php echo $registro['InvtId'] ?>">Seleccionar</a>
+                            <a href="<?php echo base_url() ?>AnomaliasController/mostrarDatosProductoDevolver/<?php echo $registro['InvtId'] ?>">Seleccionar</a>
                         </td>
                         <td>
                             <?php echo $registro['InvcNbr']; ?>
@@ -268,5 +270,5 @@
 </article><!-- //renglon -->
 
 
-<!-- Cargamos el sript que se usa para las devoluciones -->
-<script src="<?php echo base_url();?>static/js/devoluciones.js"></script>
+<!-- Cargamos el sript que se usa para las anomalias -->
+<script src="<?php echo base_url();?>static/js/anomalias.js"></script>

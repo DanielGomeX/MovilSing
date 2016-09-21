@@ -2,11 +2,11 @@
 
     <div class="col-md-8 col-md-offset-2">
 
-        <h2 class="texto-centrado">Datos Factura para Devolución</h2>
+        <h2 class="texto-centrado">Datos Factura para Anomalia</h2>
 
 
         <!-- FROMULARIO PARA MOSTRAR LOS DATOS GENERALES DE LA FACTURA -->
-        <form class="form-horizontal" method="post" action="<?php echo base_url() ?>DevolucionesController/registrarDevolucion">
+        <form id="frmRegistrarAnomalia" class="form-horizontal" method="post" action="<?php echo base_url() ?>AnomaliasController/registrarAnomalia">
 
             <div class="form-group">
                 <label for="factura" class="col-sm-2 control-label">Factura:</label>
@@ -29,27 +29,6 @@
                 </div>
             </div>
 
-<!--             <div class="form-group">
-                <label for="shipperid" class="col-sm-2 control-label">Embarque:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="shipperid" name="shipperid" value="<?php echo $shipperid ?>" class="form-control" tabindex="1" autocomplete="off" />
-                </div>
-            </div>
-
-            <div class="form-group" >
-                <label for="custOrdNbr" class="col-sm-2 control-label">Pedido:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="custOrdNbr" name="custOrdNbr" value="<?php echo $custOrdNbr ?>" class="form-control" tabindex="10" />
-                </div>
-            </div>
-
-            <div class="form-group" >
-                <label for="fechaProceso" class="col-sm-2 control-label">Fecha proceso:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="fechaProceso" name="fechaProceso" value="<?php echo $fechaProceso ?>" class="form-control" tabindex="12" />
-                </div>
-            </div> -->
-
             <div class="form-group">
                 <label for="fechaEnvio" class="col-sm-2 control-label">Fecha envio:</label>
                 <div class="col-sm-10">
@@ -70,20 +49,6 @@
                     <input type="text" id="cliente" name="cliente" value="<?php echo $cliente ?>" class="form-control" tabindex="6" autocomplete="off"/>
                 </div>
             </div>
-
-<!--             <div class="form-group">
-                <label for="zona" class="col-sm-2 control-label">Zona:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="zona" name="zona" value="<?php echo $zona ?>" class="form-control" tabindex="15" autocomplete="off"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="vendedor" class="col-sm-2 control-label">Representante:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="vendedor" name="vendedor" value="<?php echo $vendedor ?>" class="form-control" tabindex="15" placeholder="máximo 30 caracteres" autocomplete="off"/>
-                </div>
-            </div> -->
 
             <div class="form-group" >
 
@@ -130,40 +95,74 @@
             </div>
 
 
-<!--             <div class="form-group">
-                <label for="comentarioAcuse" class="col-sm-2 control-label">Comentario acuse:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="comentarioAcuse" name="comentarioAcuse" value="<?php echo $comentarioAcuse ?>" class="form-control" tabindex="15" autocomplete="off"/>
+            <!--  
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <p class="form-control-static"><strong>SELECCIONE CORRECTAMENTE EL TIPO DE ANOMALIA QUE VA A REGISTRAR</strong></p>
                 </div>
-            </div> -->
 
-<!--             <div class="form-group">
-                <label for="emailConfirmacion" class="col-sm-2 control-label">Email para confirmación:</label>
-                <div class="col-sm-10">
-                    <input type="text" id="emailConfirmacion" name="emailConfirmacion" value="" class="form-control" tabindex="16" autocomplete="off"/>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="radio">
+                        <label>
+                            <!-- este objeto ejecuta un javascript, ver script llamado anomalias.js --
+                            <input type="radio" name="tipoAnomalia" id="devolucionVenta" value="D"  />
+                            DEVOLUCION DE VENTA
+                        </label>
+                    </div>
+
+                    <div class="radio">
+                        <label>
+                            <!-- este objeto ejecuta un javascript, ver script llamado anomalias.js --
+                            <input type="radio" name="tipoAnomalia" id="reclamacionCalidad" value="R" />
+                            DEVOLUCION POR CALIDAD
+                        </label>
+                    </div>
+
                 </div>
-            </div> -->
+            </div>
+            -->
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <p class="form-control-static"><strong>SELECCIONE LA CAUSA ATRIBUIBLE A LA ANOMALIA:</strong></p>
+                </div>
+
+                <div class="col-sm-offset-2 col-sm-10">
+
+                    <select class="form-control" name="causaAnomalia" id="causaAnomalia">
+                        <!--
+                             esta parte se completa con el código que regresa la consulta ajax programada en el botón:
+                            btnBuscarFacturas dentro del archivo script llamado anomalias.js
+                        -->
+                    </select>
+
+                </div>
+            </div>
+
 
 
             <div class="form-group">
                 <button  type="submit" class="col-sm-offset-2 btn btn-warning " tabindex="29">
                     <i class="fa fa-pencil-square-o"></i>
-                    Registrar devolución
+                    Registrar Anomalia
                 </button>
 
-                <a class="btn btn-default" href="<?php echo base_url(); ?>devoluciones" role="button">
+                <a class="btn btn-default" href="<?php echo base_url(); ?>anomalias" role="button">
                     <i class="fa fa-arrow-circle-left"></i>
                         Regresar
                 </a>
-
 
             </div>
 
         </form>
 
+
+
+
     </div><!-- //columna -->
 
 </article><!-- //renglon -->
 
-<!-- Cargamos el sript que se usa para las devoluciones -->
-<script src="<?php echo base_url();?>static/js/devoluciones.js"></script>
+<!-- Cargamos el sript que se usa para las anomalias -->
+<script src="<?php echo base_url();?>static/js/anomalias.js"></script>
